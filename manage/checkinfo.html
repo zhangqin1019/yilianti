@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>预约检查详情</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css" /><!-- popupcss -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- popupjs -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">分级诊疗</a>
+				<span>></span>
+				<a href="checklist.html">预约检查</a>
+				<span>></span>
+				<a href="checkinfo.html" class="a-last">预约检查详情</a>
+			</div>
+			<div class="userinfo-container" id="wrap">
+				<div class="userinfo-list">
+					<div class="tab_box check_box">
+						<div class="first-tab">
+							<table class="table public-table">
+								<tr>
+									<td>预约编号：001</td>
+									<td>患者编号：001</td>
+									<td>患者姓名：张三</td>
+									<td>年龄：25</td>
+								</tr>
+								<tr>
+									<td>性别：男</td>
+									<td>患者手机号：13125648921</td>
+									<td>婚姻：未婚</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="4">检查项目：B超、X光、CT</td>
+								</tr>
+								<tr>
+									<td>基层医生编号：02155</td>
+									<td>基层医生姓名：李晓</td>
+									<td>预约检查时间：2018-04-16 14:25</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>转诊医院：省人民医院</td>
+									<td>转诊医院地址：广州省</td>
+									<td>预约专家编号：</td>
+									<td>预约专家姓名：</td>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group">
+					<button class="btn-default" style="background-color:#028eed;border-radius:4px;color:#fff;">分配专家</button>
+					<button class="btn-default" style="background-color:#028eed;border-radius:4px;color:#fff;" id="resultbtn">查看检查结果</button>
+					<button class="btn-default backnav" style="background-color:#028eed;border-radius:4px;color:#fff;">返回</button>
+				</div>
+				<div class="checkresult">
+					<dl class="resultlist">
+						<dt>预约检查结果</dt>
+						<dd>
+							<img src="../images/caseHistory.png" class="popupBtn" />
+						</dd>
+						<dd>
+							<img src="../images/caseHistory.png" class="popupBtn"/>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$("#resultbtn").click(function(){
+			$(".checkresult").css("display","block");
+		});
+		$(".resultlist").popup({
+			title: '预约检查结果',
+			content: '<div id="checkImgcont" style="winth:100%;height:400px;"><canvas></canvas></div>',
+			popupBtn: function () {
+				var ele = $('#checkImgcont>canvas')[0],
+					imgUrl =$(".resultlist dd img").attr("src");
+				loadImg(ele,imgUrl);
+			}
+		});
+	</script>
+</html>

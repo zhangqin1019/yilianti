@@ -1,0 +1,795 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>统计数据管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="count.html" class="a-last">统计数据管理</a>
+			</div>
+			<div class="count-container fixed" id="wrap">
+				<div class="count-left fixed">
+					<div class="table-item" id="eCharts">
+						<p onmouseover="Page($('iframe').eq(0),0,'pie')" >数据统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts2">
+						<p onmouseover="Page($('iframe').eq(0),1,'pie')" >远程医院统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts3">
+						<p onmouseover="Page($('iframe').eq(0),2,'pie')" >远程教学培训统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts4">
+						<p onmouseover="Page($('iframe').eq(0),3,'pie')" >专科统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>TMJ</td>
+									<td>15</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>OML</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>OTHO</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXX</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>XXXXX</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXXXXX</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXXXXXX</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts5">
+						<p onmouseover="Page($('iframe').eq(0),4,'pie')" >双向转诊统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请上转总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已安排门诊总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>已安排入院总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已通知下转总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>已下转总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>未下转总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>其他</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts6">
+						<p onmouseover="Page($('iframe').eq(0),5,'pie')" >疗后追踪统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>追踪人数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>可访问人数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>接收访问人数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>按约复诊人数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>情况稳定人数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>失去联系人数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>其他</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="count-right">
+					<div class="table-item charts" id="eWrap1">
+						<p>图表区域</p>
+						<div class="content" style="max-height:0;">
+							<iframe src="../Echarts/countEchart.html?search=0#type=pie" width="100%" height="100%" frameborder="0" ></iframe>
+						</div>
+					</div>
+					<div class="table-item charts" id="eWrap2">
+						<p>图表区域</p>
+						<div class="content" style="max-height:0;">
+							<!-- <iframe src="../Echarts/countEchart.html?search=0#type=pie" width="100%" height="100%" frameborder="0" ></iframe> -->
+						</div>
+					</div>
+					<script type="text/javascript">
+						document.onreadystatechange = function () {
+							if (document.readyState == 'complete') {
+								function resize() {
+									/* $('#eWrap1 div').eq(0).css('height',$('#eCharts3 .count-table').height()); */
+									/* $('#eWrap2 div').eq(0).css('height',$('#eCharts6 .count-table').height()); */
+								}
+								resize();
+								window.onresize = function () {
+									resize();
+								}
+								storage($('#eCharts p'),$('#eCharts tr td:nth-of-type(1)'),$('#eCharts tr td:nth-of-type(2)'),'countjson1');
+								storage($('#eCharts2 p'),$('#eCharts2 tr td:nth-of-type(1)'),$('#eCharts2 tr td:nth-of-type(2)'),'countjson2');
+								storage($('#eCharts3 p'),$('#eCharts3 tr td:nth-of-type(1)'),$('#eCharts3 tr td:nth-of-type(2)'),'countjson3');
+								storage($('#eCharts4 p'),$('#eCharts4 tr td:nth-of-type(1)'),$('#eCharts4 tr td:nth-of-type(2)'),'countjson4');
+								storage($('#eCharts5 p'),$('#eCharts5 tr td:nth-of-type(1)'),$('#eCharts5 tr td:nth-of-type(2)'),'countjson5');
+								storage($('#eCharts6 p'),$('#eCharts6 tr td:nth-of-type(1)'),$('#eCharts6 tr td:nth-of-type(2)'),'countjson6');
+								setTimeout(function () {
+									$('#eWrap2 div').html('<iframe src="../Echarts/countEchart.html?search=6#type=bar" width="100%" height="100%" frameborder="0" ></iframe>')
+								},100)
+							}
+						}
+						function storage(obj1,obj2,obj3,name) {
+							function mydata() {
+								var str = '{';
+								str += '"title":"' + obj1.eq(0).text() + '","data":[';
+								obj2.each(function(i) {
+									var dataname = obj2.eq(i).text();
+									var datavalue = parseFloat(obj3.eq(i).text());
+									str += '{"value": "'+datavalue+'","name": "'+dataname+'"},';
+								});
+								str = str.slice(-str.length,-1);
+								str+=']}';
+								return str;
+							};
+							localStorage.setItem(name,mydata());
+						}
+						function Page(obj,num,type) {
+							if (obj.attr('src').search('search='+num) == -1) {
+								obj.attr('src','../Echarts/countEchart.html?search=' + num + '#type=' + type);
+							}
+						};
+					</script>
+				</div>
+				<div class="count-bottom">
+					<div class="table-item">
+						<p>简易信息统计</p>
+						<div class="count-table">
+							<table id="eCharts7">
+								<tr class="eCharts7_title">
+									<td colspan="2">医院</td>
+									<td colspan="2" onmouseover="Page($('iframe').eq(1),6,'bar')" >门诊量</td>									
+									<td colspan="2" onmouseover="Page($('iframe').eq(1),7,'bar')" >住院量</td>
+									<td colspan="2" onmouseover="Page($('iframe').eq(1),8,'bar')" >出院量</td>
+									<td onmouseover="Page($('iframe').eq(1),9,'bar')" >病床入住率</td>
+									<td onmouseover="Page($('iframe').eq(1),10,'bar')" >空床数量</td>
+								</tr>
+								<tr>
+									<td rowspan="2">中山医院</td>
+									<td>数量</td>
+									<td>2000</td>
+									<td><a href="javascript:void(0)" class="a_a">详情a</a></td>
+									<td>100</td>
+									<td><a href="javascript:void(0)" class="a_c">详情c</a></td>
+									<td>80</td>
+									<td><a href="javascript:void(0)" class="a_e">详情e</a></td>
+									<td>90%</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td rowspan="2">中山医院</td>
+									<td>远程</td>
+									<td>50</td>
+									<td><a href="javascript:void(0)" class="a_b">详情b</a></td>
+									<td>5</td>
+									<td><a href="javascript:void(0)" class="a_d">详情d</a></td>
+									<td>10</td>
+									<td><a href="javascript:void(0)" class="a_f">详情f</a></td>
+									<td>90%</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td rowspan="2">光华口腔医院</td>
+									<td>数量</td>
+									<td>1000</td>
+									<td><a href="javascript:void(0)" class="a_a">详情a</a></td>
+									<td>50</td>
+									<td><a href="javascript:void(0)" class="a_c">详情c</a></td>
+									<td>30</td>
+									<td><a href="javascript:void(0)" class="a_e">详情e</a></td>
+									<td>97%</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td rowspan="2">光华口腔医院</td>
+									<td>远程</td>
+									<td>100</td>
+									<td><a href="javascript:void(0)" class="a_b">详情b</a></td>
+									<td>5</td>
+									<td><a href="javascript:void(0)" class="a_d">详情d</a></td>
+									<td>10</td>
+									<td><a href="javascript:void(0)" class="a_f">详情f</a></td>
+									<td>96%</td>
+									<td>8</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<script type="text/javascript">
+						function storage1(obj1,obj2,obj3,obj4,name) {
+							function mydata() {
+								var str = '{';
+								var data = '[[';
+								var num = Number(obj2.eq(0).attr('rowspan'));
+								str += '"title":"' + obj1.eq(0).text() + '","xAxis":[';
+								obj2.each(function(i) {
+									if (i%num==num-1) {
+										str += '"' + obj2.eq(i).text()+'",';
+									}
+								});
+								str = str.slice(-str.length,-1)+'],"itemName":[';
+								obj3.each(function(i) {
+									if (i<num) {
+										str += '"' + obj3.eq(i).text()+'",';
+									}
+									if (i%num<num-1) {
+										data += '"' + parseFloat(obj4.eq(i).text()) + '",';
+									} else{
+										data += '"' + parseFloat(obj4.eq(i).text()) + '"],[';
+									}
+								});
+								data = data.slice(-data.length,-2) + ']'
+								str = str.slice(-str.length,-1) + '],"itemData":' + data + '}';
+								return str;
+							};
+							localStorage.setItem(name,mydata());
+						}
+						storage1($('#eCharts7 tr td:gt(0)').eq(0),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(1)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(2)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(3)'),'countjson7');
+						storage1($('#eCharts7 tr td:gt(0)').eq(1),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(1)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(2)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(5)'),'countjson8');
+						storage1($('#eCharts7 tr td:gt(0)').eq(2),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(1)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(2)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(7)'),'countjson9');
+						storage1($('#eCharts7 tr td:gt(0)').eq(3),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(1)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(2)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(9)'),'countjson10');
+						storage1($('#eCharts7 tr td:gt(0)').eq(4),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(1)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(2)'),$('#eCharts7 tr:nth-of-type(n+2) td:nth-of-type(10)'),'countjson11');
+					</script>
+					<div class="table-item tab_a non">
+						<p>门诊患者就诊明细详情(详情a)<button class="btn btn_a">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>就诊时间</td>
+									<td>初诊/复诊</td>
+									<td>接诊医生</td>
+									<td>物理检查</td>
+									<td>实验室检查</td>
+									<td>诊断</td>
+									<td>医嘱</td>
+									<td>用药</td>
+									<td>收费情况</td>
+									<td>备注</td>	
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>初诊</td>
+									<td>王近平</td>
+									<td>牙齿脱落</td>
+									<td>口腔溃疡</td>
+									<td>口腔溃疡</td>
+									<td>忌辛辣</td>
+									<td>一天两次</td>
+									<td>100</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>光华口腔医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>初诊</td>
+									<td>王克强</td>
+									<td>牙龈红肿</td>
+									<td>牙周炎</td>
+									<td>牙周炎</td>
+									<td>忌辛辣</td>
+									<td>一天三次</td>
+									<td>200</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item tab_b non">
+						<p>门诊患者远程会诊明细详情(详情b)<button class="btn btn_b">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>就诊时间</td>
+									<td>初诊/复诊</td>
+									<td>接诊医生</td>
+									<td>物理检查</td>
+									<td>实验室检查</td>
+									<td>诊断</td>
+									<td>上级会诊医生</td>
+									<td>上级医生会诊意见</td>
+									<td>最后诊断</td>
+									<td>医嘱</td>
+									<td>用药</td>
+									<td>收费情况</td>
+									<td>备注</td>	
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>初诊</td>
+									<td>王近平</td>
+									<td>牙齿脱落</td>
+									<td>口腔溃疡</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>口腔溃疡</td>
+									<td>口腔溃疡</td>
+									<td>忌辛辣</td>
+									<td>一天两次</td>
+									<td>100</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>光华口腔医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>初诊</td>
+									<td>王克强</td>
+									<td>牙龈红肿</td>
+									<td>牙周炎</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>牙周炎</td>
+									<td>牙周炎</td>
+									<td>忌辛辣</td>
+									<td>一天三次</td>
+									<td>200</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item tab_c non">
+						<p>入院患者入院明细详情(详情c)<button class="btn btn_c">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>就诊时间</td>
+									<td>初步诊断</td>
+									<td>入院时间</td>
+									<td>入院诊断</td>
+									<td>门诊医生</td>
+									<td>住院主管医生</td>
+									<td>病区</td>
+									<td>病床号</td>
+									<td>主管护士</td>
+									<td>备注</td>	
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>牙周炎</td>
+									<td>2017/08/09</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>王克强</td>
+									<td>口腔科</td>
+									<td>111</td>
+									<td>李梅</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>光华口腔医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>口腔溃疡</td>
+									<td>2017/08/09</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>王近平</td>
+									<td>口腔科</td>
+									<td>222</td>
+									<td>李红</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item tab_d non">
+						<p>入院患者远程会诊明细详情(详情d)<button class="btn btn_d">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>就诊时间</td>
+									<td>初步诊断</td>
+									<td>入院时间</td>
+									<td>入院诊断</td>
+									<td>门诊医生</td>
+									<td>住院主管医生</td>
+									<td>上级会诊医生</td>
+									<td>会诊意见</td>
+									<td>病区</td>
+									<td>病床号</td>
+									<td>主管护士</td>
+									<td>备注</td>
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>牙周炎</td>
+									<td>2017/08/09</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>王克强</td>
+									<td>李国强</td>
+									<td>牙周炎</td>
+									<td>口腔科</td>
+									<td>111</td>
+									<td>李梅</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>光华口腔医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>口腔溃疡</td>
+									<td>2017/08/09</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>王近平</td>
+									<td>张强</td>
+									<td>口腔溃疡</td>
+									<td>口腔科</td>
+									<td>222</td>
+									<td>李红</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item tab_e non">
+						<p>入院患者出院明细详情(详情e)<button class="btn btn_e">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>入院时间</td>
+									<td>入院诊断</td>
+									<td>就诊医生</td>
+									<td>出院时间</td>
+									<td>出院诊断</td>
+									<td>住院主管医生</td>
+									<td>病区</td>
+									<td>病床号</td>
+									<td>主管护士</td>
+									<td>备注</td>
+									
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>2017/08/09</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>口腔科</td>
+									<td>111</td>
+									<td>李梅</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>光华口腔医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>2017/08/09</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>口腔科</td>
+									<td>222</td>
+									<td>李红</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item tab_f non">
+						<p>患者双向转诊明细详情(详情f)<button class="btn btn_f">X</button></p>
+						<div class="count-table">
+							<table>
+								<tr>
+									<td>接诊医院</td>
+									<td>患者姓名</td>
+									<td>就诊时间</td>
+									<td>初步诊断</td>
+									<td>入院时间</td>
+									<td>入院诊断</td>
+									<td>门诊医生</td>
+									<td>住院主管医生</td>
+									<td>上级会诊医生</td>
+									<td>上级会诊意见</td>
+									<td>转院时间</td>
+									<td>接诊医生</td>
+									<td>备注</td>
+								</tr>
+								<tr>
+									<td>中山医院</td>
+									<td>张三</td>
+									<td>2017/08/07</td>
+									<td>牙周炎</td>
+									<td>2017/08/08</td>
+									<td>牙周炎</td>
+									<td>王近平</td>
+									<td>王近平</td>
+									<td>李梅</td>
+									<td>牙周炎</td>
+									<td>2017/08/11</td>
+									<td>张福成</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>xxx第一医院</td>
+									<td>李四</td>
+									<td>2017/08/07</td>
+									<td>口腔溃疡</td>
+									<td>2017/08/08</td>
+									<td>口腔溃疡</td>
+									<td>王克强</td>
+									<td>王克强</td>
+									<td>李红</td>
+									<td>口腔溃疡</td>
+									<td>2017/08/11</td>
+									<td>林晓</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function change (a,b) {
+			$(a).click(function () {
+				$(b).slideToggle();
+			});
+		}
+		function change2 (a,b) {
+			$(a).click(function () {
+				$(b).slideToggle();
+			});
+		}
+		change('.a_a','.tab_a');
+		change('.a_b','.tab_b');
+		change('.a_c','.tab_c');
+		change('.a_d','.tab_d');
+		change('.a_e','.tab_e');
+		change('.a_f','.tab_f');
+		change('.btn_a','.tab_a');
+		change('.btn_b','.tab_b');
+		change('.btn_c','.tab_c');
+		change('.btn_d','.tab_d');
+		change('.btn_e','.tab_e');
+		change('.btn_f','.tab_f');
+	</script>
+</html>

@@ -1,0 +1,226 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>转诊申请</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/jquery.jqprint-0.3.js"></script><!-- 打印 -->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+			.odd tr td:nth-of-type(2n-1) {
+				width: 200px !important;
+			}
+			.show {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">双向转诊</a>
+				<span>></span>
+				<a href="referral.html">转诊申请</a>
+				<span>></span>
+				<a href="referralform.html" class="a-last">转诊申请反馈</a>
+			</div>
+			<div class="referral-container referralform" id="wrap"></div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(function() {
+			var onoffconsole = true;
+			onoffconsole&&console.log($.objSearch);
+			loadData('body').mgreferralform(function (data) {
+				onoffconsole&&console.log(data);
+				$("#btn2").click(function() {
+					$("#btn3").css("display", "block");
+				})
+				$('.btn-modify').click(function() {
+					$('.popupBtn').removeClass('hide');
+					$('.btn-modify').addClass('hide');
+					$('.btn-confirm').addClass('hide');
+				});
+				if(data.statu == '待最终确认') {
+					$('.btn-modify').removeClass('hide');
+					$('.btn-confirm').removeClass('hide');
+					$('.popupBtn').addClass('hide');
+				}
+				if(data.statu == '已最终确认') {
+					$('.table1').addClass('hide'); //审核表
+					$('.table2').removeClass('hide'); //反馈表
+					$('.qwe').removeClass('hide');
+				};
+				if(data.statu == '已向下转诊') {
+					$('.table1').addClass('hide'); //审核表
+					$('.table2').removeClass('hide'); //反馈表
+					$('.qwe').removeClass('hide');
+					$("#btn3").css("display", "block");
+					$("#btn4").text("已提交").attr('disabled', true).css({
+						'background-color': '#ccc',
+						'border-color': '#aaa'
+					}).siblings('textarea').attr('readOnly', true);
+				}
+				$('#fenpei').click(function () {
+					$.ajax({
+						url: $.ip + '/manTransfer/upfinalDate',
+						type: 'post',
+						data: $("#form1").serialize()+'&id='+data.id,
+						dataType: "json",
+						success: function(data) {
+							if(data.msg == 1) {
+								location.href=location.href;
+							} else Showbo.Msg.alert("网络错误，请联系管理员");
+						},
+						error: function() {
+							Showbo.Msg.alert("错误");
+						}
+					});
+				})
+				var hospitalId = data.hospitalId,
+					patient = data.patientName;
+				$('.btn-confirm').click(function() { //确定按钮
+					$.ajax({ //提交最后状态
+						url: $.ip + '/manTransfer/upconfirm',
+						type: 'post',
+						data: $("#form1").serialize()+'&id='+data.id,
+						dataType: "json",
+						success: function(data) {
+							$('.table1').addClass('hide'); //审核表
+							$('.table2').removeClass('hide'); //反馈表
+							$('.qwe').removeClass('hide');
+							gethospitalmsg({
+								'hospitalId':hospitalId,
+								'statu':2,
+								'patient': patient,
+								'time': $('#finalDate').val()
+							});
+						},
+						error: function() {
+							Showbo.Msg.alert("错误");
+						}
+					});
+				})
+				$("#btn4").click(function() {
+					var pronation = document.getElementById("pronation").value;
+					$.ajax({
+						url: $.ip + '/manTransfer/opup',
+						type: 'post',
+						data: {
+							"pronation": pronation,
+							"id": data.id
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.msg == 1) {
+								gethospitalmsg({
+								'hospitalId':hospitalId,
+								'statu':3,
+								'patient': patient,
+								'hospital2': $.objSearch.hospitalName
+							});
+							} else {
+								Showbo.Msg.alert("网络延迟，请重试！");
+							}
+						},
+						error: function() {
+							Showbo.Msg.alert("错误");
+						}
+					})
+					$(this).text("已提交").attr('disabled', true).css({
+						'background-color': '#ccc',
+						'border-color': '#aaa'
+					});
+				});
+			});
+			//hospitalId,statu,patient,time,hospital2
+			function gethospitalmsg(obj) {
+				$.ajax({
+	        		url:$.ip+'/manTransfer/inform',
+	        		type:'post', 
+	        		async: true,
+	        		data:'hospitalId='+obj.hospitalId,
+	        		dataType :'json',
+	        		xhrFields: {
+	                    withCredentials: true
+	              	},
+	               	crossDomain: true,
+	        		success:function(data){
+	        			onoffconsole&&console.log(data);
+	        			var deanPhone = data.deanPhone,
+	        				hospital = data.hospitalName;
+	        			onoffconsole&&console.log(deanPhone,hospital);
+	        			inform({
+	        				'deanPhone': deanPhone,
+		        			'hospital': hospital,
+		        			'patient': obj.patient,
+		        			'hospital2': obj.hospital2,
+		        			'time': obj.time,
+		        			'statu':obj.statu
+	        			});
+	        		}
+	       		})
+			}
+			/**
+			 * 发送短信通知函数
+			 * @param {Number} deanPhone 医院电话号码
+			 * @param {String} hospitalName 
+			 * @param {String} hospital 医院
+			 * @param {String} patient
+			 * @param {String} hospital2
+			 * @param {String} chamber
+			 * @param {Date} time
+			 */
+			//statu,hospital,patient,hospital2,deanPhone,chamber,time
+			function inform(obj) {
+        		$.ajax({
+	        		url:'https://wechat.imuts.cn/wechat/sendMessage1',
+	        		type:'post', 
+	        		async: true,
+	        		data:{
+	        			'number': obj.deanPhone||'',
+	        			'hospital': obj.hospital||'',
+	        			'patient': obj.patientv||'',
+	        			'hospital2': obj.hospital2||'',
+	        			'chamber': obj.chamber||'',
+	        			'time': obj.time||'',
+	        			'statu':obj.statu||''
+	        		},
+	        		dataType :'json',
+	        		success:function(data){
+		        		onoffconsole&&console.log(data);
+	        			if (data.message == 'ok') {
+	        				Showbo.Msg.alert('提交成功！已向'+hospital+'发送短信通知！',function () {
+								history.back(-1);
+	        				})
+	        			}else{
+	        				Showbo.Msg.buttons = {yes:'重新发送'};
+	        				Showbo.Msg.confirm('短信发送失败，请重新返送！',function (bool) {
+								if (bool) {
+									inform(obj);
+								}
+	        				})
+	        			}
+	        		}
+        		});
+        	};
+		})
+	</script>
+</html>

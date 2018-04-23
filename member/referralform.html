@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>转诊详情</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/jquery.jqprint-0.3.js"></script>
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">双向转诊</a>
+				<span>></span>
+				<a href="referral.html">转诊申请</a>
+				<span>></span>
+				<a href="referralform.html" class="a-last">转诊详情</a>
+			</div>
+			<div class="referral-container referralForm" id="wrap"></div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	    $(function(){
+			loadData('body').referralform(function (data) {
+				if(data.statu=='已向下转诊'){
+					$('#cen1').css('display','block');
+					$('.show-cont').css('display','block');
+				}
+				//查看上级医院意见
+				$('.show-btn').click(function(){
+					if(data.statu=='等待确认'||data.statu=='待最终确认'){
+						Showbo.Msg.alert("转诊待处理，请您耐心等待！");
+					}else if(data.statu=='已最终确认' ){
+						$('.show-cont').css('display','block');
+					}
+				})
+				//查看上级医院下转意见
+				$('.show-btn1').click(function(){
+					if(data.statu=='已向下转诊' ){
+						$('#pronation').css('display','block');
+					}
+				})
+			});
+	    });
+		//文本框只读
+		$('#form table input').attr('readonly',true);
+	</script>
+</html>

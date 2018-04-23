@@ -1,0 +1,665 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>远程阅片</title>
+<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+<link rel="stylesheet" type="text/css" href="../css/test.css"/><!-- 界面样式 -->
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+<script type="text/javascript" src="../js/tab.js"></script><!-- 界面js -->
+<script type="text/javascript" src="../js/print.js"></script><!-- 自动输入js -->
+<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+</head>
+<body>
+	<div class="list-content">
+		<div class="list-title">
+			<h3>医联体上级医院 —— ${hospitalName }</h3>
+		</div>
+		<div class="list-broad">
+			<a href="javaScript:void(0)">首页</a>
+			<span>></span>
+			<a href="javaScript:void(0)">远程诊疗</a>
+			<span>></span>
+			<a href="javaScript:void(0)" class="a-last">远程阅片</a>
+		</div>
+		<div class="consultation-container" id="wrap">
+			<div class="box">
+				<ul class="tab_menu">
+				    <li class="current"><a>基本信息</a></li>
+				    <li><a>病历资料</a></li>
+				    <li><a>检查资料</a></li>
+				    <li><a>病理资料</a></li>
+				    <li><a href="${ ctx}/cornerstoneImageLoader/examples/dicomfile/Loadimagev2.html" target="_blank">PACS影像</a></li>
+				</ul>
+				<div class="tab_box">
+					<div id="tab1">
+						<table class="first-tab">
+							<tr>
+								<td>申请编号：2017080524513</td>
+								<td>申请日期：2017-08-05</td>
+								<td>会诊类型：紧急会诊</td>
+								<td>所属医院：广东江门第一人民医院</td>
+							</tr>
+							<tr>
+								<td>专家编号：34569</td>
+								<td>专家姓名：王富强</td>
+								<td>医生编号：12580</td>
+								<td>医生姓名：王近平</td>
+							</tr>
+							<tr>
+								<td>病情趋势：慢性恶化</td>
+								<td>预约日期：2017-08-05</td>
+								<td>会诊日期：2017-08-05</td>
+								<td>会诊医院：光华口腔</td>
+							</tr>
+							<tr>
+								<td>患者编号：2017080524513</td>
+								<td>患者姓名：张三</td>
+								<td>申请专科：牙科</td>
+								<td>初步诊断：口腔溃疡</td>
+							</tr>
+							<tr>
+								<td colspan="2">主诉：下前牙处常有脓液溢出一月余。</td>
+								<td colspan="2">现病史：患者近一年来时常牙龈刷牙时出血，有口臭。近一月来下前牙处有脓溢出要求诊治。</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<p>既往史：询问患者否认重大疾患史（无高血压心脏病史）否认血液疾病史。</p>
+								</td>
+								<td colspan="2">检查：右下1 2左下1 2排列不齐，牙石2度 ,牙龈红肿,轻探出血,牙周袋深约4-5mm,内有脓液,探之根面粗糙有牙石。松动1度。X线检查水平吸收达根长1/3左右。</td>
+							</tr>
+							<tr>
+								<td colspan="2">鉴别诊断：<br/>右下1 2左下1 2成人牙周炎（慢性牙周炎）。<br/>牙龈炎 牙龈炎有牙龈炎症，无牙周袋形成，无牙槽骨吸收，无牙齿松动等典型牙周炎临床表现。</td>
+								<td colspan="2">治疗计划：<br/>1.进行彻底的洁治，刮治局部刺激物，双氧水冲洗，上碘甘油。<br/>2．进行口腔卫生宣教，让患者正确掌握刷牙的方法。<br/>3．一个月后在酌情进行下前牙翻瓣术，以消除牙周袋。<br/>4．术后定期复查，维护疗效。</td>
+							</tr>
+						</table>
+						<table class="first-tab" style="margin-top: 20px;">
+							<tr>
+								<td>会诊意见：<textarea rows="3" class="input-pub" style="width: 80%;vertical-align: middle;margin:10px 0px;padding: 6px;color: #fff;" id="agreen">1.进行彻底的洁治，刮治局部刺激物，双氧水冲洗，上碘甘油。2．进行口腔卫生宣教，让患者正确掌握刷牙的方法。3．一个月后在酌情进行下前牙翻瓣术，以消除牙周袋。4．术后定期复查，维护疗效。</textarea></td>
+							</tr>
+						</table>
+						<div class="btn-group">
+							<button class="btn-info">提交</button>
+							<button class="btn-info">修改</button>
+							<button class="btn-info">取消</button>
+							<button class="btn-info">通知</button>
+							<button class="btn-info">转诊</button>
+						</div>
+					</div>
+					<div class="hide">
+						<ul class="hide-list manage-userinfo fixed">
+							<li>
+								<img src="../images/caseHistory.jpg"/><br/>
+								<span>病历资料</span>
+							</li>
+							<li>
+								<img src="../images/caseHistory.jpg"/><br/>
+								<span>病历资料</span>
+							</li>
+						</ul>
+					</div>
+					<div class="hide fixed">
+						<div class="manage-chart">
+							<div id="shenghua">
+								<div class="shenghua itmeAll">
+									<div class="title">
+										<h2>生化检验报告单</h2>
+									</div>
+									<div class="patient_info">
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="name">姓&emsp;&emsp;名：</label>
+												<input type="text" id="name" value="张三" />
+											</li>
+											<li class="clearfix">
+												<label for="sex">性&emsp;&emsp;别：</label>
+												<input type="text" id="sex" class="text_info" value="男" />
+											</li>
+											<li class="clearfix">
+												<label for="age">年&emsp;&emsp;龄：</label>
+												<input type="text" id="age" class="text_info" value="30" />
+											</li>
+											<li class="clearfix">
+												<label for="mzh">门&ensp;诊&ensp;号：</label>
+												<input type="text" id="mzh" class="text_info" value="1351" />
+											</li>
+											<li class="clearfix">
+												<label for="zyh">住&ensp;院&ensp;号：</label>
+												<input type="text" id="zyh" value="412313" />
+											</li>
+										</ul>
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="sjks">送检科室：</label>
+												<input type="text" id="sjks" value="" />
+											</li>
+											<li class="clearfix">
+												<label for="ch">床&emsp;&emsp;号：</label>
+												<input type="text" id="ch" class="text_info" value="15" />
+											</li>
+											<li class="clearfix">
+												<label for="bblx">标本类型：</label>
+												<input type="text" id="bblx" class="text_info" value="血清" />
+											</li>
+											<li class="clearfix">
+												<label for="bbzt">标本状态：</label>
+												<input type="text" id="bbzt" class="text_info" value="标本完整" />
+											</li>
+											<li class="clearfix">
+												<label for="ybh">样&ensp;本&ensp;号：</label>
+												<input type="text" id="ybh" value="124545" />
+											</li>
+										</ul>
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="time">送检日期：</label>
+												<input type="text" id="time" value="2017/08/05" />
+											</li>
+											<li class="clearfix">
+												<label for="lczd">临床诊断：</label>
+												<input type="text" id="lczd" value="" />
+											</li>
+											<li class="clearfix">
+												<label for="comment">备&emsp;&emsp;注：</label>
+												<input type="text" id="comment" value="" />
+											</li>
+										</ul>
+									</div>
+									<div class="inspection_result">
+										<table cellspacing="" cellpadding="">
+											<thead>
+												<tr>
+													<th>项目名称</th>
+													<th>英文简称</th>
+													<th>结果</th>
+													<th>单位</th>
+													<th>提示</th>
+													<th>参考值范围</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><p>谷丙转氨酶</p></td>
+													<td><p>ALT</p></td>
+													<td><p>11.3</p></td>
+													<td><p>U/L</p></td>
+													<td><p></p></td>
+													<td><p>0-40</p></td>
+												</tr>
+												<tr>
+													<td><p>谷草转氨酶</p></td>
+													<td><p>ASL</p></td>
+													<td><p>16.5</p></td>
+													<td><p>U/L</p></td>
+													<td><p></p></td>
+													<td><p>8-40</p></td>
+												</tr>
+												<tr>
+													<td><p>谷草/谷丙比值</p></td>
+													<td><p>ASL/ALT</p></td>
+													<td><p>1.5</p></td>
+													<td><p></p></td>
+													<td><p></p></td>
+													<td><p>0.8-1.5</p></td>
+												</tr>
+												<tr>
+													<td><p>总胆红素</p></td>
+													<td><p>TBLL</p></td>
+													<td><p>8.4</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>3.4-20.5</p></td>
+												</tr>
+												<tr>
+													<td><p>直接胆红素</p></td>
+													<td><p>DBLL</p></td>
+													<td><p>3.7</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>0-6.8</p></td>
+												</tr>
+												<tr>
+													<td><p>总蛋白</p></td>
+													<td><p>TP</p></td>
+													<td><p>67.2</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>60-83</p></td>
+												</tr>
+												<tr>
+													<td><p>白蛋白</p></td>
+													<td><p>ALB</p></td>
+													<td><p>46.6</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>35-55</p></td>
+												</tr>
+												<tr>
+													<td><p>球蛋白</p></td>
+													<td><p>GLO</p></td>
+													<td><p>20.6</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>20-30</p></td>
+												</tr>
+												<tr>
+													<td><p>白球比值</p></td>
+													<td><p>A/G</p></td>
+													<td><p>2.26</p></td>
+													<td><p></p></td>
+													<td><p></p></td>
+													<td><p>1.3-2.5</p></td>
+												</tr>
+												<tr>
+													<td><p>尿素</p></td>
+													<td><p>Urea</p></td>
+													<td><p>4.78</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>2.50-6.4</p></td>
+												</tr>
+												<tr>
+													<td><p>尿酸</p></td>
+													<td><p>UA(S)</p></td>
+													<td><p>236</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>155-428</p></td>
+												</tr>
+												<tr>
+													<td><p>肌酐</p></td>
+													<td><p>CRE</p></td>
+													<td><p>49.4</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>50-120</p></td>
+												</tr>
+												<tr>
+													<td><p>葡萄糖</p></td>
+													<td><p>GLU(S)</p></td>
+													<td><p>3.99</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>3.90-6.10</p></td>
+												</tr>
+												<tr>
+													<td><p>甘油三酯</p></td>
+													<td><p>TG(S)</p></td>
+													<td><p>1.19</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.70-1.70</p></td>
+												</tr>
+												<tr>
+													<td><p>总胆固醇</p></td>
+													<td><p>TC(S)</p></td>
+													<td><p>1.76</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>2.33-6.20</p></td>
+												</tr>
+												<tr>
+													<td><p>高密度脂蛋白胆固醇</p></td>
+													<td><p>HDL-C</p></td>
+													<td><p>1.38</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.91-2.00</p></td>
+												</tr>
+												<tr>
+													<td><p>低密度脂蛋白胆固醇</p></td>
+													<td><p>LDL-C</p></td>
+													<td><p>2.39</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.50-3.36</p></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="other_info">
+										<dl class="clearfix">
+											<dd>
+												<label for="sjys">送检医师：</label>
+												<input type="text" id="sjys" value="王五" />
+											</dd>
+											<dd>
+												<label for="jys">检验师：</label>
+												<input type="text" id="jys" value="李四" />
+											</dd>
+											<dd>
+												<label for="shz">审核者：</label>
+												<input type="text" id="shz" value="王五" />
+											</dd>
+											<dd>
+												<label for="report_time">报告时间：</label>
+												<input type="text" id="report_time" value="2017/08/05" />
+											</dd>
+											<dd>
+												<p>第<span id="pg">1</span>&frasl;<span id="pg">1</span>页</p>
+											</dd>
+										</dl>
+										<p>此结果仅对该标本负责，如有疑问，请在三天内提出，以便复查！</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="manage-chart">
+							<div id="shenghua">
+								<div class="shenghua itmeAll">
+									<div class="title">
+										<h2>生化检验报告单</h2>
+									</div>
+									<div class="patient_info">
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="name">姓&emsp;&emsp;名：</label>
+												<input type="text" id="name" value="张三" />
+											</li>
+											<li class="clearfix">
+												<label for="sex">性&emsp;&emsp;别：</label>
+												<input type="text" id="sex" class="text_info" value="男" />
+											</li>
+											<li class="clearfix">
+												<label for="age">年&emsp;&emsp;龄：</label>
+												<input type="text" id="age" class="text_info" value="30" />
+											</li>
+											<li class="clearfix">
+												<label for="mzh">门&ensp;诊&ensp;号：</label>
+												<input type="text" id="mzh" class="text_info" value="1351" />
+											</li>
+											<li class="clearfix">
+												<label for="zyh">住&ensp;院&ensp;号：</label>
+												<input type="text" id="zyh" value="412313" />
+											</li>
+										</ul>
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="sjks">送检科室：</label>
+												<input type="text" id="sjks" value="" />
+											</li>
+											<li class="clearfix">
+												<label for="ch">床&emsp;&emsp;号：</label>
+												<input type="text" id="ch" class="text_info" value="15" />
+											</li>
+											<li class="clearfix">
+												<label for="bblx">标本类型：</label>
+												<input type="text" id="bblx" class="text_info" value="血清" />
+											</li>
+											<li class="clearfix">
+												<label for="bbzt">标本状态：</label>
+												<input type="text" id="bbzt" class="text_info" value="标本完整" />
+											</li>
+											<li class="clearfix">
+												<label for="ybh">样&ensp;本&ensp;号：</label>
+												<input type="text" id="ybh" value="124545" />
+											</li>
+										</ul>
+										<ul class="clearfix">
+											<li class="clearfix">
+												<label for="time">送检日期：</label>
+												<input type="text" id="time" value="2017/08/05" />
+											</li>
+											<li class="clearfix">
+												<label for="lczd">临床诊断：</label>
+												<input type="text" id="lczd" value="" />
+											</li>
+											<li class="clearfix">
+												<label for="comment">备&emsp;&emsp;注：</label>
+												<input type="text" id="comment" value="" />
+											</li>
+										</ul>
+									</div>
+									<div class="inspection_result">
+										<table cellspacing="" cellpadding="">
+											<thead>
+												<tr>
+													<th>项目名称</th>
+													<th>英文简称</th>
+													<th>结果</th>
+													<th>单位</th>
+													<th>提示</th>
+													<th>参考值范围</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><p>谷丙转氨酶</p></td>
+													<td><p>ALT</p></td>
+													<td><p>11.3</p></td>
+													<td><p>U/L</p></td>
+													<td><p></p></td>
+													<td><p>0-40</p></td>
+												</tr>
+												<tr>
+													<td><p>谷草转氨酶</p></td>
+													<td><p>ASL</p></td>
+													<td><p>16.5</p></td>
+													<td><p>U/L</p></td>
+													<td><p></p></td>
+													<td><p>8-40</p></td>
+												</tr>
+												<tr>
+													<td><p>谷草/谷丙比值</p></td>
+													<td><p>ASL/ALT</p></td>
+													<td><p>1.5</p></td>
+													<td><p></p></td>
+													<td><p></p></td>
+													<td><p>0.8-1.5</p></td>
+												</tr>
+												<tr>
+													<td><p>总胆红素</p></td>
+													<td><p>TBLL</p></td>
+													<td><p>8.4</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>3.4-20.5</p></td>
+												</tr>
+												<tr>
+													<td><p>直接胆红素</p></td>
+													<td><p>DBLL</p></td>
+													<td><p>3.7</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>0-6.8</p></td>
+												</tr>
+												<tr>
+													<td><p>总蛋白</p></td>
+													<td><p>TP</p></td>
+													<td><p>67.2</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>60-83</p></td>
+												</tr>
+												<tr>
+													<td><p>白蛋白</p></td>
+													<td><p>ALB</p></td>
+													<td><p>46.6</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>35-55</p></td>
+												</tr>
+												<tr>
+													<td><p>球蛋白</p></td>
+													<td><p>GLO</p></td>
+													<td><p>20.6</p></td>
+													<td><p>g/l</p></td>
+													<td><p></p></td>
+													<td><p>20-30</p></td>
+												</tr>
+												<tr>
+													<td><p>白球比值</p></td>
+													<td><p>A/G</p></td>
+													<td><p>2.26</p></td>
+													<td><p></p></td>
+													<td><p></p></td>
+													<td><p>1.3-2.5</p></td>
+												</tr>
+												<tr>
+													<td><p>尿素</p></td>
+													<td><p>Urea</p></td>
+													<td><p>4.78</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>2.50-6.4</p></td>
+												</tr>
+												<tr>
+													<td><p>尿酸</p></td>
+													<td><p>UA(S)</p></td>
+													<td><p>236</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>155-428</p></td>
+												</tr>
+												<tr>
+													<td><p>肌酐</p></td>
+													<td><p>CRE</p></td>
+													<td><p>49.4</p></td>
+													<td><p>umol/l</p></td>
+													<td><p></p></td>
+													<td><p>50-120</p></td>
+												</tr>
+												<tr>
+													<td><p>葡萄糖</p></td>
+													<td><p>GLU(S)</p></td>
+													<td><p>3.99</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>3.90-6.10</p></td>
+												</tr>
+												<tr>
+													<td><p>甘油三酯</p></td>
+													<td><p>TG(S)</p></td>
+													<td><p>1.19</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.70-1.70</p></td>
+												</tr>
+												<tr>
+													<td><p>总胆固醇</p></td>
+													<td><p>TC(S)</p></td>
+													<td><p>1.76</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>2.33-6.20</p></td>
+												</tr>
+												<tr>
+													<td><p>高密度脂蛋白胆固醇</p></td>
+													<td><p>HDL-C</p></td>
+													<td><p>1.38</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.91-2.00</p></td>
+												</tr>
+												<tr>
+													<td><p>低密度脂蛋白胆固醇</p></td>
+													<td><p>LDL-C</p></td>
+													<td><p>2.39</p></td>
+													<td><p>mmol/l</p></td>
+													<td><p></p></td>
+													<td><p>0.50-3.36</p></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="other_info">
+										<dl class="clearfix">
+											<dd>
+												<label for="sjys">送检医师：</label>
+												<input type="text" id="sjys" value="王五" />
+											</dd>
+											<dd>
+												<label for="jys">检验师：</label>
+												<input type="text" id="jys" value="李四" />
+											</dd>
+											<dd>
+												<label for="shz">审核者：</label>
+												<input type="text" id="shz" value="王五" />
+											</dd>
+											<dd>
+												<label for="report_time">报告时间：</label>
+												<input type="text" id="report_time" value="2017/08/05" />
+											</dd>
+											<dd>
+												<p>第<span id="pg">1</span>&frasl;<span id="pg">1</span>页</p>
+											</dd>
+										</dl>
+										<p>此结果仅对该标本负责，如有疑问，请在三天内提出，以便复查！</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="hide fixed" id="tab4">
+						<div class="showtxt" style="margin-bottom: 10px;">
+                            <span style="background: #028eed;color: #fff;padding: 10px;display: inline-block;border-radius: 6px;cursor: pointer;">查看患者信息</span>
+                        </div>
+				    	<div class="thumbnail" style="display: inline-block;">
+				    		<img src="../images/2.jpg"/>
+				    		<img src="../images/3.jpg"/>
+				    	</div>
+				    	<div class="show">
+				    		<img src="../images/2.jpg"/>
+				    	</div>
+				    	<div style="margin-top: 10px;width: 50%;">
+					      	<label for="TextInput">专家意见:</label><br />
+					      	<textarea id="TextInput" rows="3" style="width: 100%; color: #fff;padding: 6px;margin-top: 15px;" class="input-pub">片中可见上颚后部有一1x1cm的阴影，边缘光滑，怀疑为脓肿，建议进一步病理检查。</textarea>
+					    </div>
+					    <div style="margin-top: 20px;">
+					    	<select  class="input-pub" style="width: 15%;padding: 6px;">
+								<option value="">医生签名1</option>
+								<option value="">医生签名2</option>
+								<option value="">医生签名3</option>
+								<option value="">医生签名4</option>
+							</select>
+					    </div>
+					    <div style="margin-top: 20px;text-align: center;" class="manage-btn">
+					    	<button type="submit" class="btn">提交</button>
+					    	<button class="btn">返回</button>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list-footer fixed">
+			<p>Copyright 2017 &copy; 智慧医联体远程医疗系统 iMUTS</p>
+			<p class="pull-right">广东粤融实业有限公司</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$(".box").Tabs({
+			event:'click'
+		});
+		var iptTxt = $('.itmeAll input');
+    	iptTxt.attr('readonly','readonly');
+    	iptTxt.css({'text-align':'center',"cursor":"not-allowed","background-color":"#eee","border":"1px solid #ccc"});
+    	$("#agreen").click(function(){
+    		document.getElementById("agreen").typewriter();
+			$(this).css("color","#333");
+    	});
+    	$("#TextInput").on('click',function(){
+	        document.getElementById("TextInput").typewriter();
+	        $(this).css("color","#333"); 
+	    });
+	    var imgs = $('#tab4 .thumbnail img');
+	    var showImg = $('#tab4 .show img');
+	    imgs.click(function () {
+    		showImg.attr('src',$(this).attr('src'));
+	    });
+	    var tab1 = $('#tab1 .first-tab');
+        var tab4 = $('#tab4');
+        var showtxt = $('#tab4 .showtxt span');
+        showtxt.hover(function () {
+            var show = $('<div class="showtab" style="width:'+tab4.width()+'px;position:absolute;top:255px;left:48px;background: #fff;"><table class="first-tab">'+tab1.html()+'</table></div>');
+            tab4.append(show);
+        },function () {
+            var show = $('#tab4 .showtab');
+            show.remove();
+        });
+	});
+</script>
+</html>

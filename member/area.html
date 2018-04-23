@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>分布信息管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/><!--高德地图API-->
+		<script src="https://webapi.amap.com/maps?v=1.4.0&key=bb45c28f71a0d78e0a0a324cca284974"></script><!--高德地图API-->
+		<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script><!--高德地图API-->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="area.html" class="a-last">分布信息管理</a>
+			</div>
+			<div class="area-container fixed" id="wrap">
+				<div class="area-left">
+					<div id="allmap" style="height: 650px;"></div>
+				</div>
+				<div class="area-right">
+					<p>医联体成员列表</p>
+					<ul>
+						<li>第1医院</li>
+						<li>第2医院</li>
+						<li>第3医院</li>
+						<li>第4医院</li>
+						<li>第5医院</li>
+						<li>第6医院</li>
+						<li>第7医院</li>
+						<li>第8医院</li>
+						<li>第9医院</li>
+						<li>第10医院</li>
+						<li>第11医院</li>
+						<li>第12医院</li>
+						<li>第13医院</li>
+						<li>第14医院</li>
+						<li>第15医院</li>
+						<li>第16医院</li>
+						<li>第17医院</li>
+						<li>第18医院</li>
+						<li>第19医院</li>
+						<li>第20医院</li>
+						<li>第21医院</li>
+						<li>第22医院</li>
+						<li>第23医院</li>
+						<li>第24医院</li>
+						<li>第25医院</li>
+						<li>第26医院</li>
+						<li>第27医院</li>
+						<li>第28医院</li>
+						<li>第29医院</li>
+						<li>第30医院</li>
+						<li>第31医院</li>
+						<li>第32医院</li>
+						<li>第33医院</li>
+					</ul>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	     var map = new AMap.Map('allmap', {
+	        resizeEnable: true,
+	//      mapStyle: amap://styles/whitesmoke
+	    });
+		map.setMapStyle('amap://styles/148976d03feb087b01fe5edbb1da9451');
+
+		var lnglats = [		
+	        [113.81,23.26],//增城       
+	        [113.09,22.58],//江门        
+	        [113.40,22.52],//中山
+	        [113.13,23.03],//佛山
+	        [113.27,23.15]//越秀
+	    ];
+	    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+	    for (var i = 0, marker; i < lnglats.length; i++) {
+	        var marker = new AMap.Marker({
+	            position: lnglats[i],
+	            map: map
+	        });
+	        marker.on('click', markerClick);
+	        marker.emit('click', {target: marker});
+	    }
+	    function markerClick(e) {
+	        infoWindow.setContent(e.target.content);
+	        infoWindow.open(map, e.target.getPosition());
+	    }
+	    map.setFitView();
+	</script>
+</html>

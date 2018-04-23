@@ -1,0 +1,333 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>会诊清单</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/tab.js"></script><!-- 界面js -->
+		<script type="text/javascript" src="../js/canvas.js"></script><!-- canvasjs -->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- popupjs -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="consultationlist.html">会诊管理</a>
+				<span>></span>
+				<a href="telepathology.html" class="a-last">会诊管理详情</a>
+			</div>
+			<div class="userinfo-container fixed" id="wrap">
+				<div class="box">
+					<ul class="tab_menu">
+					    <li class="current"><a>基本信息</a></li>
+					    <li><a>病历资料</a></li>
+					    <li><a>检查资料</a></li>
+					    <li><a>B超资料</a></li>
+						<li><a>X光资料</a></li>
+					    <li class="pathologyTab"><a>病理资料</a></li>
+					    <li><a href="../cornerstoneImageLoader/index.html" target="_blank">PACS影像</a></li>
+					</ul>
+					<div class="tab_box">
+						<div class="first-tab">
+							<div class="telepathology"></div>
+							<div class="btn-group">
+								<button class="btn-info btn-pub popupBtn" id="fenpei" onclick="zhuanjia()">专家分配</button>
+								<button class="btn-info btn-modify popupBtn hide" onclick="zhuanjia()">重新分配专家</button>
+								<button class="btn-info backnav" style="color:#fff;">返回</button>
+							</div>
+						</div>
+						<div class="hide historyurl">
+							<ul class="hide-list manage-userinfo fixed">
+								<li>
+									<img width="100%;" src="../images/caseHistory.png"/><br/>
+									<span>病历资料</span>
+								</li>
+							</ul>
+						</div>
+						<div class="hide examineurl">
+							<ul class="hide-list manage-userinfo fixed">
+								<li>
+									<img width="100%;" src="../images/caseHistory.png" /><br/>
+									<span>检查资料</span>
+								</li>
+							</ul>
+						</div>
+						<div class="hide">
+							<div class="bmodeTable bmodeurl"></div>
+						</div>
+						<div class="hide">
+							<div class="xrayTable xrayurl"></div>
+						</div>
+						<div class="hide fixed" id="pathology">
+							<div class="span6">
+								<div class="pathologyTable pathology"></div>
+						    	<!--<div style="margin:15px 0 10px;">
+									<button id="view-btn">查看病理会诊意见</button><br/>
+									<textarea rows="3" id="view-content" style="margin-top: 10px;width: 80%;display: none;"></textarea>
+								</div>-->
+						    </div>
+							<div class="span6" style="padding: 10px;box-sizing: border-box;-webkit-box-sizing: border-box;">
+								<div class="input-pub" style="height: 600px;border: 2px solid #ccc;">
+									<div id="cvswrap">
+										<div class="thumbnail" id="viewImg" style="width: 200px; height: 124.83px;">
+											<canvas id="viewSmall" width="200" height="124"></canvas>
+											<div class="xline" style="top: 60.91px;"></div>
+											<div class="yline" style="left: 98.5px;"></div>
+											<div class="viewbox" style="width: 200px; height: 242.91px; top: -59.04px; left: 0px; cursor: default;"></div>
+										</div>
+										<button id="FullScreen" class="fullscreen">全屏显示</button>
+										<canvas id="canvas" width="494" height="600" style="cursor: default;"></canvas>
+										<div class="scaleInfo">
+											<a id="scaleSmall" class="small" href="javascript:;"></a>
+											<a id="scaleBig" class="big" href="javascript:;"></a>
+											<div class="scaleFold">
+												<p id="showFold">1</p>
+												<dl id="menuFold">
+													<dd>1</dd>
+													<dd>2</dd>
+													<dd>4</dd>
+													<dd>10</dd>
+													<dd>20</dd>
+													<dd>40</dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group btn-left">
+					<button id="opinion" class="btn-info" style="margin-bottom: 4px;" onclick="sumOpinion()">查看会诊综合意见</button>
+	  				<div id="ideaAll" class="ideaAll">
+						<div class="pathologyOpinion">
+							<h2>病理会诊意见</h2>
+						</div>
+						<div class="pacsOpinion">
+							<h2>影像会诊意见</h2>
+						</div>
+						<div class="videoIdea">
+							<h2>视频会诊意见</h2>
+						</div>
+						<div class="cerecIdea">
+							<h2>内窥会诊意见</h2>
+						</div>
+					</div>
+	  			</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+		<!-- 弹出层 -->
+		<div class="popupbox">
+			<div class="wrap">
+				<div class="header">
+					<h2>选择专家</h2>
+					<span class="close"></span>
+				</div>
+				<div class="cont">
+					<form id="selectdoc" name="selectdoc" action="" method="">
+						<table class="table-border" id="doc">
+							<tbody></tbody>
+						</table>
+					</form>
+					<div class="btn">
+						<button class="btn-info btn-pub input-pub" id="confirm">确定</button>
+						<button class="btn-info btn-pub input-pub close" >关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var idea = $('#ideaAll'),
+			objSearch = $.objSearch,
+			ideaHtml = idea.html();
+	    function sumOpinion(){
+	    	$.ajax({
+				url:$.ip+'/memfiles/opinionSum',
+				type: 'post',
+				data: {"conId":ld.objSearch.id},
+				dataType: 'json',
+				success:function(data){
+					idea.html(ideaHtml);
+					var arrOpinion = data.listMap,
+						htmltemp = `<div class="opinion fixed">
+										<div class="ideaLeft">
+											<h3>$docName$</h3>
+										</div>
+										<div class="ideaRight">
+											<p>$msgOpinion$</p>
+											<time class="pull-right">$dateOpinion$</time>
+										</div>
+									</div>`,
+						htmlList = '';
+					idea[0].style.display = 'block';
+					arrOpinion&&arrOpinion.forEach(function(data) {
+						var ele = '.'+data.typeOpinion,
+							opinion = $(ele),
+							opinionhtml = opinion.html();
+						data.dateOpinion = data.dateOpinion.split('.')[0];
+						htmlList = htmltemp.temp(data);
+						opinion.html(opinionhtml + htmlList);
+					});
+					$('#ideaAll>div').each(function (i,ele) {
+						var len = $(ele).children('div').length;
+						if (!len) {
+							ele.innerHTML += '<div class="opinion fixed" style="padding:10px;font-weight:bold;font-size:16px;">暂未发表意见</div>';
+						}
+					});
+				}
+			});
+	    }
+		$(function(){
+			loadData('body').mgtelepathology(function (data) {
+				//选择专家后出现重新选择专家按钮
+				if(data.statu==2){
+					$('.popupBtn').addClass('hide');
+					$('.btn-modify').removeClass('hide');
+				}
+				$('#bmodelImg').popup({
+					title: 'B超检查图',
+					content: '<div id="bImgcont" style="winth:100%;height:400px;"><canvas></canvas></div>',
+					popupBtn: function (self) {
+						var ele = $('#bImgcont>canvas')[0],
+							imgUrl = $(self).attr('src');
+						loadImg(ele,imgUrl);
+					}
+				})
+				$('#xrayImg').popup({
+					title: 'X光检查图',
+					content: '<div id="xImgcont" style="height:400px;"><canvas></canvas></div>',
+					popupBtn: function (self) {
+						var ele = $('#xImgcont>canvas')[0],
+							imgUrl = $(self).attr('src');
+						loadImg(ele,imgUrl)
+					}
+				})
+				pathlogy();
+				canvas();
+			});
+			$(".box").Tabs({
+				event:'click'
+			});
+//	    	$("#view-btn").click(function() {
+//				var content = document.getElementById('view-content');
+//				$.ajax({
+//					url: $.ip+'/memfiles/opinionSum',
+//					type: 'post',
+//					data: {
+//						"conId": ld.objSearch.id
+//					},
+//					dataType:'json',
+//					success: function(data) {
+//						content.style.display = 'block';
+//						if(data.pathologyOpinion != null) {
+//							content.value = data.pathologyOpinion;
+//						} else {
+//							content.value = "暂未发表意见！";
+//						}
+//					}
+//				});
+//			});
+		});
+		//弹出层显示隐藏
+		var confirmBtn = $('#confirm');//确认按钮
+		var closeBtn = $('.close');//关闭按钮
+		var popupbox = $('.popupbox');//弹出层界面
+		var popupBtn = $('.popupBtn');//弹出层按钮
+		var doctable = $('#doc')[0];//获取表格table
+		var doclist;
+		popupBtn.click(function () {//打开弹出层界面
+			popupbox.css('display','block');
+			doclist = doctable.tBodies[0];//表格table下的tbody,显示后获取
+			confirmBtn.attr('disabled',true);//未选状态禁止确认
+		})
+		confirmBtn.click(function () {//确认提交
+			popupbox.css('display','none');
+			$.ajax({
+				url:$.ip+'/manCons/addDoc',
+				type: 'post',
+				data:$("#selectdoc").serialize()+'&conId='+ objSearch.id,
+				dataType:'json',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success:function(data){
+					if(data.msg ==2){
+						window.location.href=window.location.href;
+						doclist.innerHTML = '';
+					}else Showbo.Msg.alert("网络错误，请联系管理员");
+				},error:function(){
+					Showbo.Msg.alert("网络错误，请联系管理员");
+				}
+			});
+		})
+		closeBtn.click(function () {//取消关闭
+			doclist.innerHTML = '';
+			popupbox.css('display','none');
+		})
+		function zhuanjia(){
+			$.ajax({
+				url:$.ip+'/docList/selectList',
+				type: 'post',
+				data:$("#hosid").serialize(),
+				dataType:'json',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success:function(data){
+					//渲染医生数据
+					var arr = data.listMap;
+					for (var i=0;i<arr.length;i+=4) {
+						var tr = doclist.insertRow();
+						var dmax = (i+4)>arr.length ? arr.length : i+4;
+						for (var d=i;d<dmax;d++) {
+							var td = tr.insertCell();
+							var radioDoc = document.createElement('input');
+							var labelDoc = document.createElement('label');
+							radioDoc.type = 'radio';
+							radioDoc.name = 'doc';
+							radioDoc.id = 'doc' + d;
+							radioDoc.value = arr[d].docNum+'-'+arr[d].docName;	
+							labelDoc.innerText = arr[d].docNum+arr[d].docName;
+							td.style.cursor = radioDoc.style.cursor = labelDoc.style.cursor = 'pointer';
+							(function (obj) {
+								td.onclick = function (e) {
+									obj.checked = true;
+									if (obj.checked) {
+										confirmBtn.attr('disabled',false);//选状态可以确认
+									}
+								}
+							})(radioDoc);
+							td.appendChild(radioDoc);
+							td.appendChild(labelDoc);
+						}
+					}
+				},
+				error:function(){
+					Showbo.Msg.alert("网络错误，请联系管理员！")
+				}
+			});
+		}
+	</script>
+</html>

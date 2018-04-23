@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>预约医生</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css"/><!-- 弹窗样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- 弹窗js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">预约挂号</a>
+				<span>></span>
+				<a href="register.html">预约资源</a>
+				<span>></span>
+				<a href="doctorInfo.html" class="a-last">预约医生</a>
+			</div>
+			<div class="register-container" id="wrap">
+				<div class="register-table">
+					<table class="table-line public-table">
+						<tr>
+							<th colspan="5">医生基本介绍</th>
+						</tr>
+						<tr>
+							<td rowspan="4" class="text-center"><img src="../images/woman.png" style="width: 100px;"></td>
+							<td>医院名称</td>
+							<td colspan="3">省人民医院</td>
+						</tr>
+						<tr>
+							<td>医生姓名</td>
+							<td>专家1</td>
+							<td>性别</td>
+							<td>女</td>
+						</tr>
+						<tr>
+							<td>学历</td>
+							<td>研究生</td>
+							<td>职位</td>
+							<td>无</td>
+						</tr>
+						<tr>
+							<td>职称</td>
+							<td>主治医生</td>
+							<td>从医年份</td>
+							<td>2010年</td>
+						</tr>
+						<tr>
+							<td class="text-right">特长</td>
+							<td colspan="4">儿童口腔疾病的诊治，口腔内科疾病，擅长儿童早期矫治、口腔正畸治疗。</td>
+						</tr>
+						<tr>
+							<td class="text-right">医生简介</td>
+							<td colspan="4">毕业于中山大学，学士，曾于省人民医院正畸科进修半年。诊疗范围：儿童口腔疾病，口腔内科疾病，儿童早期矫治，镶牙、拔牙、口腔颌面部手术等</td>
+						</tr>
+					</table>
+					<table class="table-line public-table text-center popTable">
+						<tr>
+							<th colspan="8" class="text-left">医生预约排班</th>
+						</tr>
+						<tr>
+							<td>预约日期</td>
+							<td>预约科室</td>
+							<td>预约专业</td>
+							<td>班次</td>
+							<td>预约时间</td>
+							<td>可预约数</td>
+							<td>已预约数</td>
+							<td>预约</td>
+						</tr>
+						<tr>
+							<td rowspan="8">2018年03月08日</td>
+							<td rowspan="8">口腔科</td>
+							<td rowspan="8">OMJ</td>
+							<td rowspan="5">上午</td>
+							<td>08:30~09:00</td>
+							<td>1</td>
+							<td class="warnColor">1</td>
+							<td><a href="javascript:void(0);" class="warnColor1">已无号</a></td>
+						</tr>
+						<tr>
+							<td>09:00~09:30</td>
+							<td>1</td>
+							<td class="warnColor">0</td>
+							<td><a href="javascript:void(0);" class="warnColor2 popupBtn">预约</a></td>
+						</tr>
+						<tr>
+							<td>09:30~10:00</td>
+							<td>1</td>
+							<td class="warnColor">0</td>
+							<td><a href="javascript:void(0);" class="warnColor2 popupBtn">预约</a></td>
+						</tr>
+						<tr>
+							<td>10:30~11:00</td>
+							<td>1</td>
+							<td class="warnColor">0</td>
+							<td><a href="javascript:void(0);" class="warnColor2 popupBtn">预约</a></td>
+						</tr>
+						<tr>
+							<td>11:00~11:30</td>
+							<td>1</td>
+							<td class="warnColor">1</td>
+							<td><a href="javascript:void(0);" class="warnColor1">已无号</a></td>
+						</tr>
+						<tr>
+							<td rowspan="3">下午</td>
+							<td>15:00~15:30</td>
+							<td>1</td>
+							<td class="warnColor">0</td>
+							<td><a href="javascript:void(0);" class="warnColor2 popupBtn">预约</a></td>
+						</tr>
+						<tr>
+							<td>15:30~16:00</td>
+							<td>1</td>
+							<td class="warnColor">1</td>
+							<td><a href="javascript:void(0);" class="warnColor1">已无号</a></td>
+						</tr>
+						<tr>
+							<td>16:00~16:30</td>
+							<td>1</td>
+							<td class="warnColor">0</td>
+							<td><a href="javascript:void(0);" class="warnColor2 popupBtn">预约</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$(".popTable").popup({
+				title:'添加就诊人',
+				content:'<div class="booking">'+
+							'<table class="bookinginfo public-table">'+
+								'<tr>'+
+									'<td>就诊人</td><td><select class="input-pub"><option selected>本人</option><option>亲友</option><option>其他</option></select></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>姓名</td><td><input type="text" class="input-pub" value="任东"></input></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>证件类型</td><td><select class="input-pub"><option selected>身份证</option><option>护照</option></select></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>证件号码</td><td><input type="text" class="input-pub" value="123456789123012345"></input></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>手机号</td><td><input type="text" id="phone" class="input-pub" value="18665710752"></input></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>卡类型</td><td><select class="input-pub"><option selected>社保卡</option><option>诊疗卡</option></select></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td>社保卡号/门诊ID号</td><td><input type="text" class="input-pub" value="123456789012345678"></input></td>'+
+								'</tr>'+
+								'<tr>'+
+									'<td colspan="2" class="warnColor">注：请确保所填内容和您在医院登记的信息保持一致，否则无法完成添加就诊人</td>'+
+								'</tr>'+
+								'<tr class="text-center">'+
+									'<td colspan="2"><a href="orderInfo.html" class="warnColor2">确定</a></td>'+
+								'</tr>'+
+							'</table>'+
+						'</div>',
+				popupBtn: function () {
+					$('div.booking a.warnColor2').click(function () {
+						var phone = $('input#phone').val();
+						if (this.search) {
+							this.search += '&phone=' + phone;
+						} else {
+							this.search = 'phone=' + phone;
+						}
+					});
+					$('input#phone').on('change blur', function () {
+						var $this = this
+						if (isNaN($this.value) || $this.value.split('').length!=11) {
+							Showbo.Msg.alert('请输入11位数字的手机号！',function () {
+								$this.value = '';
+								$this.focus();
+							});
+						}
+					});
+				}
+			});
+		});
+	</script>
+</html>

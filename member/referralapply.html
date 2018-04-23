@@ -1,0 +1,291 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>转诊申请</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+        <link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+        <link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+        <script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+        <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+        <script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+        <script type="text/javascript" src="../js/jquery.jqprint-0.3.js"></script>
+        <style type="text/css">html,body{background-color: #f5f5f5;}</style>
+    </head>
+    <body>
+    	<div class="list-content">
+    		<div class="list-title">
+    			<h3>医联体基层医院 —— </h3>
+    		</div>
+    		<div class="list-broad">
+    			<a href="javaScript:void(0)">首页</a>
+    			<span>></span>
+    			<a href="javaScript:void(0)">双向转诊</a>
+    			<span>></span>
+    			<a href="referral.html">转诊申请</a>
+    			<span>></span>
+    			<a href="referralapply.html" class="a-last">双向转诊申请表</a>
+    		</div>
+    		<div class="referral-container" style="background-color: #fff;padding: 20px;box-shadow:0px 0px 10px #aaa;border:1px solid #f5f5f5;" id="wrap">
+        		<div class="print">
+        			<h3 id="referral-copy"><a href="javascript:void(0)">双向转诊申请表</a></h3>
+            		<form id="form1">
+                        <table class="public-table">
+                            <tr>
+                                <th colspan="6">一、申请人信息</th>
+                            </tr>
+                            <tr>
+                                <td>申请人姓名</td>
+                                <td><input type="text" name="applyName" id="applyName" style="width:81%;" class="input-pub" value="李大夫" maxlength="10"></td>
+                                <td>专科</td>
+                                <td>
+                                	<select id="chamber" class="input-pub" name="chamber">
+                                		<option>选择类型</option>
+            							<option value="OMJ" selected="selected">OMJ</option>
+            							<option value="TMJ">TMJ</option>
+            							<option value="OML">OML</option>
+            							<option value="Otho">Otho</option>
+                                	</select>
+                                </td>
+                                <td>职称</td>
+                                <td><input type="text" name="applyJob" id="applyJob" style="width:81%;" class="input-pub " value="主治医生" maxlength="10"></td>
+                            </tr>
+                            <tr>
+                                <td>转诊缘由</td>
+                                <td colspan="5"><input type="text" name="changeReason" id="changeReason" style="width: 95%;" class="input-pub " value="病情严重" maxlength="100"></td>
+                            </tr>
+                            <tr>
+                                <td>拟转诊医院</td>
+                                <td colspan="5"><input type="text" name="planHospital" id="planHospital" value="省人民医院" style="width: 95%;" class="input-pub " ></td>
+                            </tr>
+                            <tr>
+                                <td>拟转诊时间</td>
+                                <td colspan="3"><input type="date" name="planTime" id="planTime" value="" style="width: 92%;" class="input-pub"></td>
+                                <td>拟转诊科室</td>
+                                <td>
+                                	<select id="planChamber" class="input-pub" name="planChamber">
+                                		<option value="选择类型">选择类型</option>
+            							<option value="OMJ" selected="selected">OMJ</option>
+            							<option value="TMJ">TMJ</option>
+            							<option value="OML">OML</option>
+            							<option value="Otho">Otho</option>
+                                	</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="6">二、申请转诊病例详情</th>
+                            </tr>
+                            <tr>
+                                <td>初诊/复诊</td>
+                                <td><input type="text" name="diagnose" id="diagnose" style="width:81%;" class="input-pub " value="初诊" maxlength="10"></td>
+                                <td>急病/慢病</td>
+                                <td><input type="text" name="illness" id="illness" style="width:81%;" class="input-pub " value="急病" maxlength="10"></td>
+                                <td>其他</td>
+                                <td><input type="text" name="rests" id="rests" style="width:81%;" class="input-pub" value="无" maxlength="20"></td>
+                            </tr>
+                            <tr>
+                                <td>患者姓名</td>
+                                <td><input type="text" name="patientName" id="patientName" style="width:81%;" value="李小萌" class="input-pub " maxlength="10"></td>
+                                <td>性别</td>
+                                <td>
+                                    <select name="sex" class="input-pub" id="sex">
+                                    	<option value="男">男</option>
+                                    	<option value="女" selected="selected">女</option>
+                                    </select>
+                                </td>
+                                <td>年龄</td>
+                                <td><input type="text" name="age" id="age" style="width:81%;" value="25" class="input-pub"></td>
+                            </tr>
+                            <tr>
+                                <td>出生日期</td>
+                                <td><input type="date" name="birthDate" id="birthDate" style="width:81%;" class="input-pub" value=""></td>
+                                <td>婚姻状况</td>
+                                <td>
+                                	<select name="marriage" id="marriage" class="input-pub">
+            	                    	<option value="已婚">已婚</option>
+            	                    	<option value="未婚" selected="selected">未婚</option>
+                                	</select>
+                                </td>
+                                <td>职业</td>
+                                <td><input type="text" name="patientJob" id="patientJob" style="width:81%;" class="input-pub" value="学生" maxlength="10"></td>
+                            </tr>
+                            <tr>
+                                <td>家庭住址</td>
+                                <td colspan="3"><input type="text" name="family" id="family" style="width: 92%;" class="input-pub " value="广东省番禺区" maxlength="20"></td>
+                                <td>联系电话</td>
+                                <td><input type="text" name="familyPhone" id="familyPhone" style="width:81%;" class="input-pub " value="15624563215" maxlength="12"></td>
+                            </tr>
+                            <tr>
+                                <td>紧急联系人</td>
+                                <td><input type="text" name="urgency" style="width:81%;" class="input-pub" value="李大力" maxlength="10"></td>
+                                <td>关系</td>
+                                <td><input type="text" name="relation" style="width:81%;" class="input-pub" value="父女" maxlength="10"></td>
+                                <td>联系电话</td>
+                                <td><input type="text" name="urgencyPhone" style="width:81%;" class="input-pub" value="15846231586" maxlength="12"></td>
+                            </tr>
+                            <tr>
+                                <td>患者过敏史</td>
+                                <td colspan="5"><input type="text" name="allergy" id="allergy" style="width: 95%;" class="input-pub" value="青霉素" maxlength="200"></td>
+                            </tr>
+                            <tr>
+                                <td>主诉</td>
+                                <td colspan="5"><input type="text" name="complain" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="200"></td>
+                            </tr>
+                            <tr>
+                                <td>现病史</td>
+                                <td colspan="5"><input type="text" name="cashdDisease" style="width: 95%;" class="input-pub"  value="肺部疼痛" maxlength="100"></td>
+                            </tr>
+                            <tr>
+                                <td>既往史</td>
+                                <td colspan="5"><input type="text" name="PastDisease" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="100"></td>
+                            </tr>
+                            <tr>
+                                <td>初步诊断</td>
+                                <td colspan="5"><input type="text" name="initialDiagnose" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="200"></td>
+                            </tr>
+                            <tr>
+                                <td>初步治疗计划</td>
+                                <td colspan="5"><input type="text" name="initialPlan" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="200"></td>
+                            </tr>
+                            <tr>
+                                <td>医嘱</td>
+                                <td colspan="5"><input type="text" name="enjoin" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="100"></td>
+                            </tr>
+                            <tr>
+                                <td>处方</td>
+                                <td colspan="5"><input type="text" name="recipe" style="width: 95%;" class="input-pub" value="肺部疼痛" maxlength="100"></td>
+                            </tr>
+                        </table>
+                    </form>
+        		</div>
+                <div class="footer-bottom">
+                    <button type="button" class="btn" name="submit1" id="submit1">提交</button>
+                    <button type="button" class="btn btn-print" id="btn">打印</button>
+                    <button type="button" class="btn backnav" style="color:#fff;">返回</button>
+                </div> 
+    	    </div>
+    		<div class="list-footer fixed">
+    			<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+    			<p class="pull-right">广东粤融实业有限公司</p>
+    		</div>
+    	</div>
+    </body>
+    <script>
+        $("#submit1").click(function(){
+        	var planTime =document.getElementById("planTime").value,
+        		objSearch =$.objSearch,
+        		onoffconsole = true,
+        		rel=/^[0-9]{1,3}$/;
+        	if (planTime=="")
+        	{ 
+        		Showbo.Msg.alert("拟转诊时间不能为空"); 
+        		return false; 
+        	}
+        	if (document.getElementById("birthDate").value=="") 
+        	{ 
+        		Showbo.Msg.alert("病患生日不能为空");
+        		return false;
+        	}
+        	if (document.getElementById("patientName").value=="") 
+        	{ 
+        		Showbo.Msg.alert("病患姓名不能为空");
+        		return false;
+        	}
+        	if (document.getElementById("planChamber").value=="选择类型") 
+        	{ 
+        		Showbo.Msg.alert("请选择转诊科室");
+        		return false;
+        	}
+        	if (document.getElementById("chamber").value=="选择类型") 
+        	{ 
+        		Showbo.Msg.alert("请选择医生专科");
+        		return false;
+        	}
+        	var age=document.getElementById("age").value;
+        	if(!rel.test(age)){
+        		Showbo.Msg.alert("请输入正确的年龄")
+        		return false;
+        	}
+        	$.ajax({
+        		url:$.ip+'/Transfer/applyRefrral',
+        		type:'post', 
+        		async: true,
+        		data:$('#form1').serialize()+'&hospitalId='+objSearch.hospitalId+'&hospitalName='+objSearch.hospitalName,
+        		dataType :'json',
+        		xhrFields: {
+                    withCredentials: true
+              	},
+               	crossDomain: true,
+        		success:function(data){
+        			$.ajax({
+		        		url:$.ip+'/Transfer/inform',
+		        		type:'post', 
+		        		async: true,
+		        		data:'hospitalId='+objSearch.hospitalId,
+		        		dataType :'json',
+		        		xhrFields: {
+		                    withCredentials: true
+		              	},
+		               	crossDomain: true,
+		        		success:function(data){
+		        			onoffconsole&&console.log(data.map);
+		        			var hospital = $.objSearch.hospitalName,
+		        				patient = $('#patientName').val(),
+		        				hospital2 = data.map.hospitalName,
+		        				deanPhone = data.map.deanPhone,
+		        				chamber = $('#chamber').val(),
+		        				time = $('#planTime').val();
+		        			onoffconsole&&console.log(deanPhone,hospital);
+		        			inform(hospital,patient,hospital2,deanPhone,chamber,time);
+		        		}
+		        	})
+        		},
+        		error:function () {
+        			Showbo.Msg.alert('提交失败！')
+        		}
+        	});
+        	/**
+			 * 发送短信通知函数
+			 * @param {Number} deanPhone 医院电话号码
+			 * @param {String} hospitalName 
+			 * @param {String} hospital 医院
+			 * @param {String} patient
+			 * @param {String} hospital2
+			 * @param {String} chamber
+			 * @param {Date} time
+			 */
+        	function inform(hospital,patient,hospital2,deanPhone,chamber,time) {
+        		$.ajax({
+	        		url:'https://wechat.imuts.cn/wechat/sendMessage1',
+	        		type:'post', 
+	        		async: true,
+	        		data:{
+	        			'number': deanPhone,
+	        			'hospital': hospital,
+	        			'patient': patient,
+	        			'hospital2': hospital2,
+	        			'chamber': chamber,
+	        			'time': time,
+	        			'statu':1
+	        		},
+	        		dataType :'json',
+	        		success:function(data){
+		        		onoffconsole&&console.log(data);
+	        			if (data.message == 'ok') {
+	        				Showbo.Msg.alert('提交成功！已向'+hospital+'发送短信通知！',function () {
+								history.back(-1);
+	        				})
+	        			}else{
+	        				Showbo.Msg.buttons = {yes:'重新发送'};
+	        				Showbo.Msg.confirm('短信发送失败，请重新返送！',function (bool) {
+								if (bool) {
+									inform(deanPhone,hospitalName);
+								}
+	        				})
+	        			}
+	        		}
+        		});
+        	};
+        })
+    </script>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>预约检查申请</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">分级诊疗</a>
+				<span>></span>
+				<a href="checklist.html">预约检查</a>
+				<span>></span>
+				<a href="checkapply.html" class="a-last">预约检查申请表</a>
+			</div>
+			<div class="border-container" id="wrap">
+				<div class="tab_box">
+					<div class="first-tab">
+						<form id="formd" name="formd">
+							<table class="noBorder checktab public-table">
+								<tr>
+									<td>
+										<label>患者编号：</label>
+										<input type="text" readonly="readonly" id="" name="" value="" style="width: 50%;" class="input-pub">
+										<button type="button" id="" style="margin:0;" class="btn btn-info btn-large">生成</button>
+									</td>
+									<td>
+										<label>患者姓名：</label>
+										<input type="text" id="" name="" value="" style="width: 60%;" class="input-pub">
+									</td>
+									<td>
+										<label>年龄：</label>
+										<input type="text" id="" name="" value="" style="width: 60%;" class="input-pub">
+									</td>
+									<td>
+										<label>性别：</label>
+										<select id="" name="" style="display: inline-block; width: 57%;" class="input-pub">
+											<option value="男" selected="selected">男</option>
+											<option value="女">女</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>患者手机号：</label>
+										<input type="text" id="" name="" value="" style="width: 60%;" class="input-pub">
+									</td>
+									<td>
+										<label>婚姻：</label>
+										<input type="text" id="" name="" value="" style="width: 68%;" class="input-pub">
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<label>检查项目：</label>
+										<input type="checkbox" name="" id="" value="B超"><span>B超</span>
+										<input type="checkbox" name="" id="" value="X光"><span>X光</span>
+										<input type="checkbox" name="" id="" value="CT"><span>CT</span>
+										<input type="checkbox" name="" id="" value="血常规"><span>血常规</span>
+										<input type="checkbox" name="" id="" value="尿常规"><span>尿常规</span>
+										<input type="checkbox" name="" id="" value="肝功能"><span>肝功能</span>
+										<input type="checkbox" name="" id="" value="核磁共振"><span>核磁共振</span>
+										<input type="checkbox" name="" id="" value="内外科"><span>内外科</span>
+										<input type="checkbox" name="" id="" value="血脂"><span>血脂</span>
+										<input type="checkbox" name="" id="" value="肾功能"><span>肾功能</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>基层医生编号：</label>
+										<input type="text" readonly="readonly" id="" name="" value="" style="width: 50%;" class="input-pub">
+										<button type="button" id="" style="margin:0;" class="btn btn-info btn-large">生成</button>
+									</td>
+									<td>
+										<label>基层医生姓名：</label>
+										<input type="text" id="" name="" value="" style="width: 60%;" class="input-pub">
+									</td>
+									<td>
+										<label>预约检查时间：</label>
+										<input type="datetime-local" id="" name="" value="" style="min-width:172px;width: 53%;" class="input-pub">
+									</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>
+										<label>转诊医院：</label>
+										<input type="text" id="" name="" readonly="readonly" value="省人民医院" style="width: 60%;" class="input-pub">
+									</td>
+									<td>
+										<label>转诊医院地址：</label>
+										<input type="text" id="" name="" value="" style="width: 60%;" class="input-pub">
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+							<div class="btn-group center">
+								<button type="button" id="submit" class="btn btn-info btn-large">提交</button>
+								<button type="button" class='btn-info backnav'>返回</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+</html>

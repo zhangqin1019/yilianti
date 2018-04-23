@@ -1,0 +1,670 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>椅旁会诊</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css" /><!-- 弹窗 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css" /><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/html2canvas.js"></script><!-- 截图js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script> <!-- 公共js -->
+		<script type="text/javascript" src="../js/AgoraRTCSDK-2.1.0.js"></script><!--视频js-->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- popupjs -->
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=hsul7RuZ1G9Zp7kn3t17RuBYn8OEBt1C&s=1"></script>
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="chairlist.html">椅旁会诊</a>
+				<span>></span>
+				<a href="chair.html" class="a-last">开始椅旁</a>
+			</div>
+			<div class="chair-container" id="wrap">
+				<div class="row fixed">
+					<div class="cols">
+						<div class="chair"></div>
+						<div class="btn-group center">
+							<button class="btn-info backnav">返回</button>
+						</div>
+					</div>
+					<div class="cols" id="videoWrap">
+						<div id="div_device" class="panel panel-default" style="display: none">
+							<div class="select">
+								<label for="audioSource">Audio source: </label>
+								<select id="audioSource"></select>
+							</div>
+							<div class="select">
+								<label for="videoSource">Video source: </label>
+								<select id="videoSource"></select>
+							</div>
+						</div>
+						<div id="div_join" class="panel panel-default">
+							<div class="panel-body">
+								<button id="join" class="btn btn-info">开始</button>
+								<button id="leave" class="btn btn-info" disabled="disabled">结束</button>
+								<button id="screenshot" class="btn btn-info">截图留档</button>
+								<button class="popupBtn popbtn-info">诊疗地址定位</button>
+								<button id="FullScreen" class="btn btn-info">全屏</button>
+								<div style="display: none;">
+									<!--Key: <input id="key" type="text" value="" size="36">
+									Channel: <input id="channel" type="text" value="1000" size="4">-->
+									Host: <input id="video" type="checkbox" checked>
+								</div>
+							</div>
+						</div>
+						<div id="video" class="video" style="margin: 0 auto; overflow: hidden;padding:10px;box-sizing:border-box; width: 100%; position: relative;background:url(../images/chair.jpg) center no-repeat;background-size:contain;background-origin: content-box;">
+							<div id="agora_local" class="tabvideosmall" style="position: absolute; z-index: 9999; width: 100%;"></div>
+						</div>
+						<canvas width="100" height="100" style="background: #000;display: none;"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		loadData('body').chair(function(data) {
+			var that = this,
+				lddata = data,
+				vKey = {'value':data.chairId},
+				vChannel = {'value':data.channel},
+				conId = ld.objSearch.id||data.conId,
+				jump = 2,
+				hospitalName = ld.objSearch.hospitalName,
+				hospitalId = ld.objSearch.hospitalId,
+				docNum = data.specialistId,
+				docName = data.specialist,
+				infId = ld.objSearch.infId||'',
+				infId2= ld.objSearch.infId,
+				face_token1,//用来保存身份证人面标识
+				face_token2,//用来保存用户人面标识
+				imgsrcID,//身份证图片
+				imgsrcPerson,//人脸图片
+				api_key = "31wkcNw5tvZ9KGjftxK-P1frcrklgkws",//人面对比所需key
+				api_secret = "Rv3YChU7WCBDAH_Dr528XmDCIEfJ3jXt",//人面对比所需secret
+				onoffconsole = $.onoffconsole;
+				ld.yz = true;//视频验证boolean
+			onoffconsole&&console.log(that);
+			//开始视频
+			$('#join').click(join);
+			//结束视频
+			$('#leave').click(leave);
+			//截图功能
+			$('#screenshot').click(function() {
+				var cvas = $('canvas')[0],
+					context = cvas.getContext('2d'),
+					video = $('video');
+				video.each(function(i) {
+					cvas.width = video.eq(i).width();
+					cvas.height = cvas.width * 9 / 16;
+					context.clearRect(0, 0, cvas.width, cvas.height);
+					context.save();
+					context.drawImage(video[i], 0, 0, cvas.width, cvas.height);
+					context.restore();
+					var url = cvas.toDataURL('image/png');
+					video[i].style.background = 'url(' + url + ') no-repeat center';
+				})
+				html2canvas($('#wrap')[0]).then(function(canvas) {
+					canvas.style.display = 'none';
+					cxt = canvas.getContext('2d');
+					var urls = canvas.toDataURL('image/png');
+					document.body.appendChild(canvas);
+					var allElem = $('*');
+					allElem.each(function(i) {
+						var id = allElem.eq(i).attr('id');
+						allElem.eq(i).attr('id', id);
+					})
+					takeScreenshot(urls);
+				});
+			});
+			//调用地图
+			$('div#div_join').popup({
+				title:'地图',
+				content: `<div id="mapcontainer"></div><div id="txtcontainer">`,
+				popupBtn: function () {
+					onoffconsole&&console.log(data.patientNo);
+					$.ajax({
+						url: $.ip + '/plat/orientation',
+	    				type:'post',
+						data:{'patientid': data.patientNo,'hospitalId':$.objSearch.hospitalId},
+						dataType:'json',
+						success: function (data) {
+							onoffconsole&&console.log(data);
+							if(data.hospitalSite){
+								var mapele = document.getElementById('mapcontainer'),
+									parent = mapele.parentNode.parentNode,
+									maxHeight = parseFloat((getComputedStyle(parent)||parent.currentStyle).maxHeight),
+									paddingTop = parseFloat((getComputedStyle(parent)||parent.currentStyle).paddingTop),
+									paddingBottom = parseFloat((getComputedStyle(parent)||parent.currentStyle).paddingBottom),
+									mapheight = maxHeight - paddingTop - paddingBottom-100,
+									lon = data.lon,
+									lat = data.lat;
+								mapele.style.height = mapheight + 'px';
+								setTimeout(function () {
+									var mp = new BMap.Map("mapcontainer"),
+										point = new BMap.Point(lon || 116.331398,lat || 39.897445),
+										points = [];
+									if (lon && lat) {
+										mp.centerAndZoom(point, 16);
+										points.push(point);
+										mp.enableScrollWheelZoom();
+										onoffconsole && console.log(points)
+										var marker = new BMap.Marker(point);        // 创建标注 
+										mp.addOverlay(marker);
+										marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+										var label = new BMap.Label("患者位置",{offset:new BMap.Size(20,-10)});
+										marker.setLabel(label);
+									} else {
+										Showbo.Msg.alert('未获取患者位置，请到小程序获取定位！');
+									}
+									// 创建地址解析器实例
+									var myGeo = new BMap.Geocoder();
+									// 将地址解析结果显示在地图上,并调整地图视野
+									myGeo.getPoint(data.hospitalSite, function(point){
+										if (point) {
+											mp.centerAndZoom(point, 16);
+											onoffconsole && console.log(point);
+											points.push(point);
+											var marker = new BMap.Marker(point);
+											mp.addOverlay(marker);
+											marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+											var label = new BMap.Label("医院位置",{offset:new BMap.Size(20,-10)});
+											marker.setLabel(label);
+											if (lon&&lat) {
+												var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+												    scale: 0.6,//图标缩放大小
+												    strokeColor:'#fff',//设置矢量图标的线填充颜色
+												    strokeWeight: '2',//设置线宽
+												});
+												var icons = new BMap.IconSequence(sy, '10', '30');
+												var polyline =new BMap.Polyline(points, {
+												   enableEditing: false,//是否启用线编辑，默认为false
+												   enableClicking: true,//是否响应点击事件，默认为true
+												   icons:[icons],
+												   strokeWeight:'8',//折线的宽度，以像素为单位
+												   strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
+												   strokeColor:"#18a45b" //折线颜色
+												});
+												mp.addOverlay(polyline);
+												$.ajax({
+													url: 'https://wechat.imuts.cn/userinfo/distance',
+								    				type:'post',
+													data:{
+														'lon1': points[0].lng,
+														'lat1': points[0].lat,
+														'lon2': points[1].lng,
+														'lat2': points[1].lat
+													},
+													dataType:'json',
+													success: function (data) {
+														onoffconsole&&console.log(data);
+														var txtele = document.getElementById('txtcontainer');
+														txtele.innerHTML = '<p style="line-height:100px;text-align:center;font-size:16px;">患者与申请视频医院相距' + parseInt(data.distance) + '米！</p>';
+													}
+												});
+											}
+										}else{
+											Showbo.Msg.alert("您选择地址没有解析到结果!");
+										}
+									}, "广州市");
+								},16);
+							}
+						}
+					})
+				}
+			});
+			//截图功能函数
+			function takeScreenshot(urls) {
+				Showbo.Msg.wait('正在截图留档...', '请等待');
+				$.ajax({
+					url: $.ip + '/memfiles/addfiles',
+					type: 'post',
+					data: {
+						"image": urls,
+						"conId": conId,
+						"type": "2"
+					},
+					dataType: 'json',
+					success: function(data) {
+						if(data.msg == 1) {
+							Showbo.Msg.alert('留档成功！');
+						} else if(data.msg == 0) {
+							Showbo.Msg.alert('网络延迟，请稍后重试！');
+						} else {
+							Showbo.Msg.alert('E+网络延迟，请稍后重试！');
+							onoffconsole&&console.log(data.err);
+						}
+					}
+				});
+			}
+			var client, localStream, camera, microphone;
+			var audioSelect = document.querySelector('select#audioSource');
+			var videoSelect = document.querySelector('select#videoSource');
+			var videoS = document.getElementById('agora_local');
+			var typ = sessionStorage.getItem('typ')||'';
+			if(typ == 2){
+				join();
+			}
+			function join() {
+				getDevices(function () {
+					if(!videoSelect.value.trim()){
+						Showbo.Msg.buttons={'no': '退出视频'};
+						Showbo.Msg.confirm('请确认摄像头是否安装！',function (bool) {
+							if (bool) {
+								join();
+							} else{
+								var infoId = sessionStorage.getItem('infId');
+								updateRefused(infoId,'no');
+								sessionStorage.removeItem('infId');
+								sessionStorage.getItem('typ') && sessionStorage.removeItem('typ');
+								typ = '';
+							}
+						});
+						return false;
+					}
+					ld.label=null;
+					if(isNaN(String(docNum))||docNum=='') {
+						Showbo.Msg.alert("还未分配专家，无法进行椅旁会诊");
+						return false;
+					}
+					if(typ == 2){
+						sessionStorage.removeItem('typ');
+						typ = '';
+						var infoId = sessionStorage.getItem('infId');
+						updateRefused(infoId,'yes');
+	//					sessionStorage.removeItem('infId');
+						$.ajax({
+							url: $.ip + '/inform/checkMessage',
+							type: 'post',
+							async: false,
+							data: {
+								"hospitalId": hospitalId
+							},
+							dataType: 'json',
+							success: function(data) {
+								if(data.msg == "1") {
+									poen("yes",false,true);
+								}else{
+									Showbo.Msg.alert("视频请求已超时！");
+								}
+							}
+						});
+					}else{
+						poen("yes",function () {
+							verification();
+						},true);
+					}
+				});
+			}
+			//是否接受视频
+			function updateRefused(infId,yesno) {
+				$.ajax({
+					url: $.ip + '/inform/updateRefused',
+					type: 'post',
+					async: false,
+					data: {
+						"infId": infId,
+						"yesno": yesno
+					},
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						onoffconsole && console.log(data);
+					},
+					error: function(data) {
+						onoffconsole && console.log(data.err);
+					}
+				});
+			}
+			/**
+			 * 
+			 * @param {Object} open 值为yes/no 
+			 * @param {Object} callback  回调函数
+			 * @param {Object} bool	默认为true， 是否发布视频流
+			 */
+			function poen(open,callback,bool) {
+				bool = bool!=undefined ? bool : true;
+				onoffconsole&&console.log(bool)
+				callback = callback || function () {};
+				if(open == "yes") {
+					document.getElementById("join").disabled = true;
+					document.getElementById("leave").disabled = false;
+					document.getElementById("video").disabled = true;
+					var dynamic_key = null;
+					onoffconsole&&console.log("Init AgoraRTC client with vendor key: " + vKey.value);
+					client = AgoraRTC.createClient({
+						mode: 'interop'
+					});
+					client.init(vKey.value, function() {
+						onoffconsole&&console.log("AgoraRTC client initialized");
+						client.join(dynamic_key, vChannel.value, null, function(uid) {
+							onoffconsole&&console.log("User " + uid + " join channel successfully");
+							if(document.getElementById("video").checked) {
+								camera = videoSource.value;
+								microphone = audioSource.value;
+								localStream = AgoraRTC.createStream({
+									streamID: uid,
+									audio: false,
+									video: document.getElementById("video").checked,
+									cameraId: camera,
+									microphoneId: microphone,
+									mirror: false,
+									screen: false
+								});
+								if(document.getElementById("video").checked) {
+									localStream.setVideoProfile('1080p_3');
+								}
+								localStream.init(function() {
+									onoffconsole&&console.log("getUserMedia successfully");
+									localStream.play('agora_local');
+
+									if (bool) {
+										client.publish(localStream, function(err) {
+											onoffconsole&&console.log("Publish local stream error: " + err);
+										});
+	
+										client.on('stream-published', function(evt) {
+											typeof callback == "function"&&callback();
+											onoffconsole&&console.log("Publish local stream successfully");
+										});
+									}
+									
+								}, function(err) {
+									onoffconsole&&console.log("getUserMedia failed", err);
+								});
+							}
+						}, function(err) {
+							onoffconsole&&console.log("Join channel failed", err);
+						});
+					}, function(err) {
+						onoffconsole&&console.log("AgoraRTC client init failed", err);
+					});
+
+					channelKey = "";
+					client.on('error', function(err) {
+						onoffconsole&&console.log("Got error msg:", err.reason);
+						if(err.reason === 'DYNAMIC_KEY_TIMEOUT') {
+							client.renewChannelKey(channelKey, function() {
+								onoffconsole&&console.log("Renew channel key successfully");
+							}, function(err) {
+								onoffconsole&&console.log("Renew channel key failed: ", err);
+							});
+						}
+					});
+
+					client.on('stream-added', function(evt) {
+						var stream = evt.stream;
+						onoffconsole&&console.log("New stream added: " + stream.getId());
+						onoffconsole&&console.log("Subscribe ", stream);
+						client.subscribe(stream, function(err) {
+							onoffconsole&&console.log("Subscribe stream failed", err);
+						});
+					});
+
+					if (bool) {
+						client.on('stream-subscribed', function(evt) {
+							var stream = evt.stream;
+							onoffconsole&&console.log("Subscribe remote stream successfully: " + stream.getId());
+							if($('div#video #agora_remote' + stream.getId()).length === 0) {
+								var ids = stream.getId();
+								$('div#video').append('<div id="agora_remote' + ids + '" class="agora_remote" style="float:left; width:100%;height:100%;display:inline-block;"></div>');
+							}
+							stream.play('agora_remote' + stream.getId());
+						});
+					}
+
+					client.on('stream-removed', function(evt) {
+						var stream = evt.stream;
+						stream.stop();
+						$('#agora_remote' + stream.getId()).remove();
+						onoffconsole&&console.log("Remote stream is removed " + stream.getId());
+					});
+
+					client.on('peer-leave', function(evt) {
+						var stream = evt.stream;
+						leave();
+						if(stream) {
+							stream.stop();
+							$('#agora_remote' + stream.getId()).remove();
+							$('#agora_local').children().remove();
+							document.getElementById("join").disabled = false;
+							document.getElementById("leave").disabled = true;
+							Showbo.Msg.alert('对方已退出远程会诊！');
+							onoffconsole&&console.log(evt.uid + " leaved from this channel");
+						}
+					});
+				}
+			}
+			function leave() {
+				document.getElementById("join").disabled = false;
+				document.getElementById("leave").disabled = true;
+				localStream.stop();
+				localStream.close();
+				$('#agora_local').children().remove().end().siblings('div').remove();
+				client.leave(function() {
+					onoffconsole&&console.log("Leavel channel successfully");
+				}, function(err) {
+					onoffconsole&&console.log("Leave channel failed");
+				});
+			}
+			function publish() {
+				//document.getElementById("publish").disabled = true;
+				//document.getElementById("unpublish").disabled = false;
+				client.publish(localStream, function(err) {
+					onoffconsole&&console.log("Publish local stream error: " + err);
+				});
+			}
+			function unpublish() {
+				//document.getElementById("publish").disabled = false;
+				//document.getElementById("unpublish").disabled = true;
+				client.unpublish(localStream, function(err) {
+					onoffconsole&&console.log("Unpublish local stream failed" + err);
+				});
+			}
+			//audioSelect.onchange = getDevices;
+			//videoSelect.onchange = getDevices;
+			function getDevices(callback) {
+				AgoraRTC.getDevices(function(devices) {
+					videoSelect.innerHTML='';
+					for(var i = 0; i !== devices.length; ++i) {
+						var device = devices[i];
+						var option = document.createElement('option');
+						option.value = device.deviceId;
+						if(device.kind === 'audioinput') {
+							option.text = device.label || 'microphone ' + (audioSelect.length + 1);
+							audioSelect.appendChild(option);
+						} else if(device.kind === 'videoinput'&&device.label.search(/Vimicro|\(0c45\:6300\)/) != -1) {
+							onoffconsole&&console.log(device);
+							option.text = device.label || 'camera ' + (videoSelect.length + 1);
+							videoSelect.appendChild(option);
+						} else {
+							//onoffconsole&&console.log('Some other kind of source/device: ', device);
+						}
+					}
+					typeof callback === 'function' && callback();
+				});
+			}
+			function verification(){
+				$.ajax({
+					url: $.ip + '/inform/infoMessage',
+					type: 'post',
+					async: false,
+					data: {
+						"jump": jump,
+						"conId": conId,
+						"hospitalId": hospitalId,
+						"docNum": docNum
+					},
+					dataType: 'json',
+					success: function(data) {
+						if(data.msg == "1") {
+							updateMessage(data.map.infId);
+						}
+					}
+				});
+				$.ajax({
+					url: $.ip + '/inform/addMessage',
+					type: 'post',
+					async: true,
+					data: {
+						"jump": jump,
+						"conId": conId,
+						"hospitalName": hospitalName,
+						"hospitalId": hospitalId,
+						"docNum": docNum,
+						"docName": docName
+					},
+					dataType: 'json',
+					success: function(data) {
+						infId = data.infId;
+						onoffconsole && console.log('infId:',infId);
+						if(data.msg == "a") {
+							Showbo.dvMsgBoxLeft = '30%';
+							Showbo.Msg.wait('正在连接对方...', '请等待');
+							var i = 0;
+							var ean = "a";
+							var timer = window.setInterval(function() {
+								i++;
+								$.ajax({
+									url: $.ip + '/inform/infoMessage',
+									type: 'post',
+									async: true,
+									data: {
+										"hospitalId": hospitalId,
+										"docNum": docNum,
+										"conId": conId,
+										"jump": jump
+									},
+									dataType: 'json',
+									success: function(data) {
+										if(data.map.combool != null && data.map.combool == "1") {
+											Showbo.Msg.hide();
+											ean = "b";
+										} else if(data.map.combool != null && data.map.combool == "2") {
+											Showbo.storageLeft = '50%';
+											ean = "b";
+											Showbo.Msg.alert("对方已拒绝！",function () {
+												leave();
+											});
+										} else {
+											if(i == 6) {
+												ean = "b";
+												Showbo.Msg.buttons = {
+													yes: '重新请求',
+													no: '联系专家'
+												}
+												Showbo.Msg.confirm("对方可能不在，是否重新请求！",function (bool) {
+													if (bool) {
+														verification();
+													} else {
+														leave();
+														Showbo.storageLeft = '50%';
+														Showbo.Msg.alert('专家电话:13516088888');
+													}
+												});
+											}
+										}
+										if(ean == "b") {
+											updateMessage(data.map.infId);
+											clearInterval(timer);
+										}
+									}
+								})
+							}, 5000);
+						}
+					},
+					error: function() {
+						Showbo.Msg.alert("网络出现问题，请联系管理员！");
+					}
+				});
+			}
+			function updateMessage(infId) {
+				$.ajax({
+					url: $.ip + '/inform/updateMessage',
+					type: 'post',
+					async: true,
+					data: {
+						"infId": infId
+					},
+					dataType: 'json',
+					success: function(data) {
+						onoffconsole&&console.log(data);
+					},
+					error: function(data) {
+						onoffconsole&&console.log(data.err);
+					}
+				})
+			}
+			//窗口关闭前事件
+			window.addEventListener('beforeunload',function () {
+				if(infId) {
+					$.ajax({
+						url: $.ip+'/docInform/updateMessage',
+						type: 'post',
+						async: true,
+						data: {
+							"infId": infId
+						},
+						dataType: 'json',
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+	
+						},
+						error: function(data) {
+							onoffconsole && console.log(data.err);
+						}
+					})
+				}
+			});
+			var parentWd = parent.window;
+			parentWd.onkeydown = window.onkeydown = function (e) {
+				if (e.keyCode==116) {
+					refresh(infId,ld.yz);
+					return false;
+				}
+			}
+		});
+		/**  
+	     * 将以base64的图片url数据转换为Blob  
+	     * @param urlData  
+	     * 用url方式表示的base64图片数据  
+	     */  
+    	function convertBase64UrlToBlob(urlData){  
+    	
+	    	 var binary = atob(urlData.split(',')[1]); 
+	         var array = []; 
+	         for(var i = 0; i < binary.length; i++) { 
+	           array.push(binary.charCodeAt(i)); 
+	         } 
+	        
+	         return new Blob([new Uint8Array(array)], {type : 'image/png'}); 
+	         
+	        //return new Blob( [ab] , {type : 'image/png'});  
+    	}
+	</script>
+</html>

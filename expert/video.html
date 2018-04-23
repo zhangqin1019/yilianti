@@ -1,0 +1,154 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>远程视频</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css" /><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/html2canvas.js"></script><!-- 截图js -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/AgoraRTCSDK-2.1.0.js"></script><!--视频js-->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>会诊专家 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="consultationlist.html">会诊清单</a>
+				<span>></span>
+				<a href="telepathology.html">会诊清单详情</a>
+				<span>></span>
+				<a href="video.html" class="a-last">远程视频</a>
+			</div>
+			<div class="expert-container" id="wrap">
+				<div class="row fixed">
+					<div class="cols">
+						<div class="epvideohtml"></div>
+						<table>
+							<tr>
+								<td>
+									视频会诊意见：<textarea rows="4" id="videoIdea" name="videoIdea" style="width:98%;margin:8px;" class="input-pub"></textarea>
+								</td>
+							</tr>
+						</table>
+						<div class="btn-group center">
+							<button class="btn-info" id="sub">提交意见</button>
+							<button class="btn-info backnav">返回</button>
+
+						</div>
+					</div>
+					<div class="cols" id="videoWrap">
+						<div id="div_device" class="panel panel-default" style="display:none">
+							<div class="select">
+								<label for="audioSource">Audio source: </label>
+								<select id="audioSource"></select>
+							</div>
+							<div class="select">
+								<label for="videoSource">Video source: </label>
+								<select id="videoSource"></select>
+							</div>
+						</div>
+						<div id="div_join" class="panel panel-default">
+							<div class="panel-body">
+								<button id="join" class="btn btn-info">开始视频</button>
+								<button id="leave" class="btn btn-info">离开</button>
+								<button id="screenshot" class="btn btn-info">截图留档</button>
+								<button id="FullScreen" class="btn btn-info">全屏</button>
+								<div style="display: none;">
+									<!--Key: <input id="key" type="text" value="" size="36">
+									Channel: <input id="channel" type="text" value="1000" size="4">-->
+									Host: <input id="video" type="checkbox" checked>
+								</div>
+							</div>
+						</div>
+						<div id="video" class="video" style="margin: 0 auto; overflow: hidden;padding:10px;box-sizing:border-box; width: 100%; position: relative;background:url(../images/video.jpg) center no-repeat;background-size:contain;background-origin: content-box;">
+							<div id="agora_local" class="tabvideosmall" style="position: relative;z-index: 9999;width:100%;height:100%;"></div>
+						</div>
+						<canvas width="100" height="100" style="background: #000;display: none;"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		loadData('body').epvideohtml(function (data) {
+			var jump = 1,
+			conId = ld.objSearch.conId||data.conId,
+			hospitalName = data.categoryHospital,
+			hospitalId = data.hospitalId,
+			docNum = data.specialistId,
+			docName = data.specialist,
+			onoffconsole=true;
+			//开始视频
+			$('#join').click(join);
+			var typ = sessionStorage.getItem('typ')||'';
+			if(typ == 1) {
+				sessionStorage.removeItem('typ');
+				typ = '';
+				localStorage.setItem('vwtyp',1);
+				localStorage.setItem('infId',sessionStorage.getItem('infId'));
+				join();
+			}
+			function join() {
+				if (sessionStorage.getItem('newWindow')!='true') {
+					openHtml();
+				}
+			}
+			function openHtml() {
+				var iTop = 13,
+				iHeight = (parent.window||window).innerHeight,
+				iWidth = (parent.window||window).innerWidth;
+				localStorage.setItem('newWindow','true');
+				sessionStorage.setItem('newWindow','true');
+				window.open('videoWindow.html?id=' + conId + '&docName=' + $.objSearch.docName + '&docNum=' + $.objSearch.docNum,'','height=' + iHeight + ', width=' + iWidth + ', top=' + iTop);
+			}
+			//提交意见
+			$("#sub").click(function() {
+				$.ajax({
+					url: $.ip+'/docInfo/Opinion',
+					type: 'post',
+					data: {
+						"jump": jump,
+						"msgOpinion": $('#videoIdea').val(),
+						"typeOpinion":'videoIdea',
+						"docName":docName,
+						"conId": conId
+					},
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.msg == "1") {
+							Showbo.Msg.alert("已提交意见！")
+						} else {
+							Showbo.Msg.alert("网络延迟，请稍后重试！")
+						}
+					},
+					error: function() {
+						Showbo.Msg.alert("网络出现问题，请联系管理员！");
+					}
+				});
+			})
+		});
+	</script>
+</html>

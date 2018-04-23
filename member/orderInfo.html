@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>订单确认</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">预约挂号</a>
+				<span>></span>
+				<a href="register.html">预约资源</a>
+				<span>></span>
+				<a href="doctorInfo.html">预约医生</a>
+				<span>></span>
+				<a href="orderInfo.html" class="a-last">订单确认</a>
+			</div>
+			<div class="register-container" id="wrap">
+				<div class="register-table fixed">
+					<table class="table-noborder">
+						<tr>
+							<th colspan="2"><h2>预约确认信息</h2></th>
+						</tr>
+						<tr>
+							<td>医院名称</td>
+							<td>省人民医院</td>
+						</tr>
+						<tr>
+							<td>业务名称</td>
+							<td>诊查费</td>
+						</tr>
+						<tr>
+							<td>科室</td>
+							<td>口腔科</td>
+						</tr>
+						<tr>
+							<td>医生</td>
+							<td>专家1</td>
+						</tr>
+						<tr>
+							<td>就诊时间</td>
+							<td>2018-03-08 08:30~09:00</td>
+						</tr>
+						<tr>
+							<td>患者姓名</td>
+							<td>任东</td>
+						</tr>
+						<tr>
+							<td>卡类型</td>
+							<td>社保卡</td>
+						</tr>
+						<tr>
+							<td>卡号</td>
+							<td>123456789012345678</td>
+						</tr>
+						<tr>
+							<td colspan="2">付款金额：<span class="warnColor">10</span>元</td>
+						</tr>
+					</table>
+					<div class="table-noborder zhifu">
+						<h2>支付平台</h2>
+						<p class="zhifu"><input type="radio" name="pay" value="微信" class="medoPay"><img src="../images/weixin.png"></p>
+						<p class="zhifu"><input type="radio" name="pay" value="支付宝"  class="medoPay"><img src="../images/zhifubao.png"></p>
+						<p class="zhifu">
+							<button class="warnColor2 text-center pay">支付</button>
+							<button class="warnColor2 text-center" onclick="window.location.href='register.html'">返回</button>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function sendMessage(){
+			setTimeout(function(){
+				//statu:2,phone:电话号码,department:部门,dname:医生名字,cost:费用,time:预约时间,Clinical:候诊时间
+				$.ajax({
+					url:"https://wechat.imuts.cn/wechat/hunan",
+					type:'POST',
+					data: {
+						statu:2,
+						phone: $.objSearch.phone,
+						department: '口腔科',
+						dname: '专家1',
+						cost: 10,
+						time: '08:30~09:00',
+						Clinical: '2018-03-08',
+						co: 4567892
+					},
+					dataType:'json',
+					success: function (data){
+						console.log(data)
+					}
+				});
+			},10000);
+		}
+		$(function(){
+			$(".pay").on("click",function(){
+				if ($(".medoPay:checked").val()=="微信") {
+					window.open("wechatPay.html","_blank");
+					sendMessage();
+				}else if ($(".medoPay:checked").val()=="支付宝") {
+					window.open("alipay.html","_blank");
+					sendMessage();
+				}else{
+					Showbo.Msg.alert('未选择支付类型，请选择支付类型！');
+				}
+			});
+		});
+	</script>
+</html>

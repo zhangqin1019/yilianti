@@ -1,0 +1,137 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>新增医生</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+			 	<span>></span> 
+			 	<a href="javaScript:void(0)">医生管理</a> 
+			 	<span>></span> 
+			 	<a href="doctor.html">医生列表</a>
+			 	<span>></span> 
+			 	<a href="docform.html" class="a-last">新增医生</a>
+			</div>
+			<div class="consultation-container" id="wrap">
+				<h3 style="text-align: center; font-size: 18px;">新增医生</h3>
+				<form name="docform" id="docform" >
+					<table id="table" class="table public-table">
+						<tr>
+							<td>医生编号</td>
+							<td><input type="text" class="input-pub" name="docNum" id="docNum" value="" style="width: 30%;" maxlength="20" /></td>
+						</tr>
+						<tr>
+							<td>医生姓名</td>
+							<td><input type="text" class="input-pub" name="docName" id="docName" value="" style="width: 30%;" maxlength="10" /></td>
+						</tr>
+						<tr>
+							<td>专科</td>
+							<td>选择专科： <select name="chamber">
+									<option value="OMJ">OMJ</option>
+									<option value="TMJ">TMJ</option>
+									<option value="OML">OML</option>
+									<option value="OTH">OTH</option>
+									<option value="Otho">Otho</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td>职称</td>
+							<td><input type="text" class="input-pub" name="job" id="job" value="" style="width: 30%;" maxlength="10" /></td>
+						</tr>
+						<tr>
+							<td>预设密码</td>
+							<td><input type="text" class="input-pub" name="password" id="password" value="" style="width: 30%;" maxlength="50" /></td>
+						</tr>
+						<tr>
+							<td>确认密码</td>
+							<td><input type="text" class="input-pub" name="comfpassword" id="comfpassword" value="" style="width: 30%;" maxlength="50" /></td>
+						</tr>
+						<tr>
+							<td>联系电话</td>
+							<td><input type="text" class="input-pub" name="phone" id="phone" value="" style="width: 30%;" maxlength="11" /></td>
+						</tr>
+						<tr>
+							<td>所属医院</td>
+							<td><input type="text" class="input-pub" name="AffiliatedHospital" id="AffiliatedHospital" value="" style="width: 30%;" maxlength="20" /></td>
+						</tr>
+					</table>
+				</form>
+				<div class="footer-bottom">
+					<button type="button" class="btn" onclick="submits()" id="submit">提交</button>
+					<button type="button" class="btn backnav">返回</button>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMURS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		var objSearch = $.objSearch;
+		function submits() {
+			var password = $("#password").val();
+			var passconf = $("#comfpassword").val();
+			var docName = $("#docName").val();
+			var docNum = $("#docNum").val();
+			var phone = $("#phone").val();
+			/* var reg=/^[\u4e00-\u9fa5]*$/; *///检测用户名是否为中文
+			var regp = /^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{5,22}$/; //检测密码的合法性	
+			var regph = /^\d{1,11}$/;	
+			var regnb = /^\d*$/;
+			if (password != passconf) {
+				Showbo.Msg.alert("两次输入的密码不一致");
+				return;
+			}
+			/* if(!reg.test(docName)){
+				Showbo.Msg.alert("用户名请输入中文");return;
+			} */
+			if (!regp.test(password)) {
+				Showbo.Msg.alert("请输入合法字符,密码长度为5~16位");
+				return;
+			}
+			if (!regph.test(phone)) {
+				Showbo.Msg.alert("请输入正确手机号");
+				return;
+			}
+			if (!regnb.test(docNum)) {
+				Showbo.Msg.alert("请输入正确编号");
+				return;
+			}
+			$.ajax({
+				url : $.ip+'/docInfo/addDoc',
+				type : 'post',
+				data : $('#docform').serialize()+'&hospitalName='+objSearch.hospitalName+'&hospitalId='+objSearch.hospitalId,
+				dataType : 'json',
+				success : function(data) {
+					if (data.msg == "1") {
+						Showbo.Msg.alert('医生添加成功！',function () {
+							backNav();
+						})
+					} else location.reload();
+				},
+				error : function() {
+					Showbo.Msg.alert("网络出现问题，请联系管理员！");
+				}
+			});
+			setTimeout(function() { //防止与正则冲突延迟
+				var btnSubmit = document.getElementById("submit"); //防止多次点击提交
+				btnSubmit.disabled = "disabled";
+			}, 0)
+		}
+	</script>
+</html>

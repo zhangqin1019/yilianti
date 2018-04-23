@@ -1,0 +1,235 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>登录页</title>
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css"></link>
+		<link rel="stylesheet" type="text/css" href="css/showBo.css"></link>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/gVerify.js"></script>
+		<script type="text/javascript" src="js/showBo.js"></script>
+	</head>
+	<body>
+		<!--login start-->
+		<div class="login-header">
+			<div class="login-top">
+				<h3>医联体及医共体互连互通系统&nbsp;&nbsp;<span>iMUTS</span></h3>
+				<ul>
+					<li class="left"><img src="images/mobile.png" />&nbsp;联系电话:020-39281018</li>
+					<li><img src="images/email.png" />&nbsp;联系邮箱:kf@gzkwwk.com</li>
+				</ul>
+				<a href="index.html">返回首页</a>
+			</div>
+		</div>
+		<div class="login-content">
+			<div class="login-form">
+				<form id="formlog" name="formlog">
+					<div class="login-table">
+						<h3>欢迎进入iMUTS系统</h3>
+						<p>
+							<select class="select" id="creditType" name="creditType">
+								<option value="0">账号类型</option>
+								<option value="1">成员医院</option>
+								<option value="2">管理医院</option>
+								<option value="3">会诊专家</option>
+							</select>
+						</p>
+						<p>
+							<select class="select" id="userName"></select>
+							<input type="hidden" name="UserName" placeholder="用户名" id="UserName" value="">
+						</p>
+						<p>
+							<input type="Password" name="Password" placeholder="密码" id="Password" value="">
+						</p>
+						<p>
+							<div style="height: 42px;">
+								<input type="text" name="" placeholder="验证码" id="code_input" value="" class="test-content">
+								<div id="v_container"></div>
+							</div>
+						</p>
+						<p>
+							<input type="button" name="" value="登录系统" class="login-btn" id="btn1" onclick="submits()">
+						</p>
+						<p>
+							<a href="apply/signin.html">申请加入></a>
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="login-footer">
+			<div class="login-bottom">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址:广东省广州市番禺天安科技园一号楼</p>
+				<p>广东粤融实业有限公司</p>
+			</div>
+		</div>
+		<!--login end-->
+	</body>
+	<script>
+		localStorage.getItem('newWindow')&&localStorage.removeItem('newWindow');
+		String.prototype.temp = function(obj) {
+			return this.replace(/\$\w+\$/gi, function(matchs) {
+				var returns = obj[matchs.replace(/\$/g, "")];
+				return(returns + "") == "undefined" || (returns + "") == "null" ? "" : returns;
+			});
+		};
+		$.ajax({
+			url: $.ip + '/HospitalInfo/allHospital',
+			type: 'post',
+			dataType: 'json',
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			success: function(data) {
+				data.list2.unshift({
+						'userName': '选择用户'
+					}),
+					data.list1.unshift({
+						'userName': '选择用户'
+					}),
+					data.list3.unshift({
+						'userName': '选择用户'
+					});
+				var creditType = [{
+						'creditType': '账号类型'
+					}, {
+						'creditType': '成员医院'
+					}, {
+						'creditType': '管理医院'
+					}, {
+						'creditType': '会诊专家'
+					}],
+					UserName = [
+						[{
+							'userName': '选择用户'
+						}], data.list2, data.list1, data.list3
+					],
+					accountType = $('#creditType'),
+					userName = $('#userName');
+
+				function loadhtml(ele, arr) {
+					var htmltemp = '<option value="$index$" data-value="$hospitalName$$docNum$">$creditType$$userName$$hospitalName$$docName$</option>';
+					htmllist = '';
+					typeof arr === 'object' && arr.length && arr.forEach(function(key, i) {
+						key.index = i;
+						htmllist += htmltemp.temp(key);
+					})
+					ele && ele.html(htmllist);
+				}
+				loadhtml(accountType, creditType);
+				loadhtml(userName, UserName[0]);
+				accountType.change(function() {
+					var index = $(this).val();
+					loadhtml(userName, UserName[index]);
+				})
+				userName.change(function() {
+					var index = $(this).val(),
+						val = $(this).children('option').eq(index).data('value');
+					$('#UserName').val(val);
+				})
+				userName.click(function() {
+					var txt = $(this).text();
+					if(txt == '选择用户') {
+						Showbo.Msg.alert('未选择账号类型，请选择账号类型！');
+					};
+					return false;
+				})
+			},
+			error: function() {
+				Showbo.Msg.alert("网络出现问题，请联系管理员！");
+			}
+		});
+		var code_input = document.getElementById("code_input"),
+			code_GVerify;
+		var verifyCode = new GVerify({
+			id: "v_container",
+			callback: function(self) {
+				code_GVerify = code_input.value = self.options.code;
+			}
+		}); //验证码
+		code_GVerify = code_input.value = verifyCode.options.code;
+		//修改sessionStorage.setItem方法增加自定义监听事件
+		var orignalSetItem = sessionStorage.setItem;
+		sessionStorage.setItem = function(key, newValue) {
+			var setItemEvent = new Event("setItemEvent");
+			setItemEvent.newValue = newValue;
+			orignalSetItem.apply(this, arguments);
+			window.dispatchEvent(setItemEvent);
+		}
+		window.addEventListener("setItemEvent", function(e) {
+			sessionStorage.clear();
+		});
+		function submits() {
+			var creditType = document.getElementById("creditType").value;
+			if(creditType == 0) {
+				verifyCode.refresh();
+				Showbo.Msg.alert("请选择权限！");
+				return;
+			}
+			var UserName = document.getElementById("UserName").value;
+			if(UserName == "") {
+				verifyCode.refresh();
+				Showbo.Msg.alert("请输入用户名！");
+				return;
+			} else if(UserName == "专家1") {
+				document.getElementById("UserName").value = '080460';
+			}
+			var Password = document.getElementById("Password").value;
+			if(creditType == 0) {
+				verifyCode.refresh();
+				Showbo.Msg.alert("请输入密码！");
+				return;
+			}
+			var res = verifyCode.validate(code_GVerify);
+			if(!res) {
+				Showbo.Msg.alert("验证码错误");
+				return
+			}
+			var creditType = $("#creditType").val();
+			var pass = $("#Password").val();
+			if(creditType == "3") {
+				var dizhi = $.ip + '/docInfo/login';
+			} else {
+				var dizhi = $.ip + '/HospitalInfo/check';
+			}
+			$.ajax({
+				url: dizhi,
+				type: 'post',
+				data: $('#formlog').serialize(),
+				dataType: 'json',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success: function(data) {
+					if(data.msg == "0") {
+						verifyCode.refresh();
+						return Showbo.Msg.alert("请选择正确权限！");
+					} else if(data.msg == "1") {
+						verifyCode.refresh();
+						return Showbo.Msg.alert("用户或者密码不正确！");
+					} else if(data.msg == "2") {
+						verifyCode.refresh();
+						return Showbo.Msg.alert("网络出现问题，请联系管理员！");
+					} else if(data.msg == "3") {
+						verifyCode.refresh();
+						return Showbo.Msg.alert("您的账号已被注销");
+					}
+					sessionStorage.setItem = orignalSetItem;
+					sessionStorage.setItem('customerId',data.msg);
+					if(data.creditType == "1") {
+						window.location.href = "mguidePage.html?hospitalName=" + data.hospitalName + "&hospitalId=" + data.hospitalId + "&applyStatu=" + data.applyStatu;
+					} else if(data.creditType == "2") {
+						window.location.href = "sguidePage.html?hospitalName=" + data.hospitalName + "&hospitalId=" + data.hospitalId;
+					} else if(data.creditType == "3") {
+						window.location.href = "eguidePage.html?docName=" + data.docName + "&docNum=" + data.docNum;
+					}
+				},
+				error: function() {
+					Showbo.Msg.alert("网络出现问题，请联系管理员！");
+				}
+			});
+		}
+	</script>
+</html>

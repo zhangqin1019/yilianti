@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>申请信息管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="apply.html">申请信息管理</a>
+				<span>></span>
+				<a href="applyMessage.html">申请信息列表</a>
+				<span>></span>
+				<a href="applyReferral.html" class="a-last">申请信息审核</a>
+			</div>
+			<div class="apply-container" id="wrap">
+				<div class="base-top fixed">
+					<div class="top-left">
+						<input type="date" name="" class="input-pub date" />
+						<input type="hidden" name="applyId" id="applyId" value="${applyId }">
+					</div>
+				</div>
+				<div id="thirdBox">
+					<table class="table-border applyReferral"></table>
+					<table class="table-border applyReferralIdea" id="e"></table>
+					<div class="btn-group" id="es">
+						<button class="btn-info" type="button" id="unitSub">提交</button>
+						<button class="btn-info">打印</button>
+					</div>
+					<button class="btn-info" id="unitBtn" style="display: none;">进入医联体合同签署</button>
+					<p id="sams" style="display: none;">对方暂未签署合同！</p>
+					<div class="contact" id="unitContent" style="display: none;">
+						<object type="application/pdf" data="../File/oralCavity1.pdf" style=" width:100%;height:750px;margin-top:45px;" class="unitCon">
+                    </object>
+						<p><input type="radio" name="" id="contract" checked="checked">同意</p>
+						<p><textarea rows="6" id="idea_c" style="width: 95%;padding: 6px;" name="manageIdea" class="input-pub">同意贵院医联体合同签署</textarea></p>
+						<button type="button" class="btn btn-info" id="contractBtn">提交</button>
+					</div>
+					<button class="btn-info" id="protocalA" style="display: none;margin-top: 10px;" onclick="window.location.href='protocl.html'">进入合同签约管理</button>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			$("#thirdBox").slideToggle();
+			$("#e").css("display", "none");
+			$("#es").css("display", "none");
+			loadData('body').applyReferral(function (data) {
+				if(data.manageContract != 1) {
+					if(data.estatus != 1) {
+						$("#e").css("display", "table");
+						$("#es").css("display", "block");
+					} else {
+						$("#unitBtn").css("display", "block");
+					}
+				} else {
+					$("#protocalA").css("display", "block");
+				}
+				$("#unitBtn").click(function() {
+					if(data.memberContract != 1) {
+						$("#sams").css("display", "block");
+					} else {
+						$("#unitContent").css("display", "block");
+					}
+				});
+				$("#unitSub").click(function() {
+					var idea = document.getElementById("idea").value;
+					$.ajax({
+						url: $.ip + '/manage/updateState',
+						type: 'post',
+						data: {
+							"applyId": data.applyId,
+							"idea": idea,
+							"type": "estatus"
+						},
+		        		dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data1) {
+							if(data1.msg) {
+								$("#e").css("display", "none");
+								$("#es").css("display", "none");
+								Showbo.Msg.alert("已经提交意见！")
+								$("#unitBtn").css("display", "block");
+							}
+	
+						}
+					});
+				});
+				$("#contractBtn").click(function() {
+					var idea = document.getElementById("idea_c").value;
+					$.ajax({
+						url: $.ip + '/manage/updateState',
+						type: 'post',
+						data: {
+							"applyId": data.applyId,
+							"idea": idea,
+							"type": "manageContract"
+						},
+		        		dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data1) {
+							if(data1.msg) {
+								$("#unitBtn").css("display", "none");
+								$("#unitContent").css("display", "none");
+								Showbo.Msg.alert("合同签署完成！");
+								$("#protocalA").css("display", "block");
+							}
+						}
+					});
+				});
+			});
+		});
+	</script>
+</html>

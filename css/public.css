@@ -1,0 +1,96 @@
+@charset "utf-8";
+/*reset.css*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,hr,fieldset,input,textarea,select,label,p,blockquote,th,td,button {margin:0px;padding:0px;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:none;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-family: "微软雅黑";}
+.fixed:after{content: ""; display: block; height: 0; clear: both; visibility: hidden;}
+.fixed{zoom:1;}
+*html{background-image:url(about:blank);background-attachment:fixed;}
+::-moz-selection{background:#4ba9fa ; color:#fff;}
+::selection {background:#4ba9fa ; color:#fff;}
+/*公共样式*/
+html {background:#fff;font-family: "微软雅黑";}
+a {text-decoration:none; color:#028eed; cursor:pointer;}
+input,button,select,textarea{font-family: "微软雅黑";outline: none;resize: none;}
+button {cursor:pointer;overflow-x:visible;border: none}
+a:hover {text-decoration: none;color: #028eed;}
+input[type="button"],input[type="submit"]{border: none;cursor: pointer;}
+
+/*美化侧栏导航滚动条*/
+*{  
+    scrollbar-face-color:#F3F3F3; /*面子*/  
+    scrollbar-arrow-color:#C0C0C0; /*箭头*/  
+    scrollbar-3dlight-color:#C0C0C0; /*最外左*/  
+    scrollbar-highlight-color:#FFFFFF; /*左二*/  
+    scrollbar-shadow-color:#FFFFFF; /*右二*/  
+    scrollbar-darkshadow-color:#C0C0C0; /*右一*/  
+    scrollbar-track-color:#F3F3F3; /*滑道*/  
+}  
+/*滚动条整体*/  
+::-webkit-scrollbar{
+    width:12px; /*滚动条宽度*/  
+    height:17px; /*滚动条高度*/  
+}  
+/*滚动条按钮*/  
+::-webkit-scrollbar-button {  
+
+}  
+::-webkit-scrollbar-track{  
+    background-color:#F3F3F3;  /*滑道全部*/  
+}  
+::-webkit-scrollbar-track-piece{  
+    background-color:#F3F3F3;  /*滑道*/  
+    -webkit-border-radius:4px; /*滑道圆角宽度*/  
+}  
+::-webkit-scrollbar-thumb{  
+    background-color:#F3F3F3; /*滑动条表面*/  
+    border:solid 1px #C0C0C0; /*滑动条边框*/  
+    border-radius:4px;  /*滑动条圆角宽度*/  
+}  
+/*横竖滚动条交角*/  
+::-webkit-scrollbar-corner {  
+    background-color: #F3F3F3;  
+}  
+/*横竖滚动条交角图案*/  
+::-webkit-resizer {  
+    /*background-image: url(/public/img/resizer-inactive.png);*/  
+   background-repeat: no-repeat;  
+   background-position: bottom right;  
+}  
+/*鼠标滑过滑动条*/  
+::-webkit-scrollbar-thumb:hover{  
+    background-color:#F3F3E0;  
+}  
+/*所有表单元素的样式*/
+.input-pub{-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;font-size: 14px;border:1px solid #ccc;color: #444;}
+.input-pub:focus{outline: none;border-color:#028eed;box-shadow:inset 0px 1px 1px rgba(0,0,0,.075), 0 0 5px rgba(59,180,242,.3);-webkit-box-shadow:inset 0px 1px 1px rgba(0,0,0,.075), 0 0 5px rgba(59,180,242,.3);}
+.btn-pub:active{filter: grayscale(20%);}
+/*右侧公共部分*/
+.list-content{margin: 15px 15px 0px 15px;background-color: #f5f5f5;font-family: "微软雅黑";}
+.list-title{width:100%;height: 76px;line-height: 76px;background-color: #fff;}
+.list-title h3{color: #333;font-size: 18px;padding-left: 26px;}
+.list-broad{height: 42px;line-height: 42px;background-color: #f5f5f5;padding-left: 26px;}
+.list-broad a{color: #666;font-size: 14px;}
+.list-broad span{color: #666;font-size: 14px;padding: 0px 5px;}
+.list-broad a.a-last{color: #028eed;}
+.list-footer{width:100%;height: 74px;line-height: 74px;cursor: pointer;background-color: #fff;margin-top: 18px;}
+.list-footer p{color: #666;font-size: 14px;padding: 0px 26px;float: left;}
+.list-footer p.pull-right{color: #028eed;float: right;}
+/*页面延迟加载*/
+a,img{border:0;}
+.demo{margin:100px auto 0 auto;width:400px;text-align:center;font-size:18px;}
+.demo .action{color:#3366cc;text-decoration:none;font-family:"微软雅黑","宋体";}
+.overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:998;width:100%;height:100%;_padding:0 20px 0 0;background:#f6f4f5;opacity: 0.7;filter:alpha(opacity=0.7);}
+.showbox{position:fixed;top:44%;left:49%;z-index:9999;opacity:1;filter:alpha(opacity=1);margin-left:-80px;}
+ .showbox,.overlay{}
+#AjaxLoading{border:1px solid #8CBEDA;color:#37a;font-size:12px;font-weight:bold;}
+#AjaxLoading div.loadingWord{width:180px;height:50px;line-height:50px;border:2px solid #D6E7F2;background:#fff;}
+#AjaxLoading img{margin:10px 15px;float:left;display:inline;}
+/*显示隐藏样式*/
+.hide{display:none;}
+.show{display:block;}
+/*清除样式*/
+.clearShadow{box-shadow:0 0 0 0 !important;}

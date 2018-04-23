@@ -1,0 +1,635 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>椅旁会诊</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css" /><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/html2canvas.js"></script><!-- 截图js -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/AgoraRTCSDK-2.1.0.js"></script><!--视频js-->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>会诊专家 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="chairlist.html">椅旁会诊</a>
+				<span>></span>
+				<a href="chair.html" class="a-last">开始椅旁</a>
+			</div>
+			<div class="chair-container" id="wrap">
+				<div class="row fixed">
+					<div class="cols">
+						<table class="public-table epchair"></table>
+						<table>
+							<tr>
+								<td>
+									椅旁会诊意见：<textarea rows="4" id="cerecIdea" name="cerecIdea" style="width: 98%; margin: 8px;" class="input-pub"></textarea>
+								</td>
+							</tr>
+						</table>
+						<div class="btn-group center">
+							<button class="btn-info" id="sub">提交意见</button>
+							<button class="btn-info backnav">返回</button>
+						</div>
+					</div>
+					<div class="cols" id="videoWrap">
+						<div id="div_device" class="panel panel-default" style="display: none">
+							<div class="select">
+								<label for="audioSource">Audio source: </label>
+								<select id="audioSource"></select>
+							</div>
+							<div class="select">
+								<label for="videoSource">Video source: </label>
+								<select id="videoSource"></select>
+							</div>
+						</div>
+						<div id="div_join" class="panel panel-default">
+							<div class="panel-body">
+								<button id="join" class="btn btn-info">开始椅旁</button>
+								<button id="leave" class="btn btn-info" disabled="disabled">结束</button>
+								<button id="screenshot" class="btn btn-info">截图留档</button>
+								<button id="FullScreen" class="btn btn-info">全屏</button>
+								<div style="display: none;">
+									<!--Key: <input id="key" type="text" value="" size="36">
+									Channel: <input id="channel" type="text" value="1000" size="4">-->
+									Host: <input id="video" type="checkbox" >
+								</div>
+							</div>
+						</div>
+						<div id="video" class="video" style="margin: 0 auto; overflow: hidden;padding:10px;box-sizing:border-box; width: 100%; position: relative;background:url(../images/chair.jpg) center no-repeat;background-size:contain;background-origin: content-box;">
+							<div id="agora_local" class="tabvideosmall" style="position: absolute; z-index: 9999; width: 100%; height: 100%;"></div>
+						</div>
+						<canvas width="100" height="100" style="background: #000;display: none;"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		loadData('body').epchair(function(data) {
+			var Idea = $("#cerecIdea"),
+				vKey = {'value':data.chairId},
+				vChannel = {'value':data.channel},
+				conId = ld.objSearch.conId||data.conId,
+				jump = 2,
+				hospitalName = data.categoryHospital,
+				hospitalId = data.hospitalId,
+				docNum = data.specialistId,
+				docName = data.specialist,
+				infId = '',
+				onoffconsole = $.onoffconsole;
+			ld.yz = true;//视频验证boolean
+			//开始视频
+			$('#join').click(join);
+			//结束视频
+			$('#leave').click(leave);
+			//提交意见
+			$("#sub").click(function() {
+				var cerecIdea = Idea.val();
+				$.ajax({
+					url: $.ip + '/docInfo/Opinion',
+					type: 'post',
+					data: {
+						"jump": jump,
+						"msgOpinion": cerecIdea,
+						"typeOpinion":'cerecIdea',
+						"docName":docName,
+						"conId": conId
+					},
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.msg == "1") {
+							Showbo.Msg.alert("已提交意见！")
+						} else {
+							Showbo.Msg.alert("网络延迟，请稍后重试！")
+						}
+					},
+					error: function() {
+						Showbo.Msg.alert("网络出现问题，请联系管理员！");
+					}
+				});
+			})
+			//截图功能
+			$('#screenshot').click(function() {
+				var cvas = $('canvas')[0],
+					context = cvas.getContext('2d'),
+					video = $('video');
+					video.each(function(i) {
+					cvas.width = video.eq(i).width();
+					cvas.height = cvas.width * 9 / 16;
+					context.clearRect(0, 0, cvas.width, cvas.height);
+					context.save();
+					context.drawImage(video[i], 0, 0, cvas.width, cvas.height);
+					context.restore();
+					var url = cvas.toDataURL('image/png');
+					video[i].style.background = 'url(' + url + ') no-repeat center';
+				})
+				html2canvas($('#wrap')[0]).then(function(canvas) {
+					canvas.style.display = 'none';
+					cxt = canvas.getContext('2d');
+					var urls = canvas.toDataURL('image/png');
+					document.body.appendChild(canvas);
+					var allElem = $('*');
+					allElem.each(function(i) {
+						var id = allElem.eq(i).attr('id');
+						allElem.eq(i).attr('id', id);
+					})
+					takeScreenshot(urls);
+				});
+			});
+			//截图功能
+			function takeScreenshot(urls) {
+				Showbo.Msg.wait('正在截图留档...', '请等待');
+				$.ajax({
+					url: $.ip + '/docfiles/addfiles',
+					type: 'post',
+					data: {
+						"image": urls,
+						"conId": conId,
+						"type": "2"
+					},
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.msg == 1) {
+							Showbo.Msg.alert('留档成功！');
+						} else if(data.msg == 0) {
+							Showbo.Msg.alert('网络延迟，请稍后重试！');
+						} else {
+							Showbo.Msg.alert('E+网络延迟，请稍后重试！');
+							onoffconsole && console.log(data.err);
+						}
+					}
+				});
+			}
+			var client, localStream, camera, microphone;
+			var audioSelect = document.querySelector('select#audioSource');
+			var videoSelect = document.querySelector('select#videoSource');
+			var videoS = document.getElementById('agora_local');
+			var otherUid = null;
+			function poen(open,callback) {
+				if(open == "yes") {
+					document.getElementById("join").disabled = true;
+					document.getElementById("leave").disabled = false;
+					document.getElementById("video").disabled = true;
+					var dynamic_key = null;
+					onoffconsole && console.log("Init AgoraRTC client with vendor key: " + vKey.value);
+					client = AgoraRTC.createClient({
+						mode: 'interop'
+					});
+					client.init(vKey.value, function() {
+						onoffconsole && console.log("AgoraRTC client initialized");
+						client.join(dynamic_key, vChannel.value, null, function(uid) {
+							onoffconsole && console.log("User " + uid + " join channel successfully");
+							if(document.getElementById("video").checked) {
+								camera = videoSource.value;
+								microphone = audioSource.value;
+								localStream = AgoraRTC.createStream({
+									streamID: uid,
+									audio: false,
+									cameraId: camera,
+									microphoneId: microphone,
+									video: document.getElementById("video").checked,
+									screen: false
+								});
+								if(document.getElementById("video").checked) {
+									localStream.setVideoProfile('1080p_3');
+								}
+								localStream.init(function() {
+									onoffconsole && console.log("getUserMedia successfully");
+									localStream.play('agora_local');
+
+									client.publish(localStream, function(err) {
+										onoffconsole && console.log("Publish local stream error: " + err);
+									});
+
+									client.on('stream-published', function(evt) {
+										onoffconsole && console.log("Publish local stream successfully");
+									});
+								}, function(err) {
+									onoffconsole && console.log("getUserMedia failed", err);
+								});
+							}
+							typeof callback === 'function' && callback();
+						}, function(err) {
+							onoffconsole && console.log("Join channel failed", err);
+						});
+					}, function(err) {
+						onoffconsole && console.log("AgoraRTC client init failed", err);
+					});
+					channelKey = "";
+					client.on('error', function(err) {
+						onoffconsole && console.log("Got error msg:", err.reason);
+						if(err.reason === 'DYNAMIC_KEY_TIMEOUT') {
+							client.renewChannelKey(channelKey, function() {
+								onoffconsole && console.log("Renew channel key successfully");
+							}, function(err) {
+								onoffconsole && console.log("Renew channel key failed: ", err);
+							});
+						}
+					});
+					client.on('stream-added', function(evt) {
+						var stream = evt.stream;
+						onoffconsole && console.log("New stream added: " + stream.getId());
+						onoffconsole && console.log("Subscribe ", stream);
+						client.subscribe(stream, function(err) {
+							onoffconsole && console.log("Subscribe stream failed", err);
+						});
+					});
+					client.on('stream-subscribed', function(evt) {
+						var stream = evt.stream;
+						otherUid = stream.getId();
+						onoffconsole && console.log("Subscribe remote stream successfully: " + stream.getId());
+						if($('div#video #agora_remote' + stream.getId()).length === 0) {
+							var ids = stream.getId();
+							$('div#video').append('<div id="agora_remote' + ids + '" style="float:left; width:100%;height:100%;display:inline-block;"></div>');
+						}
+						stream.play('agora_remote' + stream.getId());
+					});
+					client.on('stream-removed', function(evt) {
+						var stream = evt.stream;
+						stream.stop();
+						$('#agora_remote' + stream.getId()).remove();
+						onoffconsole && console.log("Remote stream is removed " + stream.getId());
+					});
+					client.on('peer-leave', function(evt) {
+						var stream = evt.stream;
+						leave();
+						if(stream) {
+							stream.stop();
+							$('#agora_remote' + stream.getId()).remove();
+							$('#agora_local').children().remove();
+							Showbo.Msg.alert('对方已退出远程会诊！');
+							onoffconsole && console.log(evt.uid + " leaved from this channel");
+						}
+					});
+				}
+			}
+			function leave() {
+				document.getElementById("join").disabled = false;
+				document.getElementById("leave").disabled = true;
+				$('#agora_remote' + otherUid).remove();
+				client.leave(function() {
+					onoffconsole && console.log("Leavel channel successfully");
+				}, function(err) {
+					onoffconsole && console.log("Leave channel failed");
+				});
+			}
+			function publish() {
+				//document.getElementById("publish").disabled = true;
+				//document.getElementById("unpublish").disabled = false;
+				client.publish(localStream, function(err) {
+					onoffconsole && console.log("Publish local stream error: " + err);
+				});
+			}
+			function unpublish() {
+				//document.getElementById("publish").disabled = false;
+				//document.getElementById("unpublish").disabled = true;
+				client.unpublish(localStream, function(err) {
+					onoffconsole && console.log("Unpublish local stream failed" + err);
+				});
+			}
+			//audioSelect.onchange = getDevices;
+			//videoSelect.onchange = getDevices;
+			//getDevices();
+			function getDevices() {
+				AgoraRTC.getDevices(function(devices) {
+					for(var i = 0; i !== devices.length; ++i) {
+						var device = devices[i];
+						var option = document.createElement('option');
+						option.value = device.deviceId;
+						if(device.kind === 'audioinput') {
+							option.text = device.label || 'microphone ' + (audioSelect.length + 1);
+							audioSelect.appendChild(option);
+						} else if(device.kind === 'videoinput'&&device.label.search(/Logitech/) != -1) {
+							ld.label = device.label;
+							onoffconsole && console.log(device);
+							option.text = device.label || 'camera ' + (videoSelect.length + 1);
+							videoSelect.appendChild(option);
+						} else {
+							//onoffconsole && console.log('Some other kind of source/device: ', device);
+						}
+					}
+				});
+			}
+			var typ = sessionStorage.getItem('typ')||'';
+			if(typ == 2){
+				join();
+			}
+			function join() {
+				ld.label=true;
+				if(!ld.label){
+					Showbo.Msg.buttons={'no': '退出视频'};
+					Showbo.Msg.confirm('请确认摄像头是否安装！',function (bool) {
+						if (bool) {
+							getDevices();
+							join();
+						} else{
+							var infoId = sessionStorage.getItem('infId');
+							updateRefused(infoId,'no');
+							sessionStorage.removeItem('infId');
+							sessionStorage.getItem('typ') && sessionStorage.removeItem('typ');
+							typ = '';
+						}
+					});
+					return false;
+				}
+				if(isNaN(String(docNum))||docNum=='') {
+					Showbo.Msg.alert("还未分配专家，无法进行椅旁会诊");
+					return false;
+				}
+				if(typ == 2) {
+					typ = '';
+					sessionStorage.removeItem('typ');
+					var infoId = sessionStorage.getItem('infId');
+					updateRefused(infoId,'yes');
+					sessionStorage.removeItem('infId');
+					onoffconsole&&console.log(jump,conId,hospitalId,docNum);
+					$.ajax({
+						url: $.ip + '/docInform/checkMessage',
+						type: 'post',
+						async: false,
+						data: {
+							"docNum": docNum
+						},
+						dataType: 'json',
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							onoffconsole&&console.log(data);
+							if(data.msg == "1") {
+								poen("yes");
+							}else{
+								Showbo.Msg.alert("视频请求已超时！");
+							}
+						}
+					});
+				} else {
+					poen('yes',function () {
+						$.ajax({
+							url: $.ip + '/docInform/infoMessage',
+							type: 'post',
+							async: false,
+							data: {
+								"jump": jump,
+								"conId": conId,
+								"hospitalId": hospitalId,
+								"docNum": docNum
+							},
+							dataType: 'json',
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success: function(data) {
+								if(data.msg == "1") {
+									$.ajax({
+										url: $.ip + '/docInform/updateMessage',
+										type: 'post',
+										async: false,
+										data: {
+											"infId": data.map.infId
+										},
+										dataType: 'json',
+										xhrFields: {
+											withCredentials: true
+										},
+										crossDomain: true,
+										success: function(data) {
+											onoffconsole && console.log(data);
+										},
+										error: function(data) {
+											onoffconsole && console.log(data.err);
+										}
+									})
+								}
+							}
+						});
+						$.ajax({
+							url: $.ip + '/docInform/addMessage',
+							type: 'post',
+							async: true,
+							data: {
+								"jump": jump,
+								"conId": conId,
+								"hospitalName": hospitalName,
+								"hospitalId": hospitalId,
+								"docNum": docNum,
+								"docName": docName
+							},
+							dataType: 'json',
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success: function(data) {
+								infId = data.infId;
+								onoffconsole && console.log('infId:',infId);
+								if(data.msg == "a") {
+									Showbo.Msg.wait('正在连接对方...', '请等待');
+									var i = 0;
+									var ean = "a";
+									var timer = window.setInterval(function() {
+										i++;
+										$.ajax({
+											url: $.ip + '/docInform/infoMessage',
+											type: 'post',
+											async: true,
+											data: {
+												"hospitalId": hospitalId,
+												"docNum": docNum,
+												"conId": conId,
+												"jump": jump
+											},
+											dataType: 'json',
+											xhrFields: {
+												withCredentials: true
+											},
+											crossDomain: true,
+											success: function(data) {
+												onoffconsole&&console.log(data.map.combool);
+												if(data.map.combool == "1") {
+													var infId=data.map.infId;
+													Showbo.Msg.hide();
+	//												v(infId)
+													ean = "b";
+												} else if(data.map.combool == "2") {
+													ean = "b";
+													Showbo.Msg.alert("对方已拒绝！",function () {
+														leave();
+													});
+												} else {
+													if(i == 6) {
+														ean = "b";
+														Showbo.Msg.alert("对方可能不在，请您稍后再试！",function () {
+															leave();
+														});
+													}
+												}
+												if(ean == "b") {
+													$.ajax({
+														url: $.ip + '/docInform/updateMessage',
+														type: 'post',
+														async: true,
+														data: {
+															"infId": data.map.infId
+														},
+														dataType: 'json',
+														xhrFields: {
+															withCredentials: true
+														},
+														crossDomain: true,
+														success: function(data) {
+	
+														},
+														error: function(data) {
+															onoffconsole && console.log(data.err);
+														}
+													})
+													clearInterval(timer);
+												}
+											}
+										})
+									}, 5000);
+								}
+							},
+							error: function() {
+								Showbo.Msg.alert("网络出现问题，请联系管理员！");
+							}
+						});
+					});
+				}
+			}
+			//是否接受视频
+			function updateRefused(infId,yesno) {
+				$.ajax({
+					url: $.ip+'/docInform/updateRefused',
+					type:'post', 
+					async: false,
+					data:{
+						"infId":infId,
+						"yesno":yesno
+					},
+					dataType :'json',
+					xhrFields: {
+			            withCredentials: true
+			      	},
+       				crossDomain: true,
+					success:function(data){
+						console.log(data);
+					},
+					error:function(data){
+						console.log(data.err);
+					}
+			 	});
+			}
+			function v(infId){
+				var i=0,ean="a";
+				ld.yz = false;
+				Showbo.Msg.wait('对方正在进行身份验证', '请等待');
+				var timevv = setInterval(function() {
+					onoffconsole && console.log("timevv");
+					
+					$.ajax({
+						url: $.ip+'/docInform/infoVerify',
+						type: 'post',
+						async: true,
+						data: {
+							"infId": infId														
+						},
+						dataType: 'json',
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data1) {
+							onoffconsole && console.log(data1);
+							if(data1.map.verify=="1"){
+								ean="b";
+								open = "yes";
+								poen(open);
+								Showbo.Msg.alert('对方身份验证成功!');
+							}else if(data1.map.verify=="2"){
+								ean="b";
+								Showbo.Msg.alert('对方身份验证失败!');
+								document.getElementById("join").disabled = false;
+								document.getElementById("video").disabled = false;
+							}else{
+								if(i==9){
+									ean="b";
+									Showbo.Msg.alert('对方身份验证超时!');
+									document.getElementById("join").disabled = false;
+									document.getElementById("video").disabled = false;
+								}	
+							}
+							if(ean=="b"){
+								clearInterval(timevv);
+								var t1 = window.setTimeout(function(){
+									Showbo.Msg.hide();
+								},1500);
+								ld.yz=true;
+							}
+						}
+					});
+					
+					i++;
+				},5000);
+			}
+			//窗口关闭前事件
+			window.addEventListener('beforeunload',function () {
+				leave();
+				if(infId) {
+					$.ajax({
+						url: $.ip+'/docInform/updateMessage',
+						type: 'post',
+						async: true,
+						data: {
+							"infId": infId
+						},
+						dataType: 'json',
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+	
+						},
+						error: function(data) {
+							onoffconsole && console.log(data.err);
+						}
+					})
+				}
+				
+			});
+		});
+	</script>
+</html>

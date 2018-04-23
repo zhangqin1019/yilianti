@@ -1,0 +1,378 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>会诊申请</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/tab.js"></script><!-- 界面js -->
+		<script type="text/javascript" src="../js/crypto-min.js"></script><!-- oss -->
+		<script type="text/javascript" src="../js/hmac-min.js"></script><!-- oss -->
+		<script type="text/javascript" src="../js/sha1-min.js"></script><!-- oss -->
+		<script type="text/javascript" src="../js/base64.js"></script><!-- oss -->
+		<script type="text/javascript" src="../js/plupload.full.min.js"></script><!-- oss -->
+		<script type="text/javascript" src="../js/oss-upload.js"></script><!-- oss -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="consapplylist.html">会诊申请</a>
+				<span>></span>
+				<a href="border.html" class="a-last">会诊申请表</a>
+			</div>
+			<div class="border-container" id="wrap">
+				<div class="box">
+					<ul class="tab_menu">
+						<li id="jb" class="current">
+							<a>基本信息</a>
+						</li>
+						<li id="tp">
+							<a>检查资料</a>
+						</li>
+					</ul>
+					<div class="tab_box" id="xinxi">
+						<div class="first-tab">
+							<form id="formd" name="formd">
+								<table class="noBorder public-table">
+									<tr>
+										<td>
+											<label>患者编号：</label>
+											<input type="text" readonly="readonly" id="patientNo" name="patientNo" value="" style="width: 50%;" class="input-pub">
+											<button type="button" id="createPatientNo" style="margin:0;" class="btn btn-info btn-large">生成</button>
+										</td>
+										<td>
+											<label for="patientName">患者姓名：</label>
+											<input type="text" id="patientName" name="patientName" value="" style="width: 60%;" class="input-pub">
+										</td>
+										<td>
+											<label for="groupType">会诊类型：</label>
+											<select id="groupType" name="groupType" style="display: inline-block; width: 50%;" class="input-pub">
+												<option value="普通会诊" selected="selected">普通会诊</option>
+												<option value="紧急会诊">紧急会诊</option>
+											</select>
+										</td>
+										<td>
+											<label for="phone">患者手机号：</label>
+											<input type="text" class="input-pub" name="phone" id="phone" value="" />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="age">年龄：</label>
+											<input type="text" id="age" name="age" value="" style="width: 60%;" class="input-pub">
+										</td>
+										<td>
+											<label for="sex">性别：</label>
+											<select id="sex" name="sex" style="display: inline-block; width: 57%;" class="input-pub">
+												<option value="男" selected="selected">男</option>
+												<option value="女">女</option>
+											</select>
+										</td>
+										<td>婚姻：</td>
+										<td>孕-产-经史：</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="complain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主诉：</label>
+											<textarea id="complain" name="complain" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="present">&nbsp;&nbsp;&nbsp;现病史：</label>
+											<textarea id="present" name="present" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="past">&nbsp;&nbsp;&nbsp;既往史：</label>
+											<textarea id="past" name="past" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="examine">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检查：</label>
+											<textarea id="examine" name="examine" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="initial">初步诊断：</label>
+											<textarea id="initial" name="initial" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label for="curePlan">治疗计划：</label>
+											<textarea id="curePlan" name="curePlan" style="width: 90%;" class="input-pub"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="bh">基层医生编号：</label>
+											<input type="text" readonly="readonly" id="doctorNo" name="doctorNo" value="" style="width: 50%;" class="input-pub">
+											<button type="button" id="createDoctorNo" style="margin:0;" class="btn btn-info btn-large">生成</button>
+										</td>
+										<td>
+											<label for="doctorName">基层医生姓名：</label>
+											<input type="text" id="doctorName" name="doctorName" value="" style="width: 60%;" class="input-pub">
+										</td>
+										<td>
+											<label for="juniorId">申请专科：</label>
+											<select id="juniorId" name="juniorId" style="display: inline-block; width: 57%;" class="input-pub">
+												<option>选择类型</option>
+												<option value="OMJ">OMJ</option>
+												<option value="TMJ">TMJ</option>
+												<option value="OML">OML</option>
+												<option value="Otho">Otho</option>
+											</select>
+										</td>
+										<td>
+											<label for="groupDate">会诊时间：</label>
+											<input type="datetime-local" id="groupDate" name="groupDate" value="" style="min-width:172px;width: 53%;" class="input-pub">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="groupHospital">会诊医院：</label>
+											<input type="text" id="groupHospital" name="groupHospital" readonly="readonly" value="省人民医院" style="width: 60%;" class="input-pub">
+										</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+								<div class="btn-group center">
+									<button type="button" id="submit" class="btn btn-info btn-large">提交</button>
+									<button type="button" class='btn-info backnav'>返回</button>
+								</div>
+							</form>
+						</div>
+						<div id="tu" class="hide">
+							<div class="fileBox public-table">
+								<div class="fileOne">
+									患者编号：<input type="text" id="patientNo1" class="input-pub" name="patientNo1" value="" />&nbsp;&nbsp;&nbsp;&nbsp;
+									基层医生编号：<input type="text" id="doctorNo1" class="input-pub" name="doctorNo1" value="" />
+									<input type="hidden" id="conId" name="conId" value="" />
+									<span id="spanss" style="color:red;"></span>
+								</div>
+								<div class="fileOne">
+									<h2>病历资料上传</h2>
+									<div id="container1">
+										<a id="selectfiles1" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="historyurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>检查资料上传</h2>
+									<div id="container2">
+										<a id="selectfiles2" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="examineurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>B超资料上传</h2>
+									<div id="container3">
+										<a id="selectfiles3" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="bmodeurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>X光资料上传</h2>
+									<div id="container4">
+										<a id="selectfiles4" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="xrayurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>病理资料上传</h2>
+									<div id="container5">
+										<a id="selectfiles5" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="pathologyurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>PACS影像上传</h2>
+									<div id="container6">
+										<a id="selectfiles6" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="pacsurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+								<div class="fileOne">
+									<h2>扫描文件上传</h2>
+									<div id="container7">
+										<a id="selectfiles7" href="javascript:void(0);" class='file-btn'><i class="icon-btn selfile-btn"></i>选择文件</a>
+										<a class="selectall file-btn" href="javascript:void(0);"><i class="icon-btn all-btn"></i>全选</a>
+										<a class="inverse file-btn" href="javascript:void(0);"><i class="icon-btn invert-btn"></i>反选</a>
+										<a class="uncheck file-btn" href="javascript:void(0);"><i class="icon-btn uncheck-btn"></i>不选</a>
+										<a class="delete file-btn" href="javascript:void(0);"><i class="icon-btn del-btn"></i>删除</a>
+									</div>
+									<div id="scanurl" class="pro-btn fixed">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+								</div>
+							</div>
+							<div class="fileOne text-center">
+								<a id="postfiles" href="javascript:void(0);" class='file-btn'><i class="icon-btn upload-btn"></i>开始上传</a>
+								<a id="stopfiles" href="javascript:void(0);" class='file-btn'><i class="icon-btn pause-btn"></i>暂停上传</a>
+								<button class='btn-info backnav' style="margin:0;">返回</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			var objSearch = $.objSearch;
+			//oos
+			upload('selectfiles1', 'container1', 'historyurl');
+			upload('selectfiles2', 'container2', 'examineurl');
+			upload('selectfiles3', 'container3', 'bmodeurl');
+			upload('selectfiles4', 'container4', 'xrayurl');
+			upload('selectfiles5', 'container5', 'pathologyurl');
+			upload('selectfiles6', 'container6', 'pacsurl');
+			upload('selectfiles7', 'container7', 'scanurl');
+			$(".box").Tabs({
+				event: 'click'
+			});
+			$("#submit").click(function() {
+				var doctorNo = document.getElementById("doctorNo").value;
+				var patientNo = document.getElementById("patientNo").value;
+				var groupDate = document.getElementById("groupDate").value;
+				var age = document.getElementById("age").value;
+				if(doctorNo == "" || patientNo == "") {
+					Showbo.Msg.alert("请生成编号！");
+					return false;
+				}
+				if(groupDate == "") {
+					Showbo.Msg.alert("请填写拟会诊日期！");
+					return false;
+				}
+				if(age == "") {
+					Showbo.Msg.alert("请填写年龄！");
+					return false;
+				}
+				$.ajax({
+					url: $.ip + '/consu/borderAdd',
+					type: 'post',
+					dataType: 'json',
+					data: $("#formd").serialize()+'&hospitalId='+objSearch.hospitalId+'&hospitalName='+objSearch.hospitalName,
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.msg == "1") {
+							$("input[id=patientNo1]").val(data.patientNo);
+							$("input[id=doctorNo1]").val(data.doctorNo);
+							$("input[id=patientNo1]").attr("readOnly", "true");
+							$("input[id=doctorNo1]").attr("readOnly", "true");
+							$(".tab_box").children("div").eq(0).addClass("hide");
+							$(".tab_box").children("div").eq(1).removeClass("hide");
+							$(".tab_menu").children("li").eq(0).removeClass("current");
+							$(".tab_menu").children("li").eq(1).addClass("current");
+						}
+					}
+				});
+			});
+			function judgeNo() {
+				var doctorNo = document.getElementById("doctorNo");
+				var patientNo = document.getElementById("patientNo");
+				$.ajax({
+					url: $ + ip + "/member/judgeNo",
+					type: 'post',
+					data: {
+						"patientNo": patientNo,
+						"doctorNo": doctorNo
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(!data.msg) {
+							Showbo.Msg.alert("该患者编号已有,请重新输入")
+						}
+
+					}
+				});
+			}
+			$("#createDoctorNo").click(function() {
+				$.ajax({
+					url: $.ip + "/member/createDoctor",
+					type: 'post',
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						$("#doctorNo").val(data.random);
+						setTimeout(function() { //防止与正则冲突延迟
+							var btnSubmit = document.getElementById("createDoctorNo"); //防止多次点击提交
+							btnSubmit.disabled = "disabled";
+						}, 0)
+					}
+				});
+			});
+			$("#createPatientNo").click(function() {
+				$.ajax({
+					url: $.ip + "/member/createPatient",
+					type: 'post',
+					dataType: 'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						$("#patientNo").val(data.random);
+						setTimeout(function() { //防止与正则冲突延迟
+							var btnSubmit = document.getElementById("createPatientNo"); //防止多次点击提交
+							btnSubmit.disabled = "disabled";
+						}, 0)
+					}
+				});
+			});
+		});
+	</script>
+</html>

@@ -1,0 +1,342 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>统计数据管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="count.html" class="a-last">统计数据管理</a>
+			</div>
+			<div class="count-container fixed" id="wrap">
+				<div class="count-left fixed">
+					<div class="table-item" id="eCharts">
+						<p onmouseover="Page($('iframe').eq(0),0,'pie')" >数据统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts2">
+						<p onmouseover="Page($('iframe').eq(0),1,'pie')" >远程医院统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts3">
+						<p onmouseover="Page($('iframe').eq(0),2,'pie')" >远程教学培训统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请医院总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已加入医院总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>资料完整待审总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>待需要补充资料总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>待成员医院确认总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>成员医院退出总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>退档总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>其他</td>
+									<td>6</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts4">
+						<p onmouseover="Page($('iframe').eq(0),3,'pie')" >专科统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>TMJ</td>
+									<td>15</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>OML</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>OTHO</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXX</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>XXXXX</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXXXXX</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>XXXXXXX</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts5">
+						<p onmouseover="Page($('iframe').eq(0),4,'pie')" >双向转诊统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>已申请上转总数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已安排门诊总数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>已安排入院总数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>已通知下转总数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>已下转总数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>未下转总数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>其他</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+					<div class="table-item" id="eCharts6">
+						<p onmouseover="Page($('iframe').eq(0),5,'pie')" >疗后追踪统计</p>
+						<div class="count-table">
+							<table>
+								<tr>	
+									<td>追踪人数</td>
+									<td>100</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>可访问人数</td>
+									<td>20</td>
+									<td><a href="">详情</a></td>
+								</tr>			
+								<tr>	
+									<td>接收访问人数</td>
+									<td>30</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>按约复诊人数</td>
+									<td>25</td>
+									<td><a href="">详情</a></td>
+								</tr>	
+								<tr>	
+									<td>情况稳定人数</td>
+									<td>10</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>失去联系人数</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+								<tr>	
+									<td>其他</td>
+									<td>5</td>
+									<td><a href="">详情</a></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="count-right">
+					<div class="table-item charts" id="eWrap1">
+						<p>图表区域</p>
+						<div class="content" style="max-height:0;overflow: hidden;">
+							<iframe src="../Echarts/countEchart.html?search=0#type=pie" width="100%" height="100%" frameborder="0" style="overflow: hidden;"></iframe>
+						</div>
+					</div>
+					<script type="text/javascript">
+						document.onreadystatechange = function () {
+							if (document.readyState == 'complete') {
+								storage($('#eCharts p'),$('#eCharts tr td:nth-of-type(1)'),$('#eCharts tr td:nth-of-type(2)'),'countjson1');
+								storage($('#eCharts2 p'),$('#eCharts2 tr td:nth-of-type(1)'),$('#eCharts2 tr td:nth-of-type(2)'),'countjson2');
+								storage($('#eCharts3 p'),$('#eCharts3 tr td:nth-of-type(1)'),$('#eCharts3 tr td:nth-of-type(2)'),'countjson3');
+								storage($('#eCharts4 p'),$('#eCharts4 tr td:nth-of-type(1)'),$('#eCharts4 tr td:nth-of-type(2)'),'countjson4');
+								storage($('#eCharts5 p'),$('#eCharts5 tr td:nth-of-type(1)'),$('#eCharts5 tr td:nth-of-type(2)'),'countjson5');
+								storage($('#eCharts6 p'),$('#eCharts6 tr td:nth-of-type(1)'),$('#eCharts6 tr td:nth-of-type(2)'),'countjson6');
+							}
+						}
+						function storage(obj1,obj2,obj3,name) {
+							function mydata() {
+								var str = '{';
+								str += '"title":"' + obj1.eq(0).text() + '","data":[';
+								obj2.each(function(i) {
+									var dataname = obj2.eq(i).text();
+									var datavalue = parseFloat(obj3.eq(i).text());
+									str += '{"value": "'+datavalue+'","name": "'+dataname+'"},';
+								});
+								str = str.slice(-str.length,-1);
+								str+=']}';
+								return str;
+							};
+							localStorage.setItem(name,mydata());
+						}
+						function Page(obj,num,type) {
+							
+							if (obj.attr('src').search('search='+num) == -1) {
+								obj.attr('src', "../Echarts/countEchart.html?search=" + num + '#type=' + type);
+							}
+						};
+					</script>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+</html>

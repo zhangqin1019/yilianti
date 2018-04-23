@@ -1,0 +1,120 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>远程视频</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/phototeken.css" /><!-- 显示样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css" /><!-- 弹窗 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css" /><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/html2canvas.js"></script><!-- 截图js -->
+		<script type="text/javascript" src="../js/AgoraRTCSDK-2.1.0.js"></script><!--视频js-->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- popupjs -->
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=hsul7RuZ1G9Zp7kn3t17RuBYn8OEBt1C&s=1"></script>
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程诊疗</a>
+				<span>></span>
+				<a href="consultationlist.html">远程阅片</a>
+				<span>></span>
+				<a href="userinfo.html">远程阅片详情</a>
+				<span>></span>
+				<a href="video.html" class="a-last">远程视频</a>
+			</div>
+			<div class="expert-container" id="wrap">
+				<div class="row fixed">
+					<div class="cols">
+						<div class="videohtml"></div>
+						<div class="btn-group center">
+							<button class="btn-info backnav">返回</button>
+						</div>
+					</div>
+					<div class="cols" id="videoWrap">
+						<div id="div_device" class="panel panel-default" style="display: none">
+							<div class="select">
+								<label for="audioSource">Audio source: </label>
+								<select id="audioSource"></select>
+							</div>
+							<div class="select">
+								<label for="videoSource">Video source: </label>
+								<select id="videoSource"></select>
+							</div>
+						</div>
+						<div id="div_join" class="panel panel-default" style="position:relative;">
+							<div class="panel-body">
+								<button id="join" class="btn btn-info">开始</button>
+								<button class="btn btn-info">离开</button>
+								<button class="btn btn-info">身份验证</button>
+								<button class="btn btn-info">截图留档</button>
+								<button class="popupBtn popbtn-info">诊疗地址定位</button>
+								<button class="btn btn-info">全屏</button>
+								<div style="display: none;">
+									Key: <input id="key" type="text" value="" size="36"> Channel: <input id="channel" type="text" value="1000" size="4"> Host: <input id="video" type="checkbox" checked>
+								</div>
+							</div>
+						</div>
+						<div id="video" class="video" style="margin: 0 auto; overflow: hidden;padding:10px;box-sizing:border-box; width: 100%; position: relative;background:url(../images/video.jpg) center no-repeat;background-size:contain;background-origin: content-box;">
+							<div id="agora_local" class="tabvideosmall" style="position: absolute; z-index: 9999; width: 100%; height: 100%;"></div>
+						</div>
+						<canvas width="100" height="100" style="background: #000;display: none;"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		loadData('body').videohtml(function(data) {
+			var that = this,
+				lddata = data,
+				jump = 1,
+				conId = ld.objSearch.id||data.conId,
+				hospitalName = ld.objSearch.hospitalName,
+				hospitalId = ld.objSearch.hospitalId,
+				onoffconsole=$.onoffconsole;
+			//打开视频窗口
+			$('#join').click(join);
+			var typ= sessionStorage.getItem('typ')||'';
+			if(typ==1){
+				sessionStorage.removeItem('typ');
+				typ = '';
+				localStorage.setItem('vwtyp',1);
+				localStorage.setItem('infId',sessionStorage.getItem('infId'));
+				join();
+			}
+			function join(){
+				if (sessionStorage.getItem('newWindow')!='true') {
+					openHtml();
+				}
+			}
+			function openHtml() {
+				var iTop = 13,
+				iHeight = (parent.window||window).innerHeight,
+				iWidth = (parent.window||window).innerWidth;
+				localStorage.setItem('newWindow','true');
+				sessionStorage.setItem('newWindow','true');
+				window.open('videoWindow.html?id=' + conId + '&hospitalName=' + $.objSearch.hospitalName + '&hospitalId=' + $.objSearch.hospitalId,'','height=' + iHeight + ', width=' + iWidth + ', top=' + iTop);
+			}
+		});
+	</script>
+</html>

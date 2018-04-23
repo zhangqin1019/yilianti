@@ -1,0 +1,348 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>分布信息管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/><!--高德地图API-->
+		<script src="https://webapi.amap.com/maps?v=1.4.0&key=bb45c28f71a0d78e0a0a324cca284974"></script><!--高德地图API-->
+		<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script><!--高德地图API-->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="area.html" class="a-last">分布信息管理</a>
+			</div>
+			<div class="area-container" id="wrap">
+				<div class="row fixed">
+					<div class="cols7">
+						<p>医联体成员医院动态地图</p>
+	                    <div id="allmap" style="height: 400px;"></div>
+					</div>
+					<div class="cols3">
+						<table class="table-border">
+							<tr>
+								<td>其他链接</td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">成员医院管理</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">双向转诊</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">远程诊疗</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">疗后管理</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">专科共建</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">远程协作</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">医联体建设</a></td>
+							</tr>
+							<tr>
+								<td><a href="javaScript:void(0)">大数据管理</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="non" id="table">
+					<table class="table-border">
+		                <caption><h3>基础信息 —— 广东江门第一人民医院</h3></caption>                          
+		                <thead>
+		                    <tr>
+		                        <th style="text-align: left;" colspan="6">一、医院基本信息</th>                             
+		                    </tr>
+		                </thead> 
+		                <tbody>
+		                    <tr>
+		                        <td >医院名称</td>
+		                        <td colspan="3">广东江门第一人民医院</td>
+		                        <td>性质</td>
+		                        <td>
+		                            <input type="radio" name="radio16" id="" value="" checked="checked">国有
+		                            <input type="radio" name="radio16" id="" value="" />民营
+		                            <input type="radio" name="radio16" id="" value="" />其他
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>医院地址</td>
+		                        <td colspan="3">广东省江门市越秀区 北京路01号</td>
+		                        <td>等级</td>
+		                        <td>
+		                            <input type="radio" name="radio17" id="" value="" checked="checked"/>二甲
+		                            <input type="radio" name="radio17" id="" value="" />三乙
+		                            <input type="radio" name="radio17" id="" value="" />三甲
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>成立时间</td>
+		                        <td colspan="3">
+		                            1983年
+		                        </td>
+		                        <td>专科/综合</td>
+		                        <td>
+		                            <input type="radio" name="radio18" id="" value="" />专科
+		                            <input type="radio" name="radio18" id="" value="" checked="checked" />综合
+		                            <input type="radio" name="radio18" id="" value="" />其他
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>主要科室</td>
+		                        <td colspan="3">
+		                            呼吸科、心脏外科、空腔科、脑外科、皮肤科、内科、骨科
+		                        </td>
+		                        <td>特色专科</td>
+		                        <td>
+		                            空腔科、呼吸科
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>在职人数</td>
+		                        <td>200</td>
+		                        <td>高级职称</td>
+		                        <td>50</td>
+		                        <td>中级职称</td>
+		                        <td>100</td>
+		                    </tr>
+		                    <tr>
+		                        <td>院长姓名</td>
+		                        <td>王近平</td>
+		                        <td>学历/专业/职称</td>
+		                        <td>本科/临床/高级</td>
+		                        <td>联系电话</td>
+		                        <td>13811110000</td>
+		                    </tr>
+		                    <tr>
+		                        <td>科室负责人</td>
+		                        <td>王克强</td>
+		                        <td>学历/专业/职称</td>
+		                        <td>本科/临床/高级</td>
+		                        <td>联系电话</td>
+		                        <td>13800001111</td>
+		                    </tr>
+		                    <tr>
+		                        <td>财务负责人</td>
+		                        <td>王德江</td>
+		                        <td>学历/专业/职称</td>
+		                        <td>本科/会计/高级</td>
+		                        <td>联系电话</td>
+		                        <td>13800001112</td>
+		                    </tr>
+		                    <tr>
+		                        <td>开户银行</td>
+		                        <td>中国银行广州分行</td>
+		                        <td>开户账号</td>
+		                        <td>A123456789</td>
+		                        <td>开户名称</td>
+		                        <td>广东江门第一人民医院</td>
+		                    </tr>
+		                    <thead>
+		                        <tr>
+		                            <th colspan="6" style="text-align: left;">二、医院经营指标统计表</th>                              
+		                        </tr>
+		                    </thead>
+		                    <tr>
+		                        <td>年份</td>
+		                        <td>门诊量（人次）</td>
+		                        <td>日均门诊量（人次）</td>
+		                        <td>实际开放病床数（张）</td>
+		                        <td>床位使用率（%）</td>
+		                        <td>住院人数（人次）</td>
+		                    </tr>
+		                    <tr>
+		                        <td>2016年</td>
+		                        <td>1500000</td>
+		                        <td>4109.589041</td>
+		                        <td>200</td>
+		                        <td>89.00%</td>
+		                        <td>6000</td>
+		                    </tr>
+		                    <tr>
+		                        <td>2017年</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td></td>
+		                        <td></td>
+		                        <td></td>
+		                    </tr>
+		                    <thead>
+		                        <tr>
+		                            <th colspan="6" style="text-align: left;">三、医院主要财务数据</th>                           
+		                        </tr>
+		                    </thead>
+		                    <tr>
+		                        <td>主科目</td>
+		                        <td>次科目</td>
+		                        <td>2014年</td>
+		                        <td>2015年</td>
+		                        <td>2016年</td>
+		                        <td>2017年</td>
+		                    </tr>
+		                    <tr>
+		                        <td rowspan="4">资产负债表</td>
+		                        <td>总资产</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>150000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>流动资产</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>80000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>总负债</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>1000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>流动负债</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>40000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td rowspan="3">收入费用表</td>
+		                        <td>医疗收入</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>20000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>财政补助收入</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>60000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>其他收入</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>30000000</td>
+		                        <td></td>
+		                    </tr>
+		                    <thead>
+		                        <tr>
+		                          <th colspan="6" style="text-align: left;">四、财务指标分析</th>                             
+		                        </tr>
+		                        <tr>
+		                            <td>名称</td>
+		                            <td>计算公式</td>
+		                            <td></td>
+		                            <td></td>
+		                            <td>2016年</td>
+		                            <td>2017年</td>
+		                        </tr>
+		                    </thead>
+		                    <tr>
+		                        <td>财产负债率</td>
+		                        <td>负债总额/财产总额*100%</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>26.67%</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>流动比率</td>
+		                        <td>流动资产/流动负债*100%</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>400.00%</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>总资产周转率</td>
+		                        <td>（医疗收入+其他收入）/平均总资产</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>23.33%</td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>总资产增长率</td>
+		                        <td>（期末总资产-期初总资产）/期初总资产</td>
+		                        <td></td>
+		                        <td></td>
+		                        <td>8.60%</td>
+		                        <td></td>
+		                    </tr>
+		                </tbody>
+		            </table>
+		            <div class="content-bottom fixed">
+						<ul>
+							<li><img src="../egpicture/businessCreditInvestigation1.jpg"></li>
+								<li><img src="../egpicture/finance1.jpg"></li>
+								<li><img src="../egpicture/hospitalInformation1.jpg"></li>
+								<li><img src="../egpicture/hospitalLevel1.jpg"></li>
+								<li><img src="../egpicture/institutionAsLegalPerson1.jpg"></li>
+								<li><img src="../egpicture/medicalEstablishment1.jpg"></li>
+								<li><img src="../egpicture/organization1.jpg"></li>
+								<li><img src="../egpicture/startBusiness1.jpg"></li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var map = new AMap.Map('allmap', {
+	        resizeEnable: true,
+	//      mapStyle: amap://styles/whitesmoke
+	    });
+		map.setMapStyle('amap://styles/148976d03feb087b01fe5edbb1da9451');
+		
+		var lnglats = [		
+	        [113.81,23.26],//增城       
+	        [113.09,22.58],//江门        
+	        [113.40,22.52],//中山
+	        [113.13,23.03],//佛山
+	        [113.27,23.15]//越秀
+	    ];
+	    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+	    for (var i = 0, marker; i < lnglats.length; i++) {
+	        var marker = new AMap.Marker({
+	            position: lnglats[i],
+	            map: map
+	        });
+	        marker.on('click', markerClick);
+	    } 
+	   
+	    function markerClick(e) {
+	     infoWindow.setContent(e.target.content);
+	     infoWindow.open(map, e.target.getPosition());
+			//对应相应的表格
+			$('#table').slideToggle();
+	    }
+	    map.setFitView();
+	</script>
+</html>

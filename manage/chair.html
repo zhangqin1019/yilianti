@@ -1,0 +1,290 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>椅旁会诊</title>
+<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+<script type="text/javascript" src="../js/AgoraRTCSDK-2.1.0.js"></script><!--视频js-->
+<script type="text/javascript" src="../js/print.js"></script><!-- 自动输入js -->
+<style type="text/css">html, body {background-color: #f5f5f5;}</style>
+</head>
+<body>
+	<div class="list-content">
+		<div class="list-title">
+			<h3>医联体上级医院 —— ${hospitalName }</h3>
+		</div>
+		<div class="list-broad">
+			<a href="javaScript:void(0)">首页</a> <span>></span> <a
+				href="javaScript:void(0)">远程诊疗</a> <span>></span> <a
+				href="javaScript:void(0)" class="a-last">椅旁会诊</a>
+		</div>
+		<div class="chair-container" id="wrap">
+			<div class="row fixed">
+				<div class="cols">
+					<table class="public-table">
+						<tr>
+							<td>申请编号：${conId }</td>
+							<td>申请日期：${applyDate }</td>
+						</tr>
+						<tr>
+							<td>会诊类型：${groupType }</td>
+							<td>所属医院：${categoryHospital }</td>
+						</tr>
+						<tr>
+							<td>专家编号：${specialistId }</td>
+							<td>专家姓名：${specialist }</td>
+						</tr>
+						<tr>
+							<td>医生编号：${doctorNo }</td>
+							<td>医生姓名：${doctorName }</td>
+						</tr>
+						<tr>
+							<td>会诊日期：${groupDate }</td>
+							<td>会诊医院：${groupHospital }</td>
+						</tr>
+						<tr>
+							<td>患者编号：${patientNo }</td>
+							<td>患者姓名：${patientName }</td>
+						</tr>
+						<tr>
+							<td>申请专科：${juniorId }</td>
+							<td>初步诊断：${initial }</td>
+						</tr>
+						<tr>
+							<td><strong>主诉：</strong><br />${complain }</td>
+							<td><strong>现病史：</strong><br />${present }</td>
+						</tr>
+						<tr>
+							<td><strong>既往史：</strong><br />${past }</td>
+							<td><strong>检查：</strong><br />${examine }</td>
+						</tr>
+						<tr>
+							<td><strong>鉴别诊断：</strong><br />${identify }</td>
+							<td><strong>治疗计划：</strong><br />${curePlan }</td>
+						</tr>
+					</table>
+					<!--<table>
+						<tr>
+							<td>会诊意见：<textarea id="r" style="width: 88.5%; color: #fff;">进行下前牙翻瓣术，以消除牙周袋。</textarea>
+							</td>
+						</tr>
+					</table>-->
+					<div class="btn-group center">
+						<button class="btn-info">提交</button>
+						<button class="btn-info">修改</button>
+						<button class="btn-info">取消</button>
+						<button class="btn-info">通知</button>
+						<button class="btn-info">转诊</button>
+					</div>
+				</div>
+				<div class="cols" id="videoWrap">
+					<div id="div_device" class="panel panel-default" style="display: none">
+						<div class="select">
+							<label for="audioSource">Audio source: </label><select
+								id="audioSource"></select>
+						</div>
+						<div class="select">
+							<label for="videoSource">Video source: </label><select
+								id="videoSource"></select>
+						</div>
+					</div>
+					<div id="div_join" class="panel panel-default">
+						<div class="panel-body">
+							<button id="join" class="btn btn-info" onclick="join()">开始内窥</button>
+							<button id="leave" class="btn btn-info" onclick="location.reload()">结束</button>
+							<div style="display: none;">
+								Key: <input id="key" type="text"
+									value="0304ccdcaea9486ca86a468d61cf0ac1" size="36">
+								Channel: <input id="channel" type="text" value="1000" size="4">
+								Host: <input id="video" type="checkbox" checked>
+							</div>
+						</div>
+					</div>
+					<div id="video" class="video" style="margin: 0 auto; overflow: auto; width: 100%; height: 100%; position: relative;">
+						<div id="agora_local" style="position: absolute; z-index: 9999; width: 100%; height: 100%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list-footer fixed">
+			<p>Copyright 2017 &copy; 智慧医联体远程医疗系统 iMUTS</p>
+			<p class="pull-right">广东粤融实业有限公司</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+//	$(function() {
+//		$("#r").click(function() {
+//			document.getElementById("r").typewriter();
+//			$(this).css("color", "#333");
+//		});
+//	});
+	var client, localStream, camera, microphone;
+	var audioSelect = document.querySelector('select#audioSource');
+	var videoSelect = document.querySelector('select#videoSource');
+	var videoS = document.getElementById('agora_local');
+	function change(id) {
+		if (document.getElementById(id)) {
+			videoS.style.width = '120px';
+			videoS.style.height = '90px';
+		}
+	}
+	function join() {
+		//var key = {value:'0304ccdcaea9486ca86a468d61cf0ac1'};
+		//var channel = {value:'1000'};
+		document.getElementById("join").disabled = true;
+		document.getElementById("video").disabled = true;
+		var dynamic_key = null;
+
+		console.log("Init AgoraRTC client with vendor key: " + key.value);
+		client = AgoraRTC.createClient({
+			mode : 'interop'
+		});
+		client.init(key.value, function() {
+			console.log("AgoraRTC client initialized");
+			client.join(dynamic_key, channel.value, null, function(uid) {
+				console.log("User " + uid + " join channel successfully");
+
+				if (document.getElementById("video").checked) {
+					camera = videoSource.value;
+					microphone = audioSource.value;
+					localStream = AgoraRTC.createStream({
+						streamID : uid,
+						audio : true,
+						cameraId : camera,
+						microphoneId : microphone,
+						video : document.getElementById("video").checked,
+						screen : false
+					});
+					if (document.getElementById("video").checked) {
+						localStream.setVideoProfile('1080p_3');
+					}
+					localStream.init(function() {
+						console.log("getUserMedia successfully");
+						localStream.play('agora_local');
+
+						client.publish(localStream, function(err) {
+							console.log("Publish local stream error: " + err);
+						});
+
+						client.on('stream-published', function(evt) {
+							console.log("Publish local stream successfully");
+						});
+					}, function(err) {
+						console.log("getUserMedia failed", err);
+					});
+				}
+			}, function(err) {
+				console.log("Join channel failed", err);
+			});
+		}, function(err) {
+			console.log("AgoraRTC client init failed", err);
+		});
+
+		channelKey = "";
+		client.on('error', function(err) {
+			console.log("Got error msg:", err.reason);
+			if (err.reason === 'DYNAMIC_KEY_TIMEOUT') {
+				client.renewChannelKey(channelKey, function() {
+					console.log("Renew channel key successfully");
+				}, function(err) {
+					console.log("Renew channel key failed: ", err);
+				});
+			}
+		});
+
+		client.on('stream-added', function(evt) {
+			var stream = evt.stream;
+			console.log("New stream added: " + stream.getId());
+			console.log("Subscribe ", stream);
+			client.subscribe(stream, function(err) {
+				console.log("Subscribe stream failed", err);
+			});
+		});
+		client.on('stream-subscribed',function(evt) {
+			var stream = evt.stream;
+			console
+					.log("Subscribe remote stream successfully: "
+							+ stream.getId());
+			if ($('div#video #agora_remote' + stream.getId()).length === 0) {
+				var ids = stream.getId();
+				$('div#video').append('<div class="agora_remote" id="agora_remote' + ids + '" style="float:left; width:100%;height:100%;display:inline-block;"></div>');
+				change('agora_remote' + ids)
+			}
+			stream.play('agora_remote' + stream.getId());
+		});
+
+		client.on('stream-removed', function(evt) {
+			var stream = evt.stream;
+			stream.stop();
+			$('#agora_remote' + stream.getId()).remove();
+			console.log("Remote stream is removed " + stream.getId());
+		});
+
+		client.on('peer-leave', function(evt) {
+			var stream = evt.stream;
+			if (stream) {
+				stream.stop();
+				$('#agora_remote' + stream.getId()).remove();
+				console.log(evt.uid + " leaved from this channel");
+			}
+		});
+		// for dynamic key
+		/*}
+		});*/
+	}
+
+	function leave() {
+		document.getElementById("leave").disabled = true;
+		client.leave(function() {
+			console.log("Leavel channel successfully");
+		}, function(err) {
+			console.log("Leave channel failed");
+		});
+	}
+
+	function publish() {
+		document.getElementById("publish").disabled = true;
+		document.getElementById("unpublish").disabled = false;
+		client.publish(localStream, function(err) {
+			console.log("Publish local stream error: " + err);
+		});
+	}
+
+	function unpublish() {
+		document.getElementById("publish").disabled = false;
+		document.getElementById("unpublish").disabled = true;
+		client.unpublish(localStream, function(err) {
+			console.log("Unpublish local stream failed" + err);
+		});
+	}
+
+	function getDevices() {
+		AgoraRTC.getDevices(function(devices) {
+			for (var i = 0; i !== devices.length; ++i) {
+				var device = devices[i];
+				var option = document.createElement('option');
+				option.value = device.deviceId;
+				if (device.kind === 'audioinput') {
+					option.text = device.label || 'microphone '
+							+ (audioSelect.length + 1);
+					audioSelect.appendChild(option);
+				} else if (device.kind === 'videoinput') {
+					option.text = device.label || 'camera '
+							+ (videoSelect.length + 1);
+					videoSelect.appendChild(option);
+				} else {
+					console.log('Some other kind of source/device: ', device);
+				}
+			}
+		});
+	}
+
+	//audioSelect.onchange = getDevices;
+	//videoSelect.onchange = getDevices;
+	//getDevices();
+</script>
+</html>

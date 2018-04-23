@@ -1,0 +1,260 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>成员医院基础信息</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/apply.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/jquery.jqprint-0.3.js"></script>
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" id="print">
+			<h3 style="text-align: center;font-size: 18px;">医联体医院信息申请表</h3>
+			<form name="form1" id="form1" >
+				<table id="table" class="table">
+					<tr>
+						<th colspan="6">一、医院基本信息</th>
+					</tr>
+					<tr>
+						<td>医院名称</td>
+						<td><input type="text" class="input-pub" readonly="readonly" name="hospitalName" id="hospitalName" value="" style="width: 98%;" maxlength="20"></td>
+						<td>上级医院</td>
+						<td><input type="text" class="input-pub" readonly="readonly" name="superiorHospital" id="superiorHospital" value="省人民医院" style="width: 98%;" maxlength="20"></td>
+						<td>性质</td>
+						<td>
+							<input type="radio" name="nature" id="nature1" value="国有" checked="checked" />国有
+							<input type="radio" name="nature" id="nature2" value="民营" />民营
+							<input type="radio" name="nature" id="nature3" value="其他" />其他
+						</td>
+					</tr>
+					<tr>
+						<td>医院地址</td>
+						<td colspan="3"><input type="text" class="input-pub" name="hospitalSite" id="hospitalSite" value="" style="width: 98%;" maxlength="100"></td>
+						<td>等级</td>
+						<td>
+							<input type="radio" name="grade" id="grade1" value="二甲" checked="checked" />二甲
+							<input type="radio" name="grade" id="grade2" value="三乙" />三乙
+							<input type="radio" name="grade" id="grade3" value="三甲" />三甲
+						</td>
+					</tr>
+					<tr>
+						<td>成立时间</td>
+						<td>
+							<input type="date" class="input-pub" name="setupTime" id="setupTime" value="" style="width: 98%;">
+						</td>
+						<td>医院联系电话</td>
+						<td><input type="text" class="input-pub" id="phone" name="phone" value="" style="width:93%;" maxlength="20"></td>
+						<td>专科/综合</td>
+						<td>
+							<input type="radio" name="synthesize" id="synthesize1" value="专科" checked="checked" />专科
+							<input type="radio" name="synthesize" id="synthesize2" value="综合" />综合
+							<input type="radio" name="synthesize" id="synthesize3" value="其他" />其他
+						</td>
+					</tr>
+					<tr>
+						<td>主要科室</td>
+						<td colspan="3">
+							<input type="text" class="input-pub" name="chamber" id="chamber" value="" style="width: 98%;" maxlength="200">
+						</td>
+						<td>特色专科</td>
+						<td>
+							<input type="text" class="input-pub" name="feature" id="feature" value="" style="width: 93%;" maxlength="20">
+						</td>
+					</tr>
+					<tr>
+						<td>在职人数</td>
+						<td><input type="text" class="input-pub" name="beJobs" id="beJobs" value="" style="width: 93%;" maxlength="9"></td>
+						<td>高级职称</td>
+						<td><input type="text" class="input-pub" name="advancedJob" id="advancedJob" value="" style="width: 93%;" maxlength="10"></td>
+						<td>中级职称</td>
+						<td><input type="text" class="input-pub" name="middleJob" id="middleJob" value="" style="width: 93%;" maxlength="10"></td>
+					</tr>
+					<tr>
+						<td>院长姓名</td>
+						<td><input type="text" class="input-pub" name="deanName" id="deanName" value=" " style="width: 93%;" maxlength="10"></td>
+						<td>职称</td>
+						<td>
+							<input type="text" class="input-pub" id="deanInformations" value="" style="width: 93%;" maxlength="32">
+							<input type="text" class="input-pub" name="deanInformation" id="deanInformation" value="" style="display:none;" maxlength="32">
+						</td>
+						<td>联系电话</td>
+						<td><input type="text" class="input-pub" name="deanPhone" id="deanPhone" value="" style="width: 93%;" maxlength="12"></td>
+					</tr>
+					<tr>
+						<td>科室负责人</td>
+						<td><input type="text" class="input-pub" name="chamberName" id="chamberName" value="" style="width: 93%;" maxlength="10"></td>
+						<td>职称</td>
+						<td>
+							<input type="text" class="input-pub" id="chamberInfos" value="" style="width: 93%;" maxlength="32">
+							<input type="hidden" class="input-pub" name="chamberInfo" id="chamberInfo" value="" style="width: 93%;" maxlength="32">
+						</td>
+						<td>联系电话</td>
+						<td><input type="text" class="input-pub" name="chamberPhone" id="chamberPhone" value="" style="width: 93%;" maxlength="12"></td>
+					</tr>
+					<tr>
+						<td>财务负责人</td>
+						<td><input type="text" class="input-pub" name="financeName" id="financeName" value="" style="width: 93%;" maxlength="10"></td>
+						<td>职称</td>
+						<td>
+							<input type="text" class="input-pub" id="financeInfos" value="" style="width: 93%;" maxlength="32">
+							<input type="hidden" class="input-pub" name="financeInfo" id="financeInfo" value="" style="width: 93%;" maxlength="32">
+						</td>
+						<td>联系电话</td>
+						<td><input type="text" class="input-pub" name="financePhone" id="financePhone" value="" style="width: 93%;" maxlength="12"></td>
+					</tr>
+					<tr>
+						<td>开户银行</td>
+						<td><input type="text" class="input-pub" name="accBank" id="accBank" value="" style="width: 93%;" maxlength="50"></td>
+						<td>开户账号</td>
+						<td><input type="text" class="input-pub" name="accnNmber" id="accnNmber" value="" style="width: 93%;" maxlength="50"></td>
+						<td>开户名称</td>
+						<td><input type="text" class="input-pub" name="accName" id="accName" value="" style="width: 93%;" maxlength="50"></td>
+					</tr>
+				</table>
+		</div>
+		</form>
+		<div class="input-group">
+			<button class="btn-info" onclick="return add()" id="submit" type="button">提交</button>
+			<button id="btn" type="button" class="btn-info">打印</button>
+			<button id="btn" type="button" class="btn-info"><a href="../index.html" style="color:#fff;">回到首页</a></button>
+		</div>
+	</body>
+	<script>
+		var objSearch =  $.objSearch;
+		var hospitalName = $('#hospitalName');
+		var superiorHospital = $('#superiorHospital');
+		hospitalName.val(objSearch.hospitalName);
+		function add() { //表单提交
+			var ipt = $('#form1 table input');
+			for(i = 0; i < ipt.length; i++) {
+				if(ipt[i].value == "") {
+					ipt[i].focus();
+					Showbo.Msg.alert("请将页面填写完整！" + (i + 1));
+					return false;
+				}
+			}
+			var deanInformation = document.getElementById("deanInformation");
+			var chamberInfo = document.getElementById("chamberInfo");
+			var financeInfo = document.getElementById("financeInfo");
+			var rel = /(^[\u4e00-\u9fa5]{2,4}\/[\u4e00-\u9fa5]{2,4}\/[\u4e00-\u9fa5]{2,4})$/;
+			if(!rel.test(deanInformation.value)) {
+				deanInformation.focus();
+				Showbo.Msg.alert("院长信息格式不正确！")
+				return false;
+			}
+			if(!rel.test(chamberInfo.value)) {
+				chamberInfo.focus();
+				Showbo.Msg.alert("科室负责人信息格式不正确！")
+				return false;
+			}
+			if(!rel.test(financeInfo.value)) {
+				financeInfo.focus();
+				Showbo.Msg.alert("财务负责人信息格式不正确！")
+				return false;
+			}
+			$.ajax({
+				url: $.ip+'/HospitalInfo/addhos',
+				type:"post",
+				data: $('#form1').serialize()+'&password=123456&credit='+objSearch.credit,
+				dataType: 'json',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success: function(data) {
+					if (data.msg==1) {
+						Showbo.Msg.alert("提交成功！",function () {
+							location.href = '../login.html';
+						});
+					} else{
+						Showbo.Msg.alert("提交失败！");
+					}
+				},
+				error: function() {
+					Showbo.Msg.alert("网络出现问题，请联系管理员！");
+				}
+			});
+			setTimeout(function() { //防止与正则冲突延迟
+				var btnSubmit = document.getElementById("submit"); //防止多次点击提交
+				btnSubmit.disabled = "disabled";
+			}, 0)
+		}
+		var table = $('#table');
+		var btn = $('#btn');
+		var itemCont = $('#table').find('input[type=text]');
+		table.keydown(function(ev) {
+			var target = ev.target || ev.srcElement;
+			if(target.nodeName.toLocaleLowerCase() == 'input') {
+				var liCont = target.parentNode.innerHTML.trim();
+				var html = grtHtml(liCont);
+				target.onchange = function() {
+					var endValue = target.value;
+					if(html.endCont.indexOf('input') != -1) {//判断是否存在第二个input
+						var html1 = grtHtml(html.endCont);//xx/xx/xx
+						var arr = [endValue];
+						arr.unshift(arr[0]);
+						arr.push(arr[0]);
+						changeHtml = html.startCont + endValue.trim() + html1.startCont + arr.join('/') + html1.endCont;
+					} else {
+						changeHtml = html.startCont + endValue.trim() + html.endCont;
+					}
+					if(changeHtml != liCont) {
+						target.parentNode.innerHTML = changeHtml;
+						if(target.name == 'beJobs') {
+							var btnSubmit = document.getElementById("submit");
+							var orgCode = endValue.trim(); //需要校验的输入框值
+							var reg = /^[0-9]{1,9}$/;
+							var result = reg.test(orgCode);
+							if(orgCode != "" && !result) {
+								btnSubmit.disabled = "disabled";
+								Showbo.Msg.alert("在职人数必须是数字！");
+								return;
+							}
+							btnSubmit.disabled = false;
+						}
+					}
+				}
+			}
+		})
+		function grtHtml(str) {
+			var liCont = str;
+			var startIndex = 0,
+				startCont = '',
+				endIndex = 0,
+				endCont = '';
+			if(liCont.indexOf('value="') != -1) {
+				startIndex = liCont.indexOf('value="') + 7;
+				startCont = liCont.substr(0, startIndex);
+				endIndex = liCont.indexOf('"', startIndex);
+				endCont = liCont.substr(endIndex);
+			} else if(liCont.indexOf('value') != -1) {
+				startIndex = endIndex = liCont.indexOf('value') + 5;
+				startCont = liCont.substr(0, startIndex);
+				endCont = liCont.substr(endIndex);
+			} else {
+				startCont = liCont.substr(0, liCont.length - 1) + ' value="';
+				endCont = '" /' + liCont.substr(liCont.length - 1); //斜杠是浏览器默认去除的
+			}
+			return {
+				'startCont': startCont,
+				'endCont': endCont
+			}
+		}
+		btn.click(function() {
+			$("#print").jqprint({
+				debug: false,
+				importCSS: true,
+				printContainer: true,
+				operaSupport: true
+			});
+		})
+	</script>
+</html>

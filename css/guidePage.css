@@ -1,0 +1,29 @@
+@charset "utf-8";
+html,body{background-color: #20597f;}
+.regularly-box{height: auto; position: relative; margin-top: 50px;}
+.regularly-head{height:50px; line-height: 50px; padding:50px 20px 20px 20px; text-align: center;}
+.regularly-head strong{font-size: 34px; color: #fff; display: inline-block;}
+.regularly-text{height:50px; line-height: 50px;margin: 10px auto 30px;}
+.regularly-text a{float:left;display:block;width: 237.6px;height: 50px;line-height: 50px;background-color: #018eed;color: #fff;font-size: 16px;margin-right: 2px;text-align: center;}
+.regularly-text a:after{clear: both;content: "";display: table;}
+.regularly-contBody{height: 450px;}
+.regularly-item-list{width: auto; height: 450px;}
+.regularly-item-list li{width: 237.6px; height: 450px; float: left; display: inline; position: relative; margin-right: 2px;}
+.regularly-item-list li.last{border-right: 0;width: 239.6px;}
+.regularly-item-list li .flip-box{width:217.6px; height:405px;padding:10px;position: absolute;left: 0;top: 0; background: #fff;overflow: hidden;}
+.regularly-item-list li.last .flip-box{width:217.6px;}
+.regularly-item-list li .item-title{width:217.6px; height:60px; line-height: 60px; background: #018eed; color: #fff; font-size:16px; margin:50px auto 10px; margin-bottom: 30px; font-weight: bold; text-align: center;box-shadow: 0 2px 3px #c8c8c8; -moz-box-shadow: 0 2px 3px #c8c8c8;-webkit-box-shadow: 0 2px 3px #c8c8c8; text-shadow:0 2px 3px #9a5555;-moz-text-shadow:0 2px 3px #9a5555;-webkit-text-shadow:0 2px 3px #9a5555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all;}
+.regularly-item-list li .flip-item-pic{width: 217.6px; height: 265px; overflow:hidden; margin:10px auto; text-align: center;}
+.regularly-item-list li .flip-item-pic img{max-width: 100%; max-height: 100%; vertical-align: middle;}
+.regularly-item-list li .flip-lists{width: auto; display: block; height: 100%;}
+.regularly-item-list li .flip-lists dd{height:380px; padding: 10px; margin-bottom: 7px; position: relative;}
+.regularly-item-list li .flip-lists dd .flip-itmes-title p{text-indent: 2em;font-size: 16px;color: #333;}
+.regularly-item-list li .flip-lists dd .flip-itmes-info{height: 32px; line-height: 32px; color: #969696;}
+.regularly-item-list li .flip-lists dd .ctrl-btn{width: 104px; height: 28px; line-height: 28px; font-size: 18px; border: 2px solid; display: inline-block; text-align: center; position: absolute; bottom: 0px; right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all; border-radius:8px;-webkit-border-radius:8px;-moz-border-radius: 8px;}
+.regularly-item-list li .flip-lists dd a.ctrl-btn{border-color: #018eed; background: #018eed; color: #fff;}
+.ellipsis{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all;}
+.regularly-btn{width: 100%;text-align: center;margin-top: 10px;}
+.enter-btn{color: #fff;font-size: 16px;font-weight: bold;display: inline-block;width: 237.6px;height: 50px;line-height: 50px;background-color: #018eed;}
+.enter-btn:hover{color: #fff;}
+
+

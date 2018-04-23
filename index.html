@@ -1,0 +1,393 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>医联体及医共体互连互通系统首页</title>
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css"/><!--界面样式-->
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script><!--1.8.3jq库-->
+		<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/><!--高德地图API-->
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.0&key=bb45c28f71a0d78e0a0a324cca284974"></script><!--高德地图API-->
+		<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script><!--高德地图API-->
+		<script type="text/javascript" src="js/Banner.js"></script><!--轮播-->
+	</head>
+	<body>
+		<!--Site start-->
+		<div id="wrapper">
+			<!--Header start-->
+			<div id="header">
+				<div class="header">
+					<!--Logo Part start-->
+					<div class="logo-part">
+						<div class="logo">
+							<a href="index.html">医联体及医共体互连互通系统  <span>iMUTS</span></a>
+						</div>
+						<div class="Phone-number">
+							<span><img src="images/mobile.png"/>联系电话:020-39281018</span>
+							<span><img src="images/email.png"/>联系邮箱:kf@gzkwwk.com</span>
+						</div>
+						<div class="inf-btn">
+							<div class="apply"><a href="apply/apply.html">成员医院申请</a></div>
+							<div class="login"><a href="login.html">登录</a></div>
+						</div>
+					</div>
+					<!--Logo Part End-->
+					<!--Map Part start-->
+					<div class="map-content">
+						<div style="">
+							<video class="imursVedio popupBtn" preload autoplay src="images/iMUTS.mp4" id="imursVedio">您的浏览器不支持 video 标签。</video>
+						</div>
+						<div id="allmap"></div>
+					</div>
+					<!--Map Part end-->
+				</div>
+			</div>
+			<!--Header End-->
+			<!--Content start-->
+			<div id="content">
+				<div class="content">
+					<div class="news-content">
+						<div class="news-part">
+							<div class="news-title">
+								<p><span>|</span>政策宣导、领导关怀</p>
+								<a href="javascript:void(0)">更多></a>
+							</div>
+							<div class="line"></div>
+							<div class="news-list">
+								<div class="pht-content">
+									<div class="pht-left">
+										<img src="images/news1.png">
+									</div>
+									<div class="pht-right">
+										<h3>加快构建整合型医疗卫生服务体系</h3>
+										<p class="time">2017-08-22</p>
+										<p style="text-indent: 2em;">明确各级各类医疗机构功能定位。城市三级医院<br/>主要提供急危重症和疑难复杂疾病的诊疗服务，接收<br/>下级转诊，以及承担人才培养、医学科研。</p>
+									</div>
+								</div>
+								<div class="line"></div>
+								<ul>
+									<li>
+										<a href="news/opacity1.html" target="_blank">1.《国家卫生计生委关于开展医疗联合体建设试点工作的指导意见》 解读</a>
+										<span>2017-08-22</span>
+									</li>
+									<li>
+										<a href="news/opacity2.html" target="_blank">2. 广东省推进医疗联合体建设和发展的实施方案</a>
+										<span>2017-08-20</span>
+									</li>
+									<li>
+										<a href="news/opacity3.html" target="_blank">3. 国家卫生计生委关于开展医疗联合体建设试点工作的指导意见</a>
+										<span>2017-08-18</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="news-part news-right">
+							<div class="news-title">
+								<p><span>|</span>医联体建设</p>
+								<a href="javascript:void(0)">更多></a>
+							</div>
+							<div class="line"></div>
+							<div class="news-list">
+								<div class="pht-content">
+									<div class="pht-left">
+										<img src="images/news2.png">
+									</div>
+									<div class="pht-right">
+										<h3>全面推进医联体建设和发展</h3>
+										<p class="time">2017-08-22</p>
+										<p style="text-indent: 2em;">全面启动多种形式的医联体建设试点，三级公立<br/>医院要全部参与并发挥引领作用，综合医改试点省份<br/>每个地市以及分级诊疗试点城市显成效的医联体。</p>
+									</div>
+								</div>
+								<div class="line"></div>
+								<ul>
+									<li>
+										<a href="news/opacity4.html" target="_blank">1. 医联体建设助力医患双赢 国家行动值得期待</a>
+										<span>2017-08-22</span>
+									</li>
+									<li>
+										<a href="news/opacity5.html" target="_blank">2. 医改办：2020年全面推进医联体建设 形成较完善体系</a>
+										<span>2017-08-20</span>
+									</li>
+									<li>
+										<a href="news/opacity6.html" target="_blank">3. 加强医疗联合体建设和发展的指导意见</a>
+										<span>2017-08-18</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="news-part news-top">
+							<div class="news-title">
+								<p><span>|</span>省人民医院动态</p>
+								<a href="javascript:void(0)">更多></a>
+							</div>
+							<div class="line"></div>
+							<div class="introduce">
+								<img src="images/news3.jpg" class="img-left" />
+								<img src="images/news4.png"/>
+								<h3>省人民医院医学院</h3>
+								<p style="text-indent: 2em;">省人民医院医学院-附属口腔医院是教育部直属重点高等院校的口腔医学教学医院、卫生部部属专科医院及口腔临床专科医师培训基地、广东省-卫生部共建共管医院。遵循口腔医学院、口腔医院、口腔医学研究所三位一体的办院模式，发展成为集教学、医疗和科研为一体的现代化口腔医院。拥有教育部口腔医学一级学科博士学位授权点、口腔医学博士专业学位授权点、博士后科研流动站、广东省重点学科（一级学科）、广东省高等学校名牌专业、广东省高等学校本科特色专业建设点、广东省口腔医学实验教学示范中心、广东省口腔医学重点实验室和广东省牙病预防控制“十二五”医学重点实验室。</p>
+							</div>
+						</div>
+						<div class="news-part news-bottom">
+							<div class="news-title">
+								<p><span>|</span>成员单位风采</p>
+								<a href="javascript:void(0)">更多></a>
+							</div>
+							<div class="line"></div>
+							<div class="introduce">
+								<ul>
+									<li>
+										<img src="images/news7.png"/><br/>
+										<span>越秀区妇幼保健院</span>
+									</li>
+									<li>
+										<img src="images/news8.png"/><br/>
+										<span>越秀区中医医院</span>
+									</li>
+									<li>
+										<img src="images/news5.png"/><br/>
+										<span>河源市人民医院</span>
+									</li>
+									<li style="margin-right: 0px;">
+										<img src="images/news6.png"/><br/>
+										<span>惠东县人民医院</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Content End-->
+			<!--Footer start-->
+			<div id="footer">
+				<div class="footer">
+					<!--Footer Top start-->
+					<div class="footer-top">
+						<!--Footer Menu start-->
+						<div class="footer-menu">
+							<!--Service start-->
+							<div class="service">
+								<h3>合作医院</h3>
+								<div class="service-list">
+									<ul>
+										<li><a href="#">增城中大口腔医院</a></li>
+										<li><a href="#">江门市第一人民医院</a></li>
+										<li><a href="#">广东省口腔医院 </a></li>
+										<li><a href="#">广州暨南大学穂华口腔医院</a></li>
+										<li><a href="#">南方医科大学口腔医院</a></li>
+									</ul>
+								</div>
+							</div>
+							<!--Service End-->
+							<!--Patients start-->
+							<div class="patients">
+								<h3>患者服务</h3>
+								<div class="service-list">
+									<ul>
+										<li><a href="#">牙齿矫正健康计划</a></li>
+										<li><a href="#">牙龈护理健康计划</a></li>
+										<li><a href="#">牙齿矫正健康计划</a></li>
+										<li><a href="#">牙齿护理健康计划</a></li>
+										<li><a href="#">牙齿矫正健康计划</a></li>
+									</ul>
+								</div>
+							</div>
+							<!--Patients start-->
+							<!--Visitors start-->
+							<div class="visitors">
+								<h3>咨询服务</h3>
+								<div class="service-list">
+									<ul>
+										<li><a href="#">牙周炎咨询</a></li>
+										<li><a href="#">口腔溃疡咨询</a></li>
+										<li><a href="#">口腔内窥咨询</a></li>
+										<li><a href="#">牙科咨询</a></li>
+										<li><a href="#">牙齿矫正咨询</a></li>
+									</ul>
+								</div>
+							</div>
+							<!--Visitors End-->
+							<!--Contact start-->
+							<div class="contact">
+								<h3>联系我们</h3>
+								<p>广州番禺天安科技园一号楼</p>
+								<p>电话 : 020-39281018</p>
+								<p>邮箱 : kf@gzkwwk.com</p>
+							</div>
+							<!--Contact End-->
+						</div>
+						<!--Footer Menu End-->
+					</div>
+					<!--Footer Top End-->
+					<!--Footer Bottom start-->
+					<div class="footer-bottom">
+						<div class="copy-right-part">
+							<p>Copyright 2017 ©医联体及医共体互连互通系统 iMUTS</p>
+						</div>
+					</div>
+					<!--Footer Bottom End-->
+				</div>
+			</div>
+			<!--Footer End-->
+		</div>
+		<!--Site End-->
+	</body>
+	<script type="text/javascript">
+	    var map = new AMap.Map("allmap", {
+	        resizeEnable: true,
+	        center: [113.27,22.90],
+	        zoom: 9
+	    });  
+	    map.setMapStyle('amap://styles/ebdab08219fdc95472c2dc13a6b734f4');
+	    addMarker();
+	    //添加marker标记
+	    function addMarker() {
+	        map.clearMap();
+	        var marker = new AMap.Marker({
+	            map: map,
+	            position: [113.81,23.26],//增城
+	            icon: "images/map.png"
+	        });
+	        var marker1 = new AMap.Marker({
+	            map: map,
+	            position: [113.09,22.58],//江门 
+	            icon: "images/map.png"    
+	        });
+	        var marker2 = new AMap.Marker({
+	            map: map,
+	            position: [113.40,22.52],//中山 
+	            icon: "images/map.png"
+	        });
+	        var marker3 = new AMap.Marker({
+	            map: map,
+	            position: [113.13,23.03],//佛山 
+	            icon: "images/map.png"
+	        });
+	        var marker4 = new AMap.Marker({
+	            map: map,
+	            position: [113.27,23.15],//越秀 
+	            icon: "images/map.png"
+	        });
+	        //鼠标点击marker弹出自定义的信息窗体
+	        AMap.event.addListener(marker, 'click', function() {
+	            infoWindow.open(map, marker.getPosition());
+	        });
+	        AMap.event.addListener(marker1, 'click', function() {
+	            infoWindow1.open(map, marker1.getPosition());
+	        });
+	        AMap.event.addListener(marker2, 'click', function() {
+	            infoWindow2.open(map, marker2.getPosition());
+	        });
+	        AMap.event.addListener(marker3, 'click', function() {
+	            infoWindow3.open(map, marker3.getPosition());
+	        });
+	        AMap.event.addListener(marker4, 'click', function() {
+	            infoWindow4.open(map, marker4.getPosition());
+	        });
+	    }
+	    //实例化信息窗体
+	    var title = '增城中大口腔医院',
+	        content = [];
+	    content.push("地址：广东省广州市增城区港口大道277号");
+	    content.push("电话：020-82686111");
+	    var infoWindow = new AMap.InfoWindow({
+	        isCustom: true,  //使用自定义窗体
+	        content: createInfoWindow(title, content.join("<br/>")),
+	        offset: new AMap.Pixel(16, -45)
+	    });
+	    var title1 = '江门市第一人民医院',
+	        content1 = [];
+	    content1.push("地址：广东省江门市蓬莱路19号");
+	    content1.push("电话：0750-3300325");
+	    var infoWindow1 = new AMap.InfoWindow({
+	        isCustom: true,  //使用自定义窗体
+	        content: createInfoWindow(title1, content1.join("<br/>")),
+	        offset: new AMap.Pixel(16, -45)
+	    });
+		var title2 = '中山口腔医院',
+	        content2 = [];
+	    content2.push("地址：广东省中山市横栏镇四沙乐丰四路13号");
+	    content2.push("电话：020-38092484");
+	    var infoWindow2 = new AMap.InfoWindow({
+	        isCustom: true,  //使用自定义窗体
+	        content: createInfoWindow(title2, content2.join("<br/>")),
+	        offset: new AMap.Pixel(16, -45)
+	    });
+	    var title3 = '佛山市口腔医院',
+	        content3 = [];
+	    content3.push("地址：广东省佛山市禅城区中山公园河滨路5号");
+	    content3.push("电话：0757-82818149");
+	    var infoWindow3 = new AMap.InfoWindow({
+	        isCustom: true,  //使用自定义窗体
+	        content: createInfoWindow(title3, content3.join("<br/>")),
+	        offset: new AMap.Pixel(16, -45)
+	    });
+	    var title4 = '光华口腔医院',
+	        content4 = [];
+	    content4.push("地址：广东省广州市天河区陵园西路56号");
+	    content4.push("电话：020-87678799");
+	    var infoWindow4 = new AMap.InfoWindow({
+	        isCustom: true,  //使用自定义窗体
+	        content: createInfoWindow(title4, content4.join("<br/>")),
+	        offset: new AMap.Pixel(16, -45)
+	    });
+	    //构建自定义信息窗体
+	    function createInfoWindow(title, content) {
+	        var info = document.createElement("div");
+	        info.className = "info";
+	        //可以通过下面的方式修改自定义窗体的宽高
+	        //info.style.width = "400px";
+	        // 定义顶部标题
+	        var top = document.createElement("div");
+	        var titleD = document.createElement("div");
+	        var closeX = document.createElement("img");
+	        top.className = "info-top";
+	        titleD.innerHTML = title;
+	        closeX.src = "https://webapi.amap.com/images/close2.gif";
+	        closeX.onclick = closeInfoWindow;
+	        top.appendChild(titleD);
+	        top.appendChild(closeX);
+	        info.appendChild(top);
+	        // 定义中部内容
+	        var middle = document.createElement("div");
+	        middle.className = "info-middle";
+	        middle.style.backgroundColor = 'white';
+	        middle.innerHTML = content;
+	        info.appendChild(middle);
+	        // 定义底部内容
+	        var bottom = document.createElement("div");
+	        bottom.className = "info-bottom";
+	        bottom.style.position = 'relative';
+	        bottom.style.top = '0px';
+	        bottom.style.margin = '0 auto';
+	        var sharp = document.createElement("img");
+	        sharp.src = "https://webapi.amap.com/images/sharp.png";
+	        bottom.appendChild(sharp);
+	        info.appendChild(bottom);
+	        return info;
+	    }
+	    //关闭信息窗体
+	    function closeInfoWindow() {
+	        map.clearInfoWindow();
+	    }
+	</script>
+	<script type="text/javascript">
+	    var mock = {
+			log: function(result) {
+				window.parent.setIFrameResult('log', result);
+			}
+		}
+		console = mock;
+		window.Konsole = {
+			exec: function(code) {
+				code = code || '';
+				try {
+					var result = window.eval(code);
+					window.parent.setIFrameResult('result', result);
+				} catch (e) {
+					window.parent.setIFrameResult('error', e);
+				}
+			}
+		}
+	</script>
+</html>

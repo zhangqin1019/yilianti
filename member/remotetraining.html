@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>培训详情</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css" /><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css" /><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css" /><!-- 弹窗 -->
+		<link rel="stylesheet" type="text/css" href="../css/popup.css" /><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/html2canvas.js"></script><!-- 截图js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script> <!-- 公共js -->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<script type="text/javascript" src="../js/popup.js"></script><!-- popupjs -->
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=hsul7RuZ1G9Zp7kn3t17RuBYn8OEBt1C&s=1"></script>
+		<style type="text/css">
+			html, body {
+				background-color: #f5f5f5;
+			}
+			dl#training dd{display: none;}
+		</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体基层医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">远程协作</a>
+				<span>></span>
+				<a href="remotetraininglist.html">远程培训</a>
+				<span>></span>
+				<a href="remotetraining.html" class="a-last">培训详情</a>
+			</div>
+			<div class="chair-container" id="wrap">
+				<div class="row fixed">
+					<div>
+						<dl id="training">
+							<dd>
+								<video width="100%" height="500" controls="controls" style="background: #000;">
+									<source src="../images/hospital.mp4" type="video/mp4"></source>
+									<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+										<param name="movie" value="myvideo.swf" />
+										<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+									</object>
+									当前浏览器不支持 video直接播放，点击这里下载视频： <a href="../images/hospital.mp4">下载视频</a>
+								</video>
+							</dd>
+							<dd>
+								<object type="application/pdf" data="../images/peixun3.pdf" declare="declare" width="100%" height="600" internalinstanceid="93"></object>
+							</dd>
+							<dd>
+								<object type="application/pdf" data="../images/peixun2.pdf" declare="declare" width="100%" height="600" internalinstanceid="93"></object>
+							</dd>
+							<dd>
+								<object type="application/pdf" data="../images/peixun1.pdf" declare="declare" width="100%" height="600" internalinstanceid="93"></object>
+							</dd>
+						</dl>
+						<div class="btn-group center">
+							<button class="btn-info backnav">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var search = $.objSearch.item;
+		var training = document.getElementById('training').getElementsByTagName('dd');
+		training[search].style.display = 'block';
+	</script>
+</html>

@@ -1,0 +1,325 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Support for mobile touch devices -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
+<!-- CSS -->
+
+<!-- Font awesome CSS for tool icons -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
+<!-- Bootstrap CSS -->
+<link href="lib/bootstrap.min.css" rel="stylesheet">
+	
+<!-- UI CSS -->
+<link href="lib/jquery-ui.min.css" rel="stylesheet">
+	
+<!-- Cornerstone Base CSS -->
+<link href="lib/cornerstone.min.css" rel="stylesheet">
+	
+<!-- Cornerstone Demo CSS -->
+<link href="css/cornerstoneDemo.css" rel="stylesheet">
+		
+<!-- Cornerstone Demo CSS -->
+<link href="css/dialogPolyfill.css" rel="stylesheet">
+	
+</head>
+
+<body>
+	<div id="wrap">
+
+		<!-- Nav bar -->
+		<nav class="myNav navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="javascript:void(0)" style="cursor: default;">远程医疗影像 &nbsp;
+					<small>PACS阅片</small>
+				</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<!-- <li><a id="help" href="#" class="button hidden-xs">专家意见</a></li> -->
+				<li><a id="about" href="#" class="button hidden-xs">患者信息</a></li>
+				<li><a id="guanbi" href="javascript:window.opener=null;window.open('','_self');window.close();"  class="button hidden-xs">返回</a></li>
+			</ul>
+		</div>
+		</nav>
+
+		<div class='main'>
+
+			<!-- Tabs bar -->
+			<ul id="tabs"  class="nav nav-tabs">
+				<li class="active"><a href="#studyList" data-toggle="tab">影像列表</a></li>
+			</ul>
+
+			<!-- Tab content -->
+			<div id="tabContent" class="tab-content">
+				<!-- Study list -->
+				<div id="studyList" class="tab-pane active">
+					<div class="row">
+						<table id='studyListData' class="col-md-12 table table-striped">
+							<thead id="dateTable">
+								<tr>
+
+									<th>患者姓名</th>
+									<th>患者ID</th>
+									<!-- <th>设备</th> -->
+									<!-- <th>部位</th> -->
+									<th>影像张数</th>
+									<th>胶片张数</th>
+									<th>上传日期</th>
+								</tr>
+							</thead>
+						</table>
+						<ul id="ulsss" style="display:none;">
+						</ul>
+						<ul id="ulsss2" style="display: none;">
+						</ul>
+						<ul id="ulsss3" style="display: none;">
+						</ul>
+						<input type="hidden" name="patientName" id="patientName" value="" />
+						<input type="hidden" name="conId" id="conId" value="" />
+						<input type="hidden" name="applyDate" id="applyDate" value="" />
+						<input type="hidden" name="complain" id="complain" value="" />
+					</div>
+				</div>
+			</div>
+
+			<!-- Study viewer tab content template -->
+			<!-- <div class="modal fade" id="helpModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">专家意见</h4>
+						</div>
+						<div class="modal-body">
+							<textarea name="pacsOpinion" id="pacsOpinion" rows="" cols="" style="width: 558px; height: 165px;"></textarea>
+						</div>
+
+					</div>
+				</div>
+			</div> -->
+
+			<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">患者信息</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered table-hover" id="dataAbout">
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Javascripts -->
+
+	<!-- Include JQuery -->
+	<script src="lib/jquery.min.js"></script>
+
+	<!-- Include JQuery UI for drag/drop -->
+	<script src="lib/jquery-ui.min.js"></script>
+
+	<!-- Include JQuery Hammerjs adapter for mobile touch-->
+	<script src="lib/hammer.min.js"></script>
+
+	<!-- Include Bootstrap js -->
+	<script src="lib/bootstrap.min.js"></script>
+
+	<!-- include the cornerstone library -->
+	<script src="lib/cornerstone.js"></script>
+
+	<!-- include the cornerstone library -->
+	<script src="lib/cornerstoneMath.js"></script>
+
+	<!-- include the cornerstone tools library -->
+	<script src="lib/cornerstoneTools.js"></script>
+
+	<!-- include the cornerstoneWADOImageLoader library -->
+	<script src="lib/cornerstoneWADOImageLoader.js"></script>
+
+	<!-- include the cornerstoneWebImageLoader library -->
+	<script src="lib/cornerstoneWebImageLoader.js"></script>
+
+	<!-- include the dicomParser library -->
+	<script src="lib/dicomParser.js"></script>
+	<script src="lib/dialogPolyfill.js"></script>
+	<!-- include cornerstoneDemo.js -->
+	<script src="js/setupViewport.js"></script>
+	<script src="js/displayThumbnail.js"></script>
+	<script src="js/loadStudy.js"></script>
+	<script src="js/setupButtons.js"></script>
+	<script src="js/disableAllTools.js"></script>
+	<script src="js/forEachViewport.js"></script>
+	<script src="js/imageViewer.js"></script>
+	<script src="js/loadTemplate.js"></script>
+	<!--<script src="${ctx }/ js/help.js"></script>
+<script src="${ctx }/ js/about.js"></script>-->
+	<script src=" js/setupViewportOverlays.js"></script>
+
+</body>
+<script type="text/javascript">
+	var conId=$.objSearch.id;
+	$.ajax({
+		url:$.ip+"/consu/aVertical",
+		type:"post",
+		data : {
+			"conId" : conId
+		},
+		dataType:"json",
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true,
+		success:function (data) {
+			console.log(data)
+		//患者信息
+		$('#patientName').val(data.patientName);
+		$('#conId').val(data.conId);
+		$('#applyDate').val(data.applyDate);
+		$('#complain').val(data.complain);
+		$('body').append('<script src=" js/cornerstoneDemo.js"/>');
+		const dataAbout =
+			`
+				<tr>
+					<th>姓名</th>
+					<td> ${data.patientName} </td>
+				</tr>
+				<tr>
+					<th>性别</th>
+					<td>${data.sex}</td>
+				</tr>
+				<tr>
+					<th>年龄</th>
+					<td>${data.age}</td>
+				</tr>
+				<tr>
+					<th>ID</th>
+					<td>${data.conId}</td>
+				</tr>
+				<tr>
+					<th>申请日期</th>
+					<td>${data.applyDate}</td>
+				</tr>
+				<tr>
+					<th width="90px">症状</th>
+					<td width="190px">${data.initial}</td>
+				</tr>
+			
+			`;
+			$("#dataAbout")[0].innerHTML = dataAbout;
+			//控制影像列表的
+			if(data.pacsurl != undefined) {
+				for(let j = 0; j < data.pacsurl.length; j++) {
+					$('#ulsss')[0].innerHTML += '<li>' + data.pacsurl[j].pacsurl + '</li>'
+				}
+			}
+			if(data.scanurl != undefined) {
+				for(let k = 0; k < data.scanurl.length; k++) {
+					$('#ulsss2')[0].innerHTML += '<li>' + data.scanurl[k].scanurl + '</li>'
+				}
+			}
+			if(data.issuedurl != undefined) {
+				for(let m = 0; m < data.issuedurl.length; m++) {
+					$('#ulsss3')[0].innerHTML += '<li>' + data.issuedurl[m].issuedurl + '</li>'
+				}
+			}
+			var pacslength = 0;
+			var scanurlLength = 0;
+			if(data.pacsurlSize != undefined) {
+				pacslength = data.pacsurlSize;
+			}
+			if(data.scanurlSize != undefined) {
+				scanurlLength = data.scanurlSize;
+			}
+			var dateTable =
+				`
+				<tr style="cursor: pointer;">
+					<td>${data.patientName }</td>
+					<td>${data.patientNo }</td>
+					<!-- <td>CT</td> -->
+					<!-- <td></td> -->
+					<td>
+						${pacslength}张
+					</td>
+					<td>
+						${scanurlLength}张
+					</td>
+					<td>—— ——</td>
+				</tr>
+			`;
+			$("#dateTable")[0].innerHTML += dateTable;
+		}
+	})
+	
+	$("#help").click(function() {
+		$("#helpModal").modal();
+	});
+	$("#about").click(function() {
+		$("#aboutModal").modal();
+	});
+//	$("#help").click(function() {
+//		var pacsOpinion = document.getElementById('pacsOpinion');
+//		$.ajax({
+//			url : $.ip+"/consu/getOpinion",
+//			type : 'post',
+//			data : {"conId": conId,
+//					"typeOpinion":"pacsOpinion" },
+//			dataType: 'json',
+//			xhrFields: {
+//				withCredentials: true
+//			},
+//			crossDomain: true,
+//			success : function(data) {
+//				for(let i = 0; i < data.listMap.length; i++) {                     
+//					pacsOpinion.value=data.listMap[i].msgOpinion;
+//				}
+//			}
+//		});
+//	});
+	
+	$('#studyListData').on('click',function(){
+		setTimeout(function  () {
+			setTimeout(function(){
+				$(".download").css('display','none');
+				var hh = '下发图片';
+				//去除标签的正则
+				var reg = new RegExp("<[^<]*>", "gi");  
+				var i = $('.list-group-item').length-1;
+				if ($('.list-group-item')[i].innerHTML.replace(reg, "") == hh) {
+					var a = $('.list-group-item')[0].clientHeight+1;
+					var b = $('.thumbnailSelector')[0].clientHeight;
+					c = b - $('.list-group-item').length*a;
+					$('.list-group-item:last-child').css('top',function () {
+						return c = b - $('.list-group-item').length*a;					
+					});	
+				}					
+			},0);			
+		},0)
+	})
+
+	var config = {
+       // invert: true,
+       minScale: 1.0,
+       maxScale: 20.0,
+       preventZoomOutsideImage: true
+   	};
+    cornerstoneTools.zoom.setConfiguration(config);
+</script>
+</html>

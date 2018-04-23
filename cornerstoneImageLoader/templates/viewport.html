@@ -1,0 +1,52 @@
+<div class="viewportWrapper" style="width:100%;height:100%;position:relative;color: white;float:left;background-color:black;"
+     oncontextmenu="return false"
+     class='cornerstone-enabled-image'
+     unselectable='on'
+     onselectstart='return false;'
+     onmousedown='return false;'>
+    <!-- Viewport -->
+    <div class="viewport" id="dicomImage"></div>
+
+    <!-- Overlays -->
+    <div class="overlay"style="top:0px; left:0px;display: none;">
+        <div>Patient Name</div>
+        <div>Patient Id</div>
+    </div>
+
+    <div class="overlay" style="top:0px; right:0px;display: none;">
+        <div>Study Description</div>
+        <div>Study Date</div>
+    </div>
+
+    <div class="overlay" style="bottom:0px; left:0px">
+        <div class="fps">FPS:</div>
+        <div class="renderTime">Render Time:</div>
+        <div class="currentImageAndTotalImages">Image #:</div>
+    </div>
+
+    <div class="overlay" style="bottom:0px; right:0px">
+        <div>Zoom:</div>
+        <div>WW/WC:</div>
+    </div>
+    
+    <!--杩欓噷鏄脊鍑哄眰-->
+    <dialog class="annotationDialog">
+        <h5>请输入您的注释</h5>
+        <div class="annotationTextInputOptions">
+           <!--  <label for="annotationTextInput">鏂版爣绛�/label> -->
+            <input name="annotationTextInput" class="annotationTextInput" type="text"/>
+        </div>
+        <a class="annotationDialogConfirm btn btn-sm btn-primary">确认</a>
+    </dialog>
+    <dialog class="relabelDialog" oncontextmenu="return false">
+        <h5>Edit your annotation</h5>
+        <div class="annotationTextInputOptions">
+            <label for="annotationTextInput">New label</label>
+            <input name="annotationTextInput" class="annotationTextInput" type="text"/>
+        </div>
+        <div>
+            <a class="relabelRemove btn btn-sm btn-secondary">Remove marker</a>
+            <a class="relabelConfirm btn btn-sm btn-primary">OK</a>
+        </div>
+    </dialog>
+</div>

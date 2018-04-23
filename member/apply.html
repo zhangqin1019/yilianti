@@ -1,0 +1,234 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>申请信息管理</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+        <link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+        <link rel="stylesheet" type="text/css" href="../css/rcbuild.css"/><!-- 界面样式 -->
+        <link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+        <script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+        <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+        <script type="text/javascript" src="../js/rcbuild.js"></script><!-- 界面js -->
+        <script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+        <script type="text/javascript" src="../js/jquery.jqprint-0.3.js"></script><!-- 打印js -->
+        <script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+        <style type="text/css">html,body{background-color: #f5f5f5;}</style>
+    </head>
+    <body>
+    	<div class="list-content">
+    		<div class="list-title">
+    			<h3>医联体基层医院 —— </h3>
+    		</div>
+    		<div class="list-broad">
+    			<a href="javaScript:void(0)">首页</a>
+    			<span>></span>
+    			<a href="javaScript:void(0)">成员医院管理</a>
+    			<span>></span>
+    			<a href="apply.html" class="a-last">申请信息管理</a>
+    		</div>
+    		<div class="apply-container" id="wrap">
+                <ul class="jdt">
+                    <li>远程会诊中心建设申请</li>
+                    <li>医联体合同签署</li>
+                    <li>医联体建设进度汇报</li>
+                </ul>
+                <div class="jdt-item">
+                    <form method="post" action="" id="form">
+            		    <div id="print">
+                        <table>
+                            <caption><h3><a href="javascript:;">1&nbsp;远程会诊中心建设申请表</a></h3></caption>
+                            <tbody>
+                                <tr>
+                                    <td>申请人</td>
+                                    <td colspan="5"><input type="text" name="applyName" id="applyName" class="input-pub" value="老王" style="width:90%;"></td>
+                                </tr>
+                                <tr>
+                                    <td>申请专科</td>
+                                    <td colspan="5">
+                                    	选择专科：
+                                    	<select id="selectJun" name="juniorId">
+                                            <option>选择类型</option>
+                                            <option value="OMJ">OMJ</option>
+                                            <option value="TMJ">TMJ</option>
+                                            <option value="OML">OML</option>
+                                            <option value="Otho">Otho</option>
+                                    	</select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>申请理由</td>
+                                    <td colspan="5">
+                                        <textarea class="input-pub" rows="6" name="applyReason" id="applyReason"  style="width: 50%;">sadsadsadsaddddddddddd</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="7">基础条件</td>
+                                    <td>专科医生数量</td>
+                                    <td><input type="text" name="doctors" id="doctors" class="input-pub" value="15" style="width:90%;"></td>
+                                    <td colspan="2">该专科平均日门诊量</td>
+                                    <td><input type="text" name="averages" id="averages" class="input-pub" value="15" style="width:90%;"></td>
+                                </tr>
+                                <tr>
+                                    <td>高级职称人数</td>
+                                    <td><input type="text" name="technicals" id="technicals" class="input-pub" value="15" style="width:90%;"></td>
+                                    <td colspan="2">该专科病床数</td>
+                                    <td><input type="text" name="beds" id="beds" class="input-pub" value="15" style="width:90%;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">基础设备描述</td>
+                                </tr>
+                                <tr>
+                                    <td>设备名称</td>
+                                    <td>数量</td>
+                                    <td>型号</td>
+                                    <td>购置日期</td>
+                                    <td>备注</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select class="input-pub" name="equipmentId">
+                                        	<option  >设备</option>
+                                        	<option selected="selected" value="1">设备01</option>
+                                        	<option value="2">设备02</option>
+                                        	<option>设备03</option>
+                                        	<option>设备04</option>
+                                        	<option>设备05</option>
+                                        	<option>设备06</option>
+                                        	<option>设备07</option>
+                                        	<option>设备08</option>
+                                        	<option>设备09</option>
+                                        	<option>设备10</option>
+                                        	<option>设备11</option>
+                                        	<option>设备12</option>
+                                        	<option>设备13</option>
+                                        	<option>设备14</option>
+                                        	<option>设备15</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="input-pub" name="number">
+                                        	<option >数量</option>
+                                        	<option selected="selected" value="1">1</option>
+                                        	<option value="2">2</option>
+                                        	<option>3</option>
+                                        	<option>4</option>
+                                        	<option>5</option>
+                                        	<option>6</option>
+                                        	<option>7</option>
+                                        	<option>8</option>
+                                        	<option>9</option>
+                                        	<option>10</option>
+                                        	<option>11</option>
+                                        	<option>12</option>
+                                        	<option>13</option>
+                                        	<option>14</option>
+                                        	<option>15</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="input-pub" name="equipmentType">
+                                        	<option >型号</option>
+                                        	<option selected="selected" value="1">型号01</option>
+                                        	<option value="2">型号02</option>
+                                        	<option>型号03</option>
+                                        	<option>型号04</option>
+                                        	<option>型号05</option>
+                                        	<option>型号06</option>
+                                        	<option>型号07</option>
+                                        	<option>型号08</option>
+                                        	<option>型号09</option>
+                                        	<option>型号10</option>
+                                        	<option>型号11</option>
+                                        	<option>型号12</option>
+                                        	<option>型号13</option>
+                                        	<option>型号14</option>
+                                        	<option>型号15</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="date" name="" class="input-pub" style="width:90%;"></td>
+                                    <td><input type="text" name="" class="input-pub" style="width:90%;"></td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>人员配备计划</td>
+                                    <td colspan="4"><input type="" name="plans" id="plans" style="width:50%;"></td>
+                                </tr>
+                                <tr>
+                                    <td>场地信息</td>
+                                    <td colspan="4"><input type="file" name="place" id="place" style="width:50%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+              		  </div>
+                        <button type="button" class="btn-info"  id="submit">提交</button>
+                        <button type="button" class="btn-info" id="btn">打印</button>
+                    </form>
+                </div>
+                <div class="jdt-item">
+                    <a class="infos" href="javascript:;" >查看上级医院审核信息</a>
+                    <p style="display: none;" id="consent">贵院的远程会诊中心建设申请信息已通过审核！</p>
+                    <p style="display: none;" id="consentNo">还在审核当中，请您耐心等待</p>
+                    <div class="btn-group" style="display: none;">
+                        <button class="btn next-btn jdt-btn btn-info">下一步</button>
+                    </div>
+                </div>
+                <div class="jdt-item">
+                    <caption><h2><a href="javascript:void(0)">2&nbsp;医联体合同签署</a></h2></caption>
+                    <object type="application/pdf" data="../File/oralCavity1.pdf" declare="declare" width="60%" height="600"></object>
+                  	<div>
+                        <label class="radio agree">
+                            <input type="radio" checked="checked" name="memberContract"  value="1"/>同意
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="memberContract"  value="0"/>不同意
+                        </label>
+                  		<button class="subtn next-btn btn-info" id="submit1">提交</button>
+                   	</div>
+                </div>
+                <div class="jdt-item">
+                    <a class="infos" href="javascript:;">查看上级医院审核信息</a>
+                    <p style="display: none;" id="contractYes">同意贵院签署医联体合同！</p>
+                    <p style="display: none;" id="contractNo">请您耐心等待，合同正在处理！</p>
+                    <p style="display: none;" id="contract">对不起，合同未通过！<button class="btn next-btn jdt-btn btn-info">重新申请</button></p>
+                    <div class="btn-group" style="display: none;">
+                        <button class="btn next-btn jdt-btn btn-info">下一步</button>
+                    </div>
+                </div>
+                <div class="jdt-item">
+                    <p><h2><a href="javascript:void(0)">3&nbsp;医联体建设进度汇报</a></h2></p>
+                    <textarea rows="10" style="width: 100%;" name="schedule" class="input-pub"></textarea>
+                    <br />
+                   <button class="subtn next-btn btn-info" id="submit2">提交</button>
+                </div>
+            </div>
+    		<div class="list-footer fixed">
+    			<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+    			<p class="pull-right">广东粤融实业有限公司</p>
+    		</div>
+    	</div>
+    </body>
+    <script type="text/javascript">
+    	loadData().appy(function (data) {
+    		//判断是否申请过
+    		var hide = $('.jdt-item')
+    		var aclass = ['two-step','three-step'];
+    		if(data.applyId!=0){
+    			if(data.manageContract=="1"){
+    				hide.eq(4).css('display','block').siblings('.jdt-item').css('display','none');
+    				hide.eq(4).siblings('ul').addClass(aclass[1]).children('li').addClass('lis');
+    			}else{
+    				//上级还未处理合同
+    				if(data.memberContract=='1'){
+    					hide.eq(2).css('display','none').next('.jdt-item').css('display','block');
+    					hide.eq(2).siblings('ul').addClass(aclass[0]).children('li').eq(1).addClass('lis');
+    				}else{
+    					hide.eq(0).css('display','none').next('.jdt-item').css('display','block');
+    				}
+    			}
+    		}else{
+    			hide.eq(0).css('display','block');
+    		}
+    	});
+    </script>
+</html>

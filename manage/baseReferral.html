@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>基础信息管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/><!-- 公共样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/bpage.css"/><!-- 界面样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/showBo.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../js/showBo.js"></script><!-- 弹窗js -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script><!-- 1.8.3jq库 -->
+		<script type="text/javascript" src="../js/public.js"></script><!-- 公共js -->
+		<script type="text/javascript" src="../js/loadData.js"></script><!-- 数据渲染js -->
+		<style type="text/css">html,body{background-color: #f5f5f5;}</style>
+	</head>
+	<body>
+		<div class="list-content">
+			<div class="list-title">
+				<h3>医联体上级医院 —— </h3>
+			</div>
+			<div class="list-broad">
+				<a href="javaScript:void(0)">首页</a>
+				<span>></span>
+				<a href="javaScript:void(0)">成员医院管理</a>
+				<span>></span>
+				<a href="base.html">基础信息管理</a>
+				<span>></span>
+				<a href="baseMesage.html">基础信息列表</a>
+				<span>></span>
+				<a href="baseReferral.html" class="a-last">基础信息审核</a>
+			</div>
+			<div class="baseinf-container" id="wrap">
+				<div class="base-top fixed">
+					<div class="top-left">
+						<input type="date" name="" class="input-pub date"/>
+					</div>
+					<div class="top-right">
+						<input type="text" name="" class="input-pub"/>
+						<button class="input-pub">搜索</button>
+					</div>
+				</div>
+	            <div>
+	           		<div class="baseReferral"></div>
+		            <div class="content-bottom fixed">
+						<ul>
+							<li><img src="../egpicture/businessCreditInvestigation1.jpg"></li>
+							<li><img src="../egpicture/finance1.jpg"></li>
+							<li><img src="../egpicture/hospitalInformation1.jpg"></li>
+							<li><img src="../egpicture/hospitalLevel1.jpg"></li>
+							<li><img src="../egpicture/institutionAsLegalPerson1.jpg"></li>
+							<li><img src="../egpicture/medicalEstablishment1.jpg"></li>
+							<li><img src="../egpicture/organization1.jpg"></li>
+							<li><img src="../egpicture/startBusiness1.jpg"></li>
+						</ul>
+					</div>
+					<table class="table-border">
+	                    <tr>
+	                        <td width="12%" rowspan="3" style="text-align: center;"><h2>审核意见</h2></td>
+	                        <td class="pull-left">
+	                            <input type="radio" name="agreen" checked="checked" value="yes">同意  <textarea style="width:63%;" id="agct" class="input-pub">同意贵院加入。</textarea>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td class="pull-left">
+	                            <input type="radio" name="agreen" value="no">不同意
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <input type="button" value="提交" id="subtn1" class="input-pub">
+	                        </td>
+	                    </tr>
+	                </table>
+	            </div>
+			</div>
+			<div class="list-footer fixed">
+				<p>Copyright 2017 &copy; 医联体及医共体互连互通系统 iMUTS</p>
+				<p class="pull-right">广东粤融实业有限公司</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			var objSearch = $.objSearch;
+			loadData('body').baseReferral()
+			$("#subtn1").click(function(){
+				var val=$('input:radio[name="agreen"]:checked').val();
+				if(val=="yes"){
+					$.ajax({
+						url:$.ip+'/manApply/baseajax',
+						type:'post',
+						data:{"hospitalId1":objSearch.mbhospitalId},
+						dataType:'json',
+						success:function(data){
+							if(data.msg){
+								Showbo.Msg.alert("审核通过",function () {
+									search=location.search;
+									hash=location.hash;
+									location.href='baseMesage.html'+search+hash;
+								});
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
+</html>
